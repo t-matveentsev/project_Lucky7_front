@@ -1,5 +1,33 @@
-const RecipeCard = () => {
-  return <div>RecipeCard</div>;
+import css from "./RecipeCard.module.css";
+
+const RecipeCard = ({ data: { thumb, time, title, description } }) => {
+  
+  const handleLearnMore = () => {
+    console.log(`Learn more about: ${title}`);
+  };
+
+  const handleSave = () => {
+    console.log(`Saved recipe: ${title}`);
+  };
+
+  return (
+    <div className={css.card}>
+      <img src={thumb} alt={title} className={css.thumb} />
+      <div className={css.content}>
+        <h3 className={css.title}>{title}</h3>
+        <p className={css.time}>⏱ {time} minutes</p>
+        <p className={css.description}>{description}</p>
+        <div className={css.actions}>
+          <button className={css.learnMore} onClick={handleLearnMore}>
+            Learn More
+          </button>
+          <button className={css.save} onClick={handleSave}>
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default RecipeCard;

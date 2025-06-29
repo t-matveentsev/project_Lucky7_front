@@ -1,7 +1,12 @@
 import React from "react";
+import RecipeList from "../../components/RecipeList/RecipeList";
+import SearchRecipes from "../../components/SearchRecipes/SearchRecipes";
 
 const HomePage = () => {
-  return <div>HomePage with recipes, search, hero</div>;
+  return <div>
+    <SearchRecipes/>
+    <RecipeList />
+  </div>;
 };
 
 export default HomePage;
