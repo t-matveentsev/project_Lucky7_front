@@ -1,3 +1,12 @@
+:root {
+  --dark-brown: #3d2218;
+  --light-brown: #9b6c43;
+  --global-background: #fbfcf8;
+  --card-background: #faf3e0;
+  --white: white;
+  --black: black;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -9,8 +18,8 @@ body {
   display: flex;
   flex-direction: column;
   font-family: 'Montserrat', sans-serif;
-  background-color: #fbfcf8;
-  color: black;
+  background-color: var(--global-background);
+  color: var(--black);
 }
 main {
   flex-grow: 1;
