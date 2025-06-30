@@ -1,24 +1,25 @@
 // import axios from 'axios';
-import allRecipes from "../../../recipes.json";
+import allRecipes from '../../../recipes.json';
 import { useState } from 'react';
-import css from "./searchRecipes.module.css"
+import css from './searchRecipes.module.css';
 import { toast } from 'react-hot-toast';
-import RecipeList from "../RecipeList/RecipeList";
+import RecipeList from '../RecipeList/RecipeList';
+import Filters from '../Filters/Filters';
 
 const SearchRecipes = () => {
   const [searchQuery, setsearchQuery] = useState('');
   const [recipesOnSearch, setRecipesOnSearch] = useState(null);
   // const [loading, setLoading] = useState(false);
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     setsearchQuery(event.target.value);
   };
 
   const triggerSearch = () => {
     const query = searchQuery.trim().toLowerCase();
-    
+
     if (!query) {
-      setRecipesOnSearch(null); 
+      setRecipesOnSearch(null);
       return;
     }
 
@@ -37,7 +38,7 @@ const SearchRecipes = () => {
     }
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = event => {
     if (event.key === 'Enter') {
       event.preventDefault();
       triggerSearch();
@@ -48,27 +49,28 @@ const SearchRecipes = () => {
     triggerSearch();
   };
 
-    return (<div>
+  return (
+    <div>
       <div className={css.hero}>
         <h1 className={css.heroHeader}>Plan, Cook, and Share Your Flavors</h1>
         <input
           type="text"
           id="search"
           className={css.input}
-          value={searchQuery} 
+          value={searchQuery}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-        placeholder="Search recipes"
+          placeholder="Search recipes"
         />
         <button type="button" className={css.button} onClick={handleClick}>
-        Search
+          Search
         </button>
-        </div>
-        {/* {recipesOnSearch && <RecipeList recipes={recipesOnSearch} />} */}
-        <RecipeList recipes={recipesOnSearch ?? undefined} />
-      
       </div>
-    );
-  }
+      <Filters />
+      {/* {recipesOnSearch && <RecipeList recipes={recipesOnSearch} />} */}
+      <RecipeList recipes={recipesOnSearch ?? undefined} />
+    </div>
+  );
+};
 
-export default SearchRecipes
+export default SearchRecipes;
