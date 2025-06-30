@@ -39,7 +39,7 @@ const Filters = () => {
         value={selectedIngredient}
         onChange={e => setSelectedIngredient(e.target.value)}
       >
-        <option value="">Select ingredient</option>
+        <option value="">Ingredient</option>
         {Array.isArray(ingredients) &&
           ingredients.map(({ _id, name }) => (
             <option key={_id} value={name}>
@@ -51,7 +51,7 @@ const Filters = () => {
         value={selectedCategory}
         onChange={e => setSelectedCategory(e.target.value)}
       >
-        <option value="">Select category</option>
+        <option value="">Category</option>
         {Array.isArray(category) &&
           category.map(({ _id, name }) => (
             <option key={_id} value={name}>
