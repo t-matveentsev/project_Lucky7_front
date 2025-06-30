@@ -8,7 +8,7 @@ const HomePage = () => {
     <div>
       <Filters />
       <SearchRecipes />
-      <RecipeList />
+    {/* <RecipeList /> */}
     </div>
   );
 };

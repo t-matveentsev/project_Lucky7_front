@@ -6,10 +6,13 @@
 
 .button {
   padding: 10px 24px;
-  background-color: #8b5c2f;
+  background-color: #9b6c43;
   color: white;
   border: none;
   border-radius: 6px;
   font-size: 16px;
   cursor: pointer;
+  width: 289px;
+  height: 54px;
+  padding: 16px;
 }

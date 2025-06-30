@@ -1,0 +1,11 @@
+.pageWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.backgroundWrapper {
+background-color: beige;
+text-align: center;
+}
