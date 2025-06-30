@@ -1,8 +1,12 @@
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRecipesByType } from '../../redux/recipes/operations';
-import { selectRecipes, selectLoading, selectHasMore } from '../../redux/recipes/selectors';
+import {
+  selectRecipes,
+  selectLoading,
+  selectHasMore,
+} from '../../redux/recipes/selectors';
 import ProfileNavigation from 'components/ProfileNavigation/ProfileNavigation';
 import RecipesList from 'components/RecipesList/RecipesList';
 import LoadMoreBtn from 'components/LoadMoreBtn/LoadMoreBtn';
@@ -22,8 +26,9 @@ const ProfilePage = () => {
 
   return (
     <div className={css.wrapper}>
-        <h1 className={css.title}>My profile</h1>
+      <h1 className={css.title}>My profile</h1>
       <ProfileNavigation />
+      <Outlet />
       {loading ? <p>Завантаження...</p> : <RecipesList recipes={recipes} />}
       {/* Кнопка Load More */}
       {!loading && (
