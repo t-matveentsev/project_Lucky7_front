@@ -1,12 +1,9 @@
 .list {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  padding: 24px;
+  gap: 23px;
   margin: 0;
   list-style: none;
+  width: 1225px;
+  margin: 0 auto;
 }
-
-/* .list > li {
-  flex: 0 0 calc(25% - 18px);
-} */

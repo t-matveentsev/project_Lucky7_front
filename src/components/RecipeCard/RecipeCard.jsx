@@ -13,7 +13,6 @@ const RecipeCard = ({ data: { thumb, time, title, description } }) => {
   return (
     <div className={css.card}>
       <img src={thumb} alt={title} className={css.thumb} />
-      <div className={css.content}>
         <h3 className={css.title}>{title}</h3>
         <p className={css.time}>⏱ {time} minutes</p>
         <p className={css.description}>{description}</p>
@@ -28,7 +27,6 @@ const RecipeCard = ({ data: { thumb, time, title, description } }) => {
             </button>
             </div>
         </div>
-      </div>
     </div>
   );
 };

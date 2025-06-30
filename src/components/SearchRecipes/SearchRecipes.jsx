@@ -48,8 +48,9 @@ const SearchRecipes = () => {
     triggerSearch();
   };
 
-    return (
-      <div>
+    return (<div>
+      <div className={css.hero}>
+        <h1 className={css.heroHeader}>Plan, Cook, and Share Your Flavors</h1>
         <input
           type="text"
           id="search"
@@ -62,8 +63,10 @@ const SearchRecipes = () => {
         <button type="button" className={css.button} onClick={handleClick}>
         Search
         </button>
+        </div>
         {/* {recipesOnSearch && <RecipeList recipes={recipesOnSearch} />} */}
         <RecipeList recipes={recipesOnSearch ?? undefined} />
+      
       </div>
     );
   }

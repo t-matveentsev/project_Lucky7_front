@@ -36,3 +36,21 @@
 .button:hover {
   background-color: #0056b3;
 }
+
+.hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url('/Banner.jpg');
+  background-size: cover;
+  width: 1440px;
+  height: 443px;
+  padding: 128px 108px;
+}
+
+.heroHeader {
+  color: white;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 48px;
+  width: 493px;
+  margin-bottom: 24px;
+}

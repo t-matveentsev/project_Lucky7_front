@@ -1,61 +1,71 @@
 import { useState, useEffect } from "react";
-// import allRecipes from "../../../recipes.json";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import css from "./RecipeList.module.css";
 import axios from "axios";
 
 const RecipeList = ({ recipes }) => {
-
   const [allRecipes, setAllRecipes] = useState([]);
-  const [visibleCount, setVisibleCount] = useState(12);
+  const [totalRecipes, setTotalRecipes] = useState(null);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get(
-          "https://project-lucky7.onrender.com/api/recipes/search"
-        );
+  const LIMIT = 12;
+
+  const fetchRecipes = async (pageToFetch = 1) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `https://project-lucky7.onrender.com/api/recipes/search?page=${pageToFetch}&limit=${LIMIT}`
+      );
+  
+      if (pageToFetch === 1) {
         setAllRecipes(response.data.results);
-        setError(null);
-      } catch (err) {
-        setError("Failed to load recipes");
-        console.error(err);
-      } finally {
-        setLoading(false);
+      } else {
+        setAllRecipes(prev => [...prev, ...response.data.results]);
       }
-    };
-
-  if (!recipes) {
-      fetchRecipes();
+      setTotalRecipes(response.data.total);
+      setError(null);
+    } catch (err) {
+      setError("Failed to load recipes");
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
-  }, [recipes]);  
+  };  
 
-  const listToRender = recipes || allRecipes;
-  const visibleRecipes = listToRender.slice(0, visibleCount);
+  useEffect(() => {
+    if (!recipes) {
+      fetchRecipes(page);
+    }
+  }, [recipes, page]);
 
   const handleLoadMore = () => {
-    setVisibleCount((prevCount) => prevCount + 12);
+    setPage(prevPage => prevPage + 1);
   };
+
+  const listToRender = recipes || allRecipes;
 
   return (
     <>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-    <ul className={css.list}>
-      {visibleRecipes.map((recipe) => (
-        <li key={recipe._id.$oid || recipe._id} className={css.item}>
-          <RecipeCard data={recipe} />
-        </li>
-      ))}
-    </ul>
-    {!loading && visibleCount < listToRender.length && (
+      {totalRecipes && <p className={css.totalRec}>{totalRecipes} recipes</p>}
+
+      <ul className={css.list}>
+        {listToRender.map((recipe) => (
+          <li key={recipe._id?.$oid || recipe._id} className={css.item}>
+            <RecipeCard data={recipe} />
+          </li>
+        ))}
+      </ul>
+
+      {!loading && !recipes && listToRender.length < totalRecipes && (
         <LoadMoreBtn onClick={handleLoadMore} />
       )}
-    </>);
+    </>
+  );
 };
 
 export default RecipeList;

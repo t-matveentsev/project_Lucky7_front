@@ -1,6 +1,7 @@
 .card {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   border: 1px solid #ddd;
   border-radius: 12px;
   overflow: hidden;
@@ -9,6 +10,7 @@
   background-color: #faf3e0;
   width: 288px;
   height: 431px;
+  padding: 12px;
 }
 
 .card:hover {
