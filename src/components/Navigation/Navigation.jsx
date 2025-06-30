@@ -4,12 +4,12 @@ import css from './Navigation.module.css';
 const Navigation = () => {
   return (
     <div>
-      <Link class={css.logo} to="/">
+      <Link className={css.logo} to="/">
         <svg>
           <use></use>
         </svg>
       </Link>
-      <Link class={css.name} to="/">
+      <Link className={css.name} to="/">
         Tasteorama
       </Link>
     </div>
