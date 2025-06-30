@@ -7,6 +7,9 @@
   outline: none;
   background-color: white;
   transition: border-color 0.2s, box-shadow 0.2s;
+  width: 459px;
+  height: 46px;
+  margin-right: 12px;
 }
 
 .input:focus {
@@ -15,12 +18,12 @@
 }
 
 .button {
-  width: 198px;
-  height: 48px;
+  width: 190px;
+  height: 46px;
   padding: 12px 16px;
   font-size: 1rem;
   font-weight: 500;
-  background-color: #d2b48c;
+  background-color: #9b6c43;
   color: white;
   border: none;
   border-radius: 8px;
@@ -32,4 +35,22 @@
 
 .button:hover {
   background-color: #0056b3;
+}
+
+.hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    url('/Banner.jpg');
+  background-size: cover;
+  width: 1440px;
+  height: 443px;
+  padding: 128px 108px;
+}
+
+.heroHeader {
+  color: white;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 48px;
+  width: 493px;
+  margin-bottom: 24px;
 }

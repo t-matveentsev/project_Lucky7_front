@@ -1,33 +1,71 @@
-import { useState } from "react";
-import allRecipes from "../../../recipes.json";
+import { useState, useEffect } from "react";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import css from "./RecipeList.module.css";
+import axios from "axios";
 
 const RecipeList = ({ recipes }) => {
-  const listToRender = recipes || allRecipes;
+  const [allRecipes, setAllRecipes] = useState([]);
+  const [totalRecipes, setTotalRecipes] = useState(null);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const [visibleCount, setVisibleCount] = useState(12);
+  const LIMIT = 12;
+
+  const fetchRecipes = async (pageToFetch = 1) => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `https://project-lucky7.onrender.com/api/recipes/search?page=${pageToFetch}&limit=${LIMIT}`
+      );
+  
+      if (pageToFetch === 1) {
+        setAllRecipes(response.data.results);
+      } else {
+        setAllRecipes(prev => [...prev, ...response.data.results]);
+      }
+      setTotalRecipes(response.data.total);
+      setError(null);
+    } catch (err) {
+      setError("Failed to load recipes");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };  
+
+  useEffect(() => {
+    if (!recipes) {
+      fetchRecipes(page);
+    }
+  }, [recipes, page]);
 
   const handleLoadMore = () => {
-    setVisibleCount((prevCount) => prevCount + 12);
+    setPage(prevPage => prevPage + 1);
   };
 
-  const visibleRecipes = listToRender.slice(0, visibleCount);
+  const listToRender = recipes || allRecipes;
 
   return (
     <>
-    <ul className={css.list}>
-      {visibleRecipes.map((recipe) => (
-        <li key={recipe._id.$oid} className={css.item}>
-          <RecipeCard data={recipe} />
-        </li>
-      ))}
-    </ul>
-    {visibleCount < listToRender.length && (
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {totalRecipes && <p className={css.totalRec}>{totalRecipes} recipes</p>}
+
+      <ul className={css.list}>
+        {listToRender.map((recipe) => (
+          <li key={recipe._id?.$oid || recipe._id} className={css.item}>
+            <RecipeCard data={recipe} />
+          </li>
+        ))}
+      </ul>
+
+      {!loading && !recipes && listToRender.length < totalRecipes && (
         <LoadMoreBtn onClick={handleLoadMore} />
       )}
-    </>);
+    </>
+  );
 };
 
 export default RecipeList;

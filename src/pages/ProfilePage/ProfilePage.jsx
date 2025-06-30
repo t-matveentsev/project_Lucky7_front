@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchRecipesByType } from '../../redux/recipes/operations';
 import {
   selectRecipes,
-  selectLoading,
+  selectIsLoading,
   selectHasMore,
 } from '../../redux/recipes/selectors';
 import ProfileNavigation from 'components/ProfileNavigation/ProfileNavigation';
@@ -17,7 +17,7 @@ const ProfilePage = () => {
   const { recipeType } = useParams();
   const dispatch = useDispatch();
   const recipes = useSelector(selectRecipes);
-  const loading = useSelector(selectLoading);
+  const loading = useSelector(selectIsLoading);
   const hasMore = useSelector(selectHasMore);
 
   useEffect(() => {

@@ -1,13 +1,9 @@
 .list {
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
-  padding: 24px;
+  gap: 23px;
   margin: 0;
   list-style: none;
-  justify-content: space-between;
-}
-
-.list > li {
-  flex: 0 0 calc(25% - 18px);
+  width: 1225px;
+  margin: 0 auto;
 }
