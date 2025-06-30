@@ -1,0 +1,73 @@
+.backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #fef8ec; 
+  padding: 20px;
+}
+
+.modal {
+  background-color: #fff8ea;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 40px 30px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 30px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fieldBlock {
+  text-align: left;
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+  margin-bottom: 8px;
+}
+
+.registerText {
+  font-size: 14px;
+  margin-top: 20px;
+  color: #000;
+}
+
+.registerLink {
+  font-weight: 600;
+  text-decoration: underline;
+  color: #000;
+  margin-left: 4px;
+  cursor: pointer;
+}
+
+.brownButton {
+  background-color: #a97142;
+  color: white;
+  font-weight: 600;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.brownButton:hover {
+  background-color: #8a5d34;
+}
