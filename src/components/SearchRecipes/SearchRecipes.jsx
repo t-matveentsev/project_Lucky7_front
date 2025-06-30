@@ -18,7 +18,7 @@ const SearchRecipes = () => {
     const query = searchQuery.trim().toLowerCase();
     
     if (!query) {
-      setRecipesOnSearch(null); // reset to all
+      setRecipesOnSearch(null); 
       return;
     }
 
@@ -29,7 +29,7 @@ const SearchRecipes = () => {
     if (foundRecipes.length > 0) {
       setRecipesOnSearch(foundRecipes);
     } else {
-      setRecipesOnSearch([]);
+      setRecipesOnSearch(null);
       toast('No recipes found for your query.', {
         icon: '😕',
         duration: 3000,
@@ -62,6 +62,7 @@ const SearchRecipes = () => {
         <button type="button" className={css.button} onClick={handleClick}>
         Search
         </button>
+        {/* {recipesOnSearch && <RecipeList recipes={recipesOnSearch} />} */}
         <RecipeList recipes={recipesOnSearch ?? undefined} />
       </div>
     );

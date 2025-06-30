@@ -6,10 +6,39 @@
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
-  background-color: #fff;
-  max-width: 300px;
+  background-color: #faf3e0;
+  width: 288px;
+  height: 431px;
 }
 
 .card:hover {
   transform: translateY(-4px);
+}
+
+.learnMore {
+  background-color: transparent;
+  width: 289px;
+  height: 40px;
+  border-radius: 8px;
+  border-width: 1px;
+}
+
+.save {
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border-width: 1px;
+}
+
+.btnsWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.thumb {
+  width: 264px;
+  height: 178px;
+  border-radius: 16px;
 }
