@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRecipesByType } from '../../redux/recipes/operations';
-import { selectRecipes, selectLoading, selectHasMore } from '../../redux/recipes/selectors';
+import { selectRecipes, selectIsLoading, selectHasMore } from '../../redux/recipes/selectors';
 import ProfileNavigation from 'components/ProfileNavigation/ProfileNavigation';
 import RecipesList from 'components/RecipesList/RecipesList';
 import LoadMoreBtn from 'components/LoadMoreBtn/LoadMoreBtn';
@@ -13,7 +13,7 @@ const ProfilePage = () => {
   const { recipeType } = useParams();
   const dispatch = useDispatch();
   const recipes = useSelector(selectRecipes);
-  const loading = useSelector(selectLoading);
+  const loading = useSelector(selectIsLoading);
   const hasMore = useSelector(selectHasMore);
 
   useEffect(() => {
