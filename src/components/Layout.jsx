@@ -1,12 +1,12 @@
-import { Suspense } from 'react';
-import Header from './Header/Header';
-import Footer from './Footer/Footer';
+import { Suspense } from "react";
+import Header from "./Header/Header";
+import Footer from "./Footer/Footer";
 
 const Layout = ({ children }) => {
   return (
     <div>
       <Header />
-      <Suspense fallback={<p>Loading...</p>}>{children}</Suspense>
+      <Suspense fallback={null}>{children}</Suspense>
       <Footer />
     </div>
   );
