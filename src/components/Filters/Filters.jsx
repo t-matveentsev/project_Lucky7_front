@@ -9,7 +9,7 @@ import {
 import { selectCategory } from '../../redux/category/selectors';
 import { fetchCategory } from '../../redux/category/operation';
 
-const Filters = () => {
+const Filters = ({ totalRecipes }) => {
   const [selectedIngredient, setSelectedIngredient] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
 
@@ -31,7 +31,7 @@ const Filters = () => {
 
   return (
     <div>
-      <p>count recipes</p>
+      <p>{totalRecipes ?? '—'} recipes</p>
       <button onClick={() => handleReset()}>reset filters</button>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}

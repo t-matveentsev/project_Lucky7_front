@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
-import RecipeCard from "../RecipeCard/RecipeCard";
-import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
-import css from "./RecipeList.module.css";
-import axios from "axios";
+import { useState, useEffect } from 'react';
+import RecipeCard from '../RecipeCard/RecipeCard';
+import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
+import css from './RecipeList.module.css';
+import axios from 'axios';
 
-const RecipeList = ({ recipes }) => {
+const RecipeList = ({ recipes, setTotalRecipes, totalRecipes }) => {
   const [allRecipes, setAllRecipes] = useState([]);
-  const [totalRecipes, setTotalRecipes] = useState(null);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -19,21 +18,21 @@ const RecipeList = ({ recipes }) => {
       const response = await axios.get(
         `https://project-lucky7.onrender.com/api/recipes/search?page=${pageToFetch}&limit=${LIMIT}`
       );
-  
+
       if (pageToFetch === 1) {
         setAllRecipes(response.data.results);
       } else {
         setAllRecipes(prev => [...prev, ...response.data.results]);
       }
-      setTotalRecipes(response.data.total);
+      setTotalRecipes?.(response.data.total);
       setError(null);
     } catch (err) {
-      setError("Failed to load recipes");
+      setError('Failed to load recipes');
       console.error(err);
     } finally {
       setLoading(false);
     }
-  };  
+  };
 
   useEffect(() => {
     if (!recipes) {
@@ -51,10 +50,9 @@ const RecipeList = ({ recipes }) => {
     <>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      {totalRecipes && <p className={css.totalRec}>{totalRecipes} recipes</p>}
 
       <ul className={css.list}>
-        {listToRender.map((recipe) => (
+        {listToRender.map(recipe => (
           <li key={recipe._id?.$oid || recipe._id} className={css.item}>
             <RecipeCard data={recipe} />
           </li>

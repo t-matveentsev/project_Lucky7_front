@@ -7,6 +7,8 @@ import RecipeList from '../RecipeList/RecipeList';
 import Filters from '../Filters/Filters';
 
 const SearchRecipes = () => {
+  const [totalRecipes, setTotalRecipes] = useState(null);
+
   const [searchQuery, setsearchQuery] = useState('');
   const [recipesOnSearch, setRecipesOnSearch] = useState(null);
   // const [loading, setLoading] = useState(false);
@@ -66,9 +68,13 @@ const SearchRecipes = () => {
           Search
         </button>
       </div>
-      <Filters />
+      <Filters totalRecipes={totalRecipes} />
       {/* {recipesOnSearch && <RecipeList recipes={recipesOnSearch} />} */}
-      <RecipeList recipes={recipesOnSearch ?? undefined} />
+      <RecipeList
+        recipes={recipesOnSearch ?? undefined}
+        setTotalRecipes={setTotalRecipes}
+        totalRecipes={totalRecipes}
+      />
     </div>
   );
 };
