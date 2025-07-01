@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../../redux/ingredients/operation';
 import {
@@ -9,10 +9,15 @@ import {
 import { selectCategory } from '../../redux/category/selectors';
 import { fetchCategory } from '../../redux/category/operation';
 
-const Filters = ({ totalRecipes }) => {
-  const [selectedIngredient, setSelectedIngredient] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
-
+const Filters = ({
+  totalRecipes,
+  selectedCategory,
+  setSelectedCategory,
+  selectedIngredient,
+  setSelectedIngredient,
+  setSearchQuery,
+  setRecipesOnSearch,
+}) => {
   const dispatch = useDispatch();
   const ingredients = useSelector(selectIngredients);
   const category = useSelector(selectCategory);
@@ -22,6 +27,8 @@ const Filters = ({ totalRecipes }) => {
   const handleReset = () => {
     setSelectedIngredient('');
     setSelectedCategory('');
+    setSearchQuery('');
+    setRecipesOnSearch('');
   };
 
   useEffect(() => {

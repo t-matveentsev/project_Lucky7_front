@@ -1,20 +1,27 @@
-// import axios from 'axios';
 import allRecipes from '../../../recipes.json';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import css from './searchRecipes.module.css';
 import { toast } from 'react-hot-toast';
 import RecipeList from '../RecipeList/RecipeList';
 import Filters from '../Filters/Filters';
 
 const SearchRecipes = () => {
+  const [selectedIngredient, setSelectedIngredient] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [totalRecipes, setTotalRecipes] = useState(null);
+  const [page, setPage] = useState();
 
-  const [searchQuery, setsearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [recipesOnSearch, setRecipesOnSearch] = useState(null);
-  // const [loading, setLoading] = useState(false);
 
   const handleChange = event => {
-    setsearchQuery(event.target.value);
+    const value = event.target.value;
+    setSearchQuery(value);
+
+    if (!value.trim()) {
+      setRecipesOnSearch(null);
+      setTotalRecipes(null);
+    }
   };
 
   const triggerSearch = () => {
@@ -22,6 +29,8 @@ const SearchRecipes = () => {
 
     if (!query) {
       setRecipesOnSearch(null);
+      setTotalRecipes(foundRecipes.length);
+      setTotalRecipes(0);
       return;
     }
 
@@ -51,6 +60,12 @@ const SearchRecipes = () => {
     triggerSearch();
   };
 
+  useEffect(() => {
+    if (!recipesOnSearch) {
+      setPage(1);
+    }
+  }, [selectedCategory, selectedIngredient]);
+
   return (
     <div>
       <div className={css.hero}>
@@ -68,12 +83,23 @@ const SearchRecipes = () => {
           Search
         </button>
       </div>
-      <Filters totalRecipes={totalRecipes} />
+      <Filters
+        totalRecipes={totalRecipes}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        selectedIngredient={selectedIngredient}
+        setSelectedIngredient={setSelectedIngredient}
+        setSearchQuery={setSearchQuery}
+        setRecipesOnSearch={setRecipesOnSearch}
+      />
       {/* {recipesOnSearch && <RecipeList recipes={recipesOnSearch} />} */}
       <RecipeList
         recipes={recipesOnSearch ?? undefined}
         setTotalRecipes={setTotalRecipes}
         totalRecipes={totalRecipes}
+        selectedCategory={selectedCategory}
+        selectedIngredient={selectedIngredient}
+        page={page}
       />
     </div>
   );
