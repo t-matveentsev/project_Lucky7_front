@@ -1,11 +1,52 @@
 .pageWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .backgroundWrapper {
-background-color: beige;
-text-align: center;
+  background-color: beige;
+  text-align: center;
+}
+
+.btnBack {
+  min-width: 143px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  color: #ffffff;
+  background-color: #9b6c43;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+
+  &:hover,
+  &:focus {
+    box-shadow: 0px 0px 0px 3px #ffffff, 0px 0px 0px 5px #4e46b41f;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .btnBack {
+    min-width: 198px;
+    height: 48px;
+    column-gap: 12px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .btnBack {
+    min-width: 218px;
+    height: 56px;
+    column-gap: 16px;
+    font-size: 18px;
+  }
 }
