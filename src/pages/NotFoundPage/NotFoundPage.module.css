@@ -1,15 +1,19 @@
 .pageWrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .backgroundWrapper {
-  background-color: beige;
+  background-color: #fbfcf8;
   text-align: center;
 }
 
 .btnBack {
+  align-self: flex-start;
+  margin-top: 16px;
+  margin-bottom: auto;
   min-width: 143px;
   height: 32px;
   display: flex;
@@ -31,6 +35,15 @@
   }
 }
 
+.title {
+    margin-top: 25%;
+  margin-bottom: auto;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1;
+  color: #000;
+}
+
 @media screen and (min-width: 768px) {
   .btnBack {
     min-width: 198px;
@@ -39,6 +52,11 @@
     padding-left: 16px;
     padding-right: 16px;
     font-size: 16px;
+  }
+
+  .title {
+    font-size: 48px;
+    line-height: 1.1;
   }
 }
 

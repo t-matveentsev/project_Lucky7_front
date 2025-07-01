@@ -24,7 +24,7 @@ const NotFoundPage = () => {
         className={css.pageWrapper}
       >
         <Link className={css.btnBack} to="/">Back to Main</Link>
-        <h2>This recipe page is not found</h2>
+        <h2 className={css.title}>This recipe page is not found</h2>
       </div>
     </Container>
   );
