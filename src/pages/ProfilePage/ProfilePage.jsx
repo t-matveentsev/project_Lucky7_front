@@ -7,11 +7,11 @@ import {
   selectIsLoading,
   selectHasMore,
 } from '../../redux/recipes/selectors';
-import ProfileNavigation from 'components/ProfileNavigation/ProfileNavigation';
 import RecipesList from 'components/RecipesList/RecipesList';
 import LoadMoreBtn from 'components/LoadMoreBtn/LoadMoreBtn';
 
 import css from './ProfilePage.module.css';
+import ProfileNavigation from '../../components/ProfileNavigation/ProfileNavigation';
 
 const ProfilePage = () => {
   const { recipeType } = useParams();
