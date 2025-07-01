@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { MdOutlineMailOutline, MdLock } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
-import { loginThunk } from '../../redux/auth/operations';
+import { loginThunk } from '../../redux/auth/operation.js';
 //import { loginValidatiSchema } from '../../validations/validateLoginForm';//
 //import InputFormField from '../../components/InputFormField/InputFormField';//
 import { Link, useNavigate } from 'react-router-dom';
