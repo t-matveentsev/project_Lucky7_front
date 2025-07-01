@@ -1,9 +1,31 @@
-.list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 23px;
-  margin: 0;
-  list-style: none;
-  width: 1225px;
-  margin: 0 auto;
+/* ===================== MOBILE ===================================*/
+@media screen and (max-width: 767px) {
+  .list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    list-style: none;
+    width: 361px;
+    margin: 0 auto;
+  }
+}
+
+/* ======================= TABLET ================================= */
+@media screen and (min-width: 768px) {
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    list-style: none;
+    width: 704px;
+    margin: 0 auto;
+  }
+}
+
+/* ======================= DESKTOP ================================ */
+@media screen and (min-width: 1158px) {
+  .list {
+    gap: 23px;
+    width: 1225px;
+  }
 }
