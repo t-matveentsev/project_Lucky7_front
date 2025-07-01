@@ -1,4 +1,3 @@
-// import axios from 'axios';
 import allRecipes from '../../../recipes.json';
 import { useState } from 'react';
 import css from './searchRecipes.module.css';
@@ -7,14 +6,15 @@ import RecipeList from '../RecipeList/RecipeList';
 import Filters from '../Filters/Filters';
 
 const SearchRecipes = () => {
+  const [selectedIngredient, setSelectedIngredient] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [totalRecipes, setTotalRecipes] = useState(null);
 
-  const [searchQuery, setsearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [recipesOnSearch, setRecipesOnSearch] = useState(null);
-  // const [loading, setLoading] = useState(false);
 
   const handleChange = event => {
-    setsearchQuery(event.target.value);
+    setSearchQuery(event.target.value);
   };
 
   const triggerSearch = () => {
@@ -68,12 +68,22 @@ const SearchRecipes = () => {
           Search
         </button>
       </div>
-      <Filters totalRecipes={totalRecipes} />
+      <Filters
+        totalRecipes={totalRecipes}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        selectedIngredient={selectedIngredient}
+        setSelectedIngredient={setSelectedIngredient}
+        setSearchQuery={setSearchQuery}
+        setRecipesOnSearch={setRecipesOnSearch}
+      />
       {/* {recipesOnSearch && <RecipeList recipes={recipesOnSearch} />} */}
       <RecipeList
         recipes={recipesOnSearch ?? undefined}
         setTotalRecipes={setTotalRecipes}
         totalRecipes={totalRecipes}
+        selectedCategory={selectedCategory}
+        selectedIngredient={selectedIngredient}
       />
     </div>
   );

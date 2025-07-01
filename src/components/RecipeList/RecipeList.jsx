@@ -4,7 +4,13 @@ import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import css from './RecipeList.module.css';
 import axios from 'axios';
 
-const RecipeList = ({ recipes, setTotalRecipes, totalRecipes }) => {
+const RecipeList = ({
+  recipes,
+  setTotalRecipes,
+  totalRecipes,
+  selectedCategory,
+  selectedIngredient,
+}) => {
   const [allRecipes, setAllRecipes] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -14,9 +20,23 @@ const RecipeList = ({ recipes, setTotalRecipes, totalRecipes }) => {
 
   const fetchRecipes = async (pageToFetch = 1) => {
     setLoading(true);
+
+    const queryParams = new URLSearchParams({
+      page: pageToFetch,
+      limit: LIMIT,
+    });
+
+    if (selectedCategory) {
+      queryParams.append('category', selectedCategory);
+    }
+
+    if (selectedIngredient) {
+      queryParams.append('ingredient', selectedIngredient);
+    }
+
     try {
       const response = await axios.get(
-        `https://project-lucky7.onrender.com/api/recipes/search?page=${pageToFetch}&limit=${LIMIT}`
+        `https://project-lucky7.onrender.com/api/recipes/search?${queryParams.toString()}`
       );
 
       if (pageToFetch === 1) {
@@ -24,6 +44,7 @@ const RecipeList = ({ recipes, setTotalRecipes, totalRecipes }) => {
       } else {
         setAllRecipes(prev => [...prev, ...response.data.results]);
       }
+
       setTotalRecipes?.(response.data.total);
       setError(null);
     } catch (err) {
@@ -38,7 +59,7 @@ const RecipeList = ({ recipes, setTotalRecipes, totalRecipes }) => {
     if (!recipes) {
       fetchRecipes(page);
     }
-  }, [recipes, page]);
+  }, [recipes, page, selectedCategory, selectedIngredient]);
 
   const handleLoadMore = () => {
     setPage(prevPage => prevPage + 1);
