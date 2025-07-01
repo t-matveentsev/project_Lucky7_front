@@ -52,6 +52,17 @@ input {
   transition: all 0.3s ease-in-out;
   margin-top: 4px;
 }
+
+input:hover{
+
+}
+input:focus{
+border-color: #C80000;
+}
+
+input:active{
+color: #000;
+}
 .label {
   display: block;
 
@@ -80,35 +91,19 @@ input {
   cursor: pointer;
 }
 
-/* .brownButton {
-  background-color: #a97142;
-  color: white;
-  font-weight: 600;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%;
-}
-
-.brownButton:hover {
-  background-color: #8a5d34;
-} */
-
 
 .registerButton{
  background-color: #9B6C43;
  color: white;
   font-weight: 600;
-  border: none;
+  border: 2px solid transparent;
   padding-top: 8px;
   padding-bottom: 8px;
   border-radius: 8px;
   cursor: pointer;
   height: 36px;
   margin-bottom: 0px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .registerButton:hover{
@@ -116,13 +111,12 @@ input {
 }
 
 .registerButton:focus{
-    border-radius: 2px;
-    border-color: #FFFFFF;
+    border-color:#FFFFFF;
 }
 
 .registerButton:disabled{
     background-color: #9B6C43;
-    border: 2px solid #FFFFFF;
+    border-color:#FFFFFF;
     opacity: 0.2;
     cursor: not-allowed;
     
