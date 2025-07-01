@@ -1,5 +1,5 @@
 import allRecipes from '../../../recipes.json';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import css from './searchRecipes.module.css';
 import { toast } from 'react-hot-toast';
 import RecipeList from '../RecipeList/RecipeList';
@@ -9,12 +9,19 @@ const SearchRecipes = () => {
   const [selectedIngredient, setSelectedIngredient] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [totalRecipes, setTotalRecipes] = useState(null);
+  const [page, setPage] = useState();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [recipesOnSearch, setRecipesOnSearch] = useState(null);
 
   const handleChange = event => {
-    setSearchQuery(event.target.value);
+    const value = event.target.value;
+    setSearchQuery(value);
+
+    if (!value.trim()) {
+      setRecipesOnSearch(null);
+      setTotalRecipes(null);
+    }
   };
 
   const triggerSearch = () => {
@@ -22,6 +29,8 @@ const SearchRecipes = () => {
 
     if (!query) {
       setRecipesOnSearch(null);
+      setTotalRecipes(foundRecipes.length);
+      setTotalRecipes(0);
       return;
     }
 
@@ -50,6 +59,12 @@ const SearchRecipes = () => {
   const handleClick = () => {
     triggerSearch();
   };
+
+  useEffect(() => {
+    if (!recipesOnSearch) {
+      setPage(1);
+    }
+  }, [selectedCategory, selectedIngredient]);
 
   return (
     <div>
@@ -84,6 +99,7 @@ const SearchRecipes = () => {
         totalRecipes={totalRecipes}
         selectedCategory={selectedCategory}
         selectedIngredient={selectedIngredient}
+        page={page}
       />
     </div>
   );
