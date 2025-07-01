@@ -8,7 +8,7 @@ const onlyUnits = /^\d+(\.\d+)?\s?(g|kg|ml|l|pcs|pieces|tbsp|tsp)?$/;
 export const addRecipeSchema = Yup.object().shape({
   title: Yup.string()
     .required("Field title is required")
-    .matches(onlyLetters, "The name cannot contain numbers!")
+    // .matches(onlyLetters, "The name cannot contain numbers!")
     .min(3, "The name must be longer than 3 symbols!")
     .max(50, "Maximum 50 symbols"),
 
@@ -19,12 +19,12 @@ export const addRecipeSchema = Yup.object().shape({
 
   time: Yup.number()
     .required("Field time is required")
-    .matches(onlyNumber, "Only numbers are allowed")
+    // .matches(onlyNumber, "Only numbers are allowed")
     .min(2)
     .max(3),
   calories: Yup.number()
     .required("Field calories is required")
-    .matches(onlyNumber, "Only numbers are allowed")
+    // .matches(onlyNumber, "Only numbers are allowed")
     .min(3)
     .max(4),
 
@@ -36,7 +36,7 @@ export const addRecipeSchema = Yup.object().shape({
         name: Yup.string().required("Ingredient name is required"),
         amount: Yup.string()
           .required("Amount is required")
-          .matches(onlyUnits, "Only units of measurement: ml, l, g")
+          // .matches(onlyUnits, "Only units of measurement: ml, l, g")
           .min(2)
           .max(5),
       })
@@ -50,7 +50,7 @@ export const addRecipeSchema = Yup.object().shape({
 
 export const usersLogin = Yup.object().shape({
   email: Yup.string()
-    .matches(onlyEmail, "Invalid email format")
+    // .matches(onlyEmail, "Invalid email format")
     .email("Invalid email format")
     .required("Field email is required"),
 
@@ -62,14 +62,19 @@ export const usersLogin = Yup.object().shape({
 export const usersRegister = Yup.object().shape({
   name: Yup.string()
     .required("Field name is required")
-    .matches(onlyLetters, "The name cannot contain numbers!")
+    // .matches(onlyLetters, "The name cannot contain numbers!")
     .min(3, "The name must be longer than 3 symbols!")
     .max(50, "Maximum 50 symbols"),
   email: Yup.string()
-    .matches(onlyEmail, "Invalid email format")
+    // .matches(onlyEmail, "Invalid email format")
     .email("Invalid email format")
     .required("Field email is required"),
   password: Yup.string()
     .min(6, "Password must be at least 6 characters")
     .required("Field password is required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Confirm password is required'),
+  agree: Yup.boolean()
+    .oneOf([true], 'You must accept the terms and conditions'),
 });
