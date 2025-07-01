@@ -22,7 +22,7 @@ export default function App() {
           }
         />
         <Route path="/not-found" element={<NotFoundPage/>}/>
-        <Route path="/register" element={<RegisterPage/>}/>
+        <Route path="/auth/register" element={<RegisterPage/>}/>
       </Routes>
     </Layout>
   );
