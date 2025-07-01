@@ -1,56 +1,193 @@
-.input {
-  flex: 1;
-  padding: 0.5rem 0.75rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  outline: none;
-  background-color: white;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  width: 459px;
-  height: 46px;
-  margin-right: 12px;
+/* ===================== MOBILE ===================================*/
+@media screen and (max-width: 767px) {
+  .input {
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    background-color: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 329px;
+    height: 46px;
+    margin: 0 auto;
+    margin-bottom: 24px;
+  }
+
+  .input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+  }
+
+  .button {
+    width: 329px;
+    height: 46px;
+    padding: 12px 16px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #9b6c43;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  .hero {
+    background-color: #000000;
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0.3) 100%
+      ),
+      url('/Banner-mob.jpg');
+    background-size: cover;
+    max-height: 100%;
+    /* max-width: 767px; */
+    background-repeat: no-repeat;
+    background-position: center;
+    padding-top: 128px;
+    padding-bottom: 128px;
+    margin: 0 auto;
+  }
+
+  .heroHeader {
+    color: white;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 40px;
+    width: 329px;
+    margin: 0 auto;
+    margin-bottom: 24px;
+  }
 }
 
-.input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+/* ======================= TABLET ================================= */
+@media screen and (min-width: 768px) {
+  .input {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    background-color: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 471px;
+    height: 46px;
+    margin-right: 12px;
+  }
+
+  .input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+  }
+
+  .button {
+    width: 176px;
+    height: 46px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: #9b6c43;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .button:hover {
+    background-color: #0056b3;
+  }
+
+  .hero {
+    background-color: #000000;
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0.3) 100%
+      ),
+      url('/Banner-tabl.jpg');
+    background-size: cover;
+    max-height: 100%;
+    /* max-width: 767px; */
+    background-repeat: no-repeat;
+    background-position: center;
+    padding-top: 128px;
+    padding-bottom: 128px;
+    margin: 0 auto;
+    padding: 128px 108px;
+  }
+
+  .heroHeader {
+    color: white;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 48px;
+    width: 493px;
+    margin-bottom: 24px;
+  }
 }
 
-.button {
-  width: 190px;
-  height: 46px;
-  padding: 12px 16px;
-  font-size: 1rem;
-  font-weight: 500;
-  background-color: #9b6c43;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  justify-content: center;
-  align-items: center;
-}
+/* ======================= DESKTOP ================================ */
+@media screen and (min-width: 1158px) {
+  .input {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    background-color: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 459px;
+    height: 46px;
+    margin-right: 12px;
+  }
 
-.button:hover {
-  background-color: #0056b3;
-}
+  .input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.15);
+  }
 
-.hero {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url('/Banner.jpg');
-  background-size: cover;
-  width: 1440px;
-  height: 443px;
-  padding: 128px 108px;
-}
+  .button {
+    width: 190px;
+    height: 46px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: #9b6c43;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    justify-content: center;
+    align-items: center;
+  }
 
-.heroHeader {
-  color: white;
-  font-family: 'Montserrat';
-  font-weight: 600;
-  font-size: 48px;
-  width: 493px;
-  margin-bottom: 24px;
+  .button:hover {
+    background-color: #0056b3;
+  }
+
+  .hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+      url('/Banner.jpg');
+    background-size: cover;
+    width: 1440px;
+    height: 443px;
+    padding: 128px 108px;
+  }
+
+  .heroHeader {
+    color: white;
+    font-family: 'Montserrat';
+    font-weight: 600;
+    font-size: 48px;
+    width: 493px;
+    margin-bottom: 24px;
+  }
 }
