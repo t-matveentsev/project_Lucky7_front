@@ -25,6 +25,7 @@ const initialValues = {
   ingredients: [],
   newIngredient: { name: '', amount: '' },
   instructions: '',
+  photo: '',
 };
 
 const AddRecipeForm = () => {
