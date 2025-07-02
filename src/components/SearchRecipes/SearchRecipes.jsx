@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import css from './searchRecipes.module.css';
+import css from './SearchRecipes.module.css';
 import { toast } from 'react-hot-toast';
 
-const SearchRecipes = ({onSearch}) => {
+const SearchRecipes = ({ onSearch }) => {
   const [inputValue, setInputValue] = useState('');
   // const [recipesOnSearch, setRecipesOnSearch] = useState(null);
   // const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (event) => {
+  const handleInputChange = event => {
     setInputValue(event.target.value);
   };
 
@@ -16,13 +16,13 @@ const SearchRecipes = ({onSearch}) => {
   const handleSearch = () => {
     const query = inputValue.trim().toLowerCase();
     // console.log(query)
-    
+
     if (!query) {
       toast('Please enter a search term.', {
         icon: '🔍',
         duration: 3000,
       });
-      onSearch("");
+      onSearch('');
       return;
     }
     onSearch(query);
@@ -48,7 +48,7 @@ const SearchRecipes = ({onSearch}) => {
   //   }
   // };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = event => {
     if (event.key === 'Enter') {
       event.preventDefault();
       handleSearch();
@@ -72,8 +72,7 @@ const SearchRecipes = ({onSearch}) => {
           onKeyDown={handleKeyDown}
           placeholder="Search recipes"
         />
-        <button type="button" className={css.button}
-          onClick={handleSearch}>
+        <button type="button" className={css.button} onClick={handleSearch}>
           Search
         </button>
       </div>
