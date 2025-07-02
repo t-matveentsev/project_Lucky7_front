@@ -4,49 +4,45 @@ import { toast } from 'react-hot-toast';
 
 const SearchRecipes = ({onSearch}) => {
   const [inputValue, setInputValue] = useState('');
-  // const [recipesOnSearch, setRecipesOnSearch] = useState(null);
-  // const [loading, setLoading] = useState(false);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
-  // console.log(inputValue)
-
   const handleSearch = () => {
-    const query = inputValue.trim().toLowerCase();
-    // console.log(query)
+    const rawQuery = inputValue.trim().toLowerCase();
     
-    if (!query) {
-      toast('Please enter a search term.', {
+    if (!rawQuery) {
+      toast('Your query must be some part a recipe title.', {
         icon: '🔍',
         duration: 3000,
       });
       onSearch("");
       return;
     }
+
+    const isValidLength = rawQuery.length >= 2;
+    if (!isValidLength) {
+      toast('Search term must be at least 2 characters.', {
+        icon: '⚠️',
+        duration: 3000,
+      });
+      return;
+    }
+  
+    const isValidString = typeof rawQuery === 'string' && /^[a-zA-Z0-9\s\-_]+$/.test(rawQuery);
+    if (!isValidString) {
+      toast('Recipe title must only contain letters, numbers, spaces, hyphens, or underscores.', {
+        icon: '🚫',
+        duration: 3000,
+      });
+      return;
+    }
+  
+    const query = rawQuery.replace(/[-_]/g, '').toLowerCase();
+
     onSearch(query);
   };
-
-  //   if (!query) {
-  //     setRecipesOnSearch(null);
-  //     return;
-  //   }
-
-  //   const foundRecipes = allRecipes.filter(recipe =>
-  //     recipe.title.toLowerCase().includes(query)
-  //   );
-
-  //   if (foundRecipes.length > 0) {
-  //     setRecipesOnSearch(foundRecipes);
-  //   } else {
-  //     setRecipesOnSearch(null);
-  //     toast('No recipes found for your query.', {
-  //       icon: '😕',
-  //       duration: 3000,
-  //     });
-  //   }
-  // };
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -54,10 +50,6 @@ const SearchRecipes = ({onSearch}) => {
       handleSearch();
     }
   };
-
-  // const handleClick = () => {
-  //   triggerSearch();
-  // };
 
   return (
     <div>

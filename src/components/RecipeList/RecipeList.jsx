@@ -20,7 +20,6 @@ const RecipeList = ({recipes, total}) => {
     <>
       {/* {loading && <p>Loading...</p>}
       {error && <p>{error}</p>} */}
-      {/* {total && <p className={css.totalRec}>{total} recipes</p>} */}
       <ul className={css.list}>
         {recipes.map((recipe) => (
           <li key={recipe._id} className={css.item}>

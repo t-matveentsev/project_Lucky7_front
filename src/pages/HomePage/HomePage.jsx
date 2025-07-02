@@ -4,7 +4,7 @@ import { fetchAllRecipes, fetchRecipesForQuery } from "../../redux/recipes/opera
 import RecipeList from '../../components/RecipeList/RecipeList';
 import SearchRecipes from '../../components/SearchRecipes/SearchRecipes';
 import Filters from "../../components/Filters/Filters";
-// import { nextPage } from "../../redux/recipes/slice"
+import css from "./HomePage.module.css";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -13,6 +13,7 @@ const HomePage = () => {
   // console.log(searchQuery)
   
   const recipes = useSelector(state => state.recipes.items);
+  const recipesOnSearch = useSelector(state => state.recipes.itemsOnSearch);
   const total = useSelector((state) => state.recipes.total);
   const page = useSelector((state) => state.recipes.page);
 
@@ -23,18 +24,16 @@ const HomePage = () => {
   useEffect(() => {
     dispatch(fetchRecipesForQuery({ page, searchQuery }));
   }, [dispatch, searchQuery, page]);
-  
-  // const hasMore = recipes.length < total;
 
   return (
     <div>
       <SearchRecipes onSearch={setSearchQuery} />
       <Filters />
-      <RecipeList recipes={recipes}
-        total={total}
-        // hasMore={hasMore}
-        // onLoadMore={handleLoadMore}
-      />
+       {total && <p className={css.totalRec}>{total} recipes</p>}
+      {!total && <p className={css.noResults}>Unfortunately, no results for your search</p>}
+      {recipesOnSearch && recipesOnSearch.length > 0
+        ? (<RecipeList recipes={recipesOnSearch} total={total} />)
+        : (<RecipeList recipes={recipes} total={total} />)}
     </div>
   );
 };

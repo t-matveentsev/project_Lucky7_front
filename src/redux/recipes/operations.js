@@ -41,7 +41,7 @@ export const fetchAllRecipes = createAsyncThunk(
   })
 
 export const fetchRecipesForQuery = createAsyncThunk(
-  "recipes/fetchAll",
+  "recipes/fetchQueryRecipes",
   async ({ searchQuery, page = 1 }, thunkAPI) => {
   try {
     const response = await api.get(`/recipes/search?query=${searchQuery}&page=${page}`);
