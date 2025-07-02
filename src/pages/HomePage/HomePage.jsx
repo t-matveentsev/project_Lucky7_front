@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllRecipes } from "../../redux/recipes/operations";
+import { fetchAllRecipes, fetchRecipesForQuery } from "../../redux/recipes/operations";
 import RecipeList from '../../components/RecipeList/RecipeList';
 import SearchRecipes from '../../components/SearchRecipes/SearchRecipes';
 import Filters from "../../components/Filters/Filters";
 // import { nextPage } from "../../redux/recipes/slice"
-import { filterBySearchQuery } from "../../redux/recipes/slice";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -22,11 +21,9 @@ const HomePage = () => {
   }, [dispatch, page]);
 
   useEffect(() => {
-    if (searchQuery.trim()) {
-      dispatch(filterBySearchQuery(searchQuery));
-    }
-  }, [dispatch, searchQuery]);
-
+    dispatch(fetchRecipesForQuery({ page, searchQuery }));
+  }, [dispatch, searchQuery, page]);
+  
   // const hasMore = recipes.length < total;
 
   return (

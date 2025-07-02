@@ -39,3 +39,17 @@ export const fetchAllRecipes = createAsyncThunk(
       };
     } catch (error) { return thunkAPI.rejectWithValue(error.message) }
   })
+
+export const fetchRecipesForQuery = createAsyncThunk(
+  "recipes/fetchAll",
+  async ({ searchQuery, page = 1 }, thunkAPI) => {
+  try {
+    const response = await api.get(`/recipes/search?query=${searchQuery}&page=${page}`);
+      return {
+        results: response.data.results,
+        total: response.data.total,
+        page,
+      };
+    } catch (error) { return thunkAPI.rejectWithValue(error.message) }
+  })
+
