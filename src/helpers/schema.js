@@ -49,14 +49,19 @@ export const addRecipeSchema = Yup.object().shape({
 });
 
 export const usersLogin = Yup.object().shape({
-  email: Yup.string()
-    // .matches(onlyEmail, "Invalid email format")
-    .email("Invalid email format")
-    .required("Field email is required"),
-
-  password: Yup.string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Field password is required"),
+  email: Yup
+    .string()
+    .email('Invalid email')
+    .required('Email is required')
+      // .matches(onlyEmail, "Invalid email format")
+    .min(3, 'Email must be at least 3 characters long')
+    .max(50, 'Email is too long')
+    .trim(),
+  password: Yup
+    .string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters long')
+    .max(12, 'Password is too long'),
 });
 
 export const usersRegister = Yup.object().shape({
@@ -78,3 +83,4 @@ export const usersRegister = Yup.object().shape({
   agree: Yup.boolean()
     .oneOf([true], 'You must accept the terms and conditions'),
 });
+
