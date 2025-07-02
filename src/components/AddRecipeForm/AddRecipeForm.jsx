@@ -25,7 +25,6 @@ const initialValues = {
   ingredients: [],
   newIngredient: { name: '', amount: '' },
   instructions: '',
-  photo: '',
 };
 
 const AddRecipeForm = () => {
@@ -101,11 +100,15 @@ const AddRecipeForm = () => {
     actions.resetForm();
     setShowList(false);
   };
-  console.log('Categories:', categories);
-  console.log('Request status:', categoryRequest);
-  if (!categories.length || categoryRequest !== 'fulfilled') {
+
+  if (categoryRequest !== 'fulfilled') {
     return <div>Loading...</div>;
   }
+
+  if (!categories.length) {
+    return <div>No categories found</div>;
+  }
+
   return (
     <Formik
       initialValues={memoizedInitialValues}
