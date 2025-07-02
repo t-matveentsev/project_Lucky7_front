@@ -132,4 +132,9 @@
     height: 178px;
     border-radius: 16px;
   }
+
+  .saveBtnIcon {
+    fill: white;
+    stroke: black;
+  }
 }
