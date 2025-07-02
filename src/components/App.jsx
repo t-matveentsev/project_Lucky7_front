@@ -4,8 +4,8 @@ import Layout from './Layout';
 import HomePage from '../pages/HomePage/HomePage';
 import PrivateRoute from './PrivateRoute';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage.jsx';
-import RegisterPage from '../pages/RegisterPage/RegisterPage.jsx'
-import LoginPage from '../pages/LoginPage/LoginPage.jsx'
+import RegisterPage from '../pages/RegisterPage/RegisterPage.jsx';
+import LoginPage from '../pages/LoginPage/LoginPage.jsx';
 
 const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
 
@@ -22,9 +22,9 @@ export default function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/not-found" element={<NotFoundPage/>}/>
-        <Route path="/register" element={<RegisterPage/>}/>
-        <Route path="/login" element={<LoginPage/>}/>
+        <Route path="/not-found" element={<NotFoundPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </Layout>
   );
