@@ -1,70 +1,63 @@
-import allRecipes from '../../../recipes.json';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import css from './searchRecipes.module.css';
 import { toast } from 'react-hot-toast';
-import RecipeList from '../RecipeList/RecipeList';
-import Filters from '../Filters/Filters';
 
-const SearchRecipes = () => {
-  const [selectedIngredient, setSelectedIngredient] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [totalRecipes, setTotalRecipes] = useState(null);
-  const [page, setPage] = useState();
+const SearchRecipes = ({onSearch}) => {
+  const [inputValue, setInputValue] = useState('');
+  // const [recipesOnSearch, setRecipesOnSearch] = useState(null);
+  // const [loading, setLoading] = useState(false);
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [recipesOnSearch, setRecipesOnSearch] = useState(null);
-
-  const handleChange = event => {
-    const value = event.target.value;
-    setSearchQuery(value);
-
-    if (!value.trim()) {
-      setRecipesOnSearch(null);
-      setTotalRecipes(null);
-    }
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
   };
 
-  const triggerSearch = () => {
-    const query = searchQuery.trim().toLowerCase();
+  // console.log(inputValue)
 
+  const handleSearch = () => {
+    const query = inputValue.trim().toLowerCase();
+    // console.log(query)
+    
     if (!query) {
-      setRecipesOnSearch(null);
-      setTotalRecipes(foundRecipes.length);
-      setTotalRecipes(0);
-      return;
-    }
-
-    const foundRecipes = allRecipes.filter(recipe =>
-      recipe.title.toLowerCase().includes(query)
-    );
-
-    if (foundRecipes.length > 0) {
-      setRecipesOnSearch(foundRecipes);
-    } else {
-      setRecipesOnSearch(null);
-      toast('No recipes found for your query.', {
-        icon: '😕',
+      toast('Please enter a search term.', {
+        icon: '🔍',
         duration: 3000,
       });
+      onSearch("");
+      return;
     }
+    onSearch(query);
   };
 
-  const handleKeyDown = event => {
+  //   if (!query) {
+  //     setRecipesOnSearch(null);
+  //     return;
+  //   }
+
+  //   const foundRecipes = allRecipes.filter(recipe =>
+  //     recipe.title.toLowerCase().includes(query)
+  //   );
+
+  //   if (foundRecipes.length > 0) {
+  //     setRecipesOnSearch(foundRecipes);
+  //   } else {
+  //     setRecipesOnSearch(null);
+  //     toast('No recipes found for your query.', {
+  //       icon: '😕',
+  //       duration: 3000,
+  //     });
+  //   }
+  // };
+
+  const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-      triggerSearch();
+      handleSearch();
     }
   };
 
-  const handleClick = () => {
-    triggerSearch();
-  };
-
-  useEffect(() => {
-    if (!recipesOnSearch) {
-      setPage(1);
-    }
-  }, [selectedCategory, selectedIngredient]);
+  // const handleClick = () => {
+  //   triggerSearch();
+  // };
 
   return (
     <div>
@@ -74,33 +67,16 @@ const SearchRecipes = () => {
           type="text"
           id="search"
           className={css.input}
-          value={searchQuery}
-          onChange={handleChange}
+          value={inputValue}
+          onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           placeholder="Search recipes"
         />
-        <button type="button" className={css.button} onClick={handleClick}>
+        <button type="button" className={css.button}
+          onClick={handleSearch}>
           Search
         </button>
       </div>
-      <Filters
-        totalRecipes={totalRecipes}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-        selectedIngredient={selectedIngredient}
-        setSelectedIngredient={setSelectedIngredient}
-        setSearchQuery={setSearchQuery}
-        setRecipesOnSearch={setRecipesOnSearch}
-      />
-      {/* {recipesOnSearch && <RecipeList recipes={recipesOnSearch} />} */}
-      <RecipeList
-        recipes={recipesOnSearch ?? undefined}
-        setTotalRecipes={setTotalRecipes}
-        totalRecipes={totalRecipes}
-        selectedCategory={selectedCategory}
-        selectedIngredient={selectedIngredient}
-        page={page}
-      />
     </div>
   );
 };
