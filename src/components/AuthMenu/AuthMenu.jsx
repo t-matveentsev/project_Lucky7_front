@@ -14,9 +14,11 @@ const AuthMenu = () => {
           Recipes
         </NavLink>
       </li>
-      <NavLink className={getNavStyles} to="/auth/login">
-        Log in
-      </NavLink>
+      <li>
+        <NavLink className={getNavStyles} to="/auth/login">
+          Log in
+        </NavLink>
+      </li>
       <li>
         <NavLink to="/auth/register">Register</NavLink>
       </li>
