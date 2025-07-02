@@ -23,3 +23,13 @@ export const registerThunk = createAsyncThunk('auth/register', async (body, thun
         return thunkAPI.rejectWithValue(error.message)
     }
 })
+
+export const loginThunk = createAsyncThunk('auth/login', async (body, thunkAPI) => {
+  try {
+    const { data } = await api.post('/users/login', body); 
+    setAuthHeader(data.token); 
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
