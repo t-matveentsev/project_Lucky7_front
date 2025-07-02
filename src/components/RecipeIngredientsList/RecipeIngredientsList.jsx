@@ -3,21 +3,20 @@ export default function RecipeIngredientsList({
   onIngredientDeleted,
 }) {
   return (
-    ingredients.length > 0 && (
+    <div>
       <div>
-        <div>
-          <div>Name:</div>
-          <div>Amount:</div>
-        </div>
+        <div>Name:</div>
+        <div>Amount:</div>
+      </div>
 
-        {ingredients.map((ingr, index) => (
-          <div key={ingr.id}>
+      {ingredients.length > 0 &&
+        ingredients.map((ingr, index) => (
+          <div key={ingr.tmpId}>
             <div>{ingr.name}</div>
             <div>{ingr.amount}</div>
             <button onClick={() => onIngredientDeleted(index)}>🗑️</button>
           </div>
         ))}
-      </div>
-    )
+    </div>
   );
 }
