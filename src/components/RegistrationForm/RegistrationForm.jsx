@@ -47,13 +47,20 @@ const RegistrationForm = () => {
           validationSchema={usersRegister}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting, values }) => (
+          {({ isSubmitting, values, errors, touched }) => (
             <Form className={s.form}>
               <div className={s.fieldBlock}>
                 <label htmlFor="name" className={s.label}>
                   Enter your name
-                  <Field id="name" name="name" placeholder="Max" />
-                  <ErrorMessage name="name" component="div" />
+                  <Field
+                    id="name"
+                    name="name"
+                    placeholder="Max"
+                    className={
+                      touched.name && errors.name ? s.invalid : s.input
+                    }
+                  />
+                  <ErrorMessage name="name" component="div" className={s.error}/>
                 </label>
               </div>
               <div className={s.fieldBlock}>
@@ -64,8 +71,9 @@ const RegistrationForm = () => {
                     name="email"
                     type="email"
                     placeholder="email@gmail.com"
+                    className={touched.email && errors.email ? s.invalid : s.input}
                   />
-                  <ErrorMessage name="email" component="div" />
+                  <ErrorMessage name="email" component="div" className={s.error} />
                 </label>
               </div>
               <div className={s.fieldBlock}>
@@ -76,8 +84,9 @@ const RegistrationForm = () => {
                     name="password"
                     type="password"
                     placeholder="*********"
+                    className={touched.password && errors.password ? s.invalid : s.input}
                   />
-                  <ErrorMessage name="password" component="div" />
+                  <ErrorMessage name="password" component="div" className={s.error}/>
                 </label>
               </div>
 
@@ -89,24 +98,34 @@ const RegistrationForm = () => {
                     name="confirmPassword"
                     type="password"
                     placeholder="*********"
+                    className={touched.confirmPassword && errors.confirmPassword ? s.invalid : s.input}
                   />
-                  <ErrorMessage name="confirmPassword" component="div" />
+                  <ErrorMessage name="confirmPassword" component="div"  className={s.error}/>
                 </label>
               </div>
-              <label htmlFor="agree" className={s.labelChekbox}>
+              <label htmlFor="agree" className={s.checkboxLabelWrapper}>
                 <Field
                   id="agree"
                   name="agree"
                   type="checkbox"
+                  className={s.checkbox}
                 />
-                I agree to the Terms of Service and Privacy Policy
+                <span className={s.checkmark}></span>
+                <span className={s.labelChekbox}>
+                  I agree to the Terms of Service and Privacy Policy
+                </span>
+                
               </label>
 
-              <ErrorMessage name="agree" component="div" />
+              <ErrorMessage name="agree" component="div" className={s.error}/>
 
               {serverError && <div>{serverError}</div>}
 
-              <button type="submit" className={s.registerButton} disabled={isSubmitting || !values.agree}>
+              <button
+                type="submit"
+                className={s.registerButton}
+                disabled={isSubmitting || !values.agree}
+              >
                 Create account
               </button>
 
