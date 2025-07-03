@@ -60,6 +60,12 @@
     margin: 0 auto;
     margin-bottom: 24px;
   }
+
+  .error {
+    color: #c80000;
+    font-size: 0.875rem;
+    margin-top: 4px;
+  }
 }
 
 /* ======================= TABLET ================================= */
@@ -130,6 +136,12 @@
     width: 493px;
     margin-bottom: 24px;
   }
+
+  .error {
+    color: #c80000;
+    font-size: 0.875rem;
+    margin-top: 4px;
+  }
 }
 
 /* ======================= DESKTOP ================================ */
@@ -189,5 +201,11 @@
     font-size: 48px;
     width: 493px;
     margin-bottom: 24px;
+  }
+
+  .error {
+    color: #c80000;
+    font-size: 0.875rem;
+    margin-top: 4px;
   }
 }
