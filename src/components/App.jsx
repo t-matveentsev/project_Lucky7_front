@@ -27,9 +27,9 @@ export default function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/not-found" element={<NotFoundPage/>}/>
-        <Route path="/auth/register" element={<RegisterPage/>}/>
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/not-found" element={<NotFoundPage />} />
+        <Route path="/auth/register" element={<RegisterPage />} />
+        <Route path="/auth/login" element={<LoginPage />} />
         {/*Temporarily not private*/}
         <Route path="/add-recipe" element={<AddRecipePage />} />
       </Routes>
