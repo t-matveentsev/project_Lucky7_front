@@ -1,19 +1,18 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import Container from '../../components/Container/Container.jsx';
 import css from './NotFoundPage.module.css';
+import { Link } from 'react-router-dom';
 
 const NotFoundPage = () => {
-  const headerHeightRef = useRef(0);
-  const footerHeightRef = useRef(0);
-
-  const pageHeight =
-    window.innerHeight - (headerHeightRef.current + footerHeightRef.current);
+  const [pageHeight, setPageHeight] = useState(0);
 
   useEffect(() => {
     const headerEl = document.querySelector('header');
     const footerEl = document.querySelector('footer');
-    headerEl && (headerHeightRef.current = headerEl.clientHeight);
-    footerEl && (footerHeightRef.current = footerEl.clientHeight);
+
+    setPageHeight(
+      window.innerHeight - (headerEl.clientHeight + footerEl.clientHeight)
+    );
   }, []);
 
   return (
@@ -24,7 +23,8 @@ const NotFoundPage = () => {
         }}
         className={css.pageWrapper}
       >
-        <h2>This recipe page is not found</h2>
+        <Link className={css.btnBack} to="/">Back to Main</Link>
+        <h2 className={css.title}>This recipe page is not found</h2>
       </div>
     </Container>
   );

@@ -4,9 +4,13 @@ import Layout from './Layout';
 import HomePage from '../pages/HomePage/HomePage';
 import PrivateRoute from './PrivateRoute';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage.jsx';
-import RegisterPage from '../pages/RegisterPage/RegisterPage.jsx'
+import RegisterPage from '../pages/RegisterPage/RegisterPage.jsx';
+import LoginPage from '../pages/LoginPage/LoginPage.jsx';
 
 const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
+const AddRecipePage = lazy(() =>
+  import('../pages/AddRecipePage/AddRecipePage.jsx')
+);
 
 export default function App() {
   return (
@@ -23,6 +27,9 @@ export default function App() {
         />
         <Route path="/not-found" element={<NotFoundPage/>}/>
         <Route path="/auth/register" element={<RegisterPage/>}/>
+        <Route path="/login" element={<LoginPage />} />
+        {/*Temporarily not private*/}
+        <Route path="/add-recipe" element={<AddRecipePage />} />
       </Routes>
     </Layout>
   );

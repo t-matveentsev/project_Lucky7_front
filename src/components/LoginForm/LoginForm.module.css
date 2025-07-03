@@ -1,73 +1,150 @@
-.backdrop {
+
+
+ /*.formWrapper {
   display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  color: white;
+  min-height: 100vh;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-color: #fef8ec; 
+  border-radius: 12px;
   padding: 20px;
+
+  .form {
+    min-width: 300px;
+    background-color: #1d1d1d;
+    color: white;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      span {
+        font-weight: bold;
+      }
+    }
+
+    & input {
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 1.2rem;
+    }
+    & button {
+      padding: 10px 22px;
+      border-radius: 4px;
+      border: none;
+      background-color: #d3d3d3;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: black;
+      transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      &:hover {
+        background-color: #bea69e;
+      }
+    }
+  }
 }
 
-.modal {
-  background-color: #fff8ea;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  padding: 40px 30px;
-  max-width: 360px;
-  width: 100%;
-  text-align: center;
+.redirectLink {
+  color: #bea69e;
 }
 
-.title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #000;
-  margin-bottom: 30px;
+.errorMessage {
+  color: lightcoral;
+}
+
+.redirectInfo {
+  display: flex;
+  justify-content: space-between;
+} */
+
+.formWrapper {
+  background-color: #FAF3E0;
+  padding: 40px;
+  border-radius: 25px;
+  max-width: 420px;
+  margin: 40px auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  font-family: inherit;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
-.fieldBlock {
-  text-align: left;
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #000;
 }
 
 .label {
-  display: block;
   font-size: 14px;
-  font-weight: 500;
-  color: #000;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
+  color: #333;
 }
 
-.registerText {
-  font-size: 14px;
-  margin-top: 20px;
-  color: #000;
-}
-
-.registerLink {
-  font-weight: 600;
-  text-decoration: underline;
-  color: #000;
-  margin-left: 4px;
-  cursor: pointer;
-}
-
-.brownButton {
-  background-color: #a97142;
-  color: white;
-  font-weight: 600;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.input {
   width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 16px;
 }
 
-.brownButton:hover {
-  background-color: #8a5d34;
+.passwordField {
+  position: relative;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.loginBtn {
+  background-color: #9B6C43;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.redirectInfo {
+font-weight: 400;
+font-size: 16px;
+line-height: 155%;
+letter-spacing: 0%;
+text-align: center;
+margin-top: 20px;
+}
+
+.redirectLink {
+  color: black;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-left: 5px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }

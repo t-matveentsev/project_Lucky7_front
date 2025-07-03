@@ -7,11 +7,11 @@ import {
   selectIsLoading,
   selectHasMore,
 } from '../../redux/recipes/selectors';
-import ProfileNavigation from 'components/ProfileNavigation/ProfileNavigation';
-import RecipesList from 'components/RecipesList/RecipesList';
-import LoadMoreBtn from 'components/LoadMoreBtn/LoadMoreBtn';
+import RecipeList from '../../components/RecipeList/RecipeList';
+import LoadMoreBtn from '../../components/LoadMoreBtn/LoadMoreBtn';
 
 import css from './ProfilePage.module.css';
+import ProfileNavigation from '../../components/ProfileNavigation/ProfileNavigation';
 
 const ProfilePage = () => {
   const { recipeType } = useParams();
@@ -29,11 +29,11 @@ const ProfilePage = () => {
       <h1 className={css.title}>My profile</h1>
       <ProfileNavigation />
       <Outlet />
-      {loading ? <p>Завантаження...</p> : <RecipesList recipes={recipes} />}
+      {loading ? <p>Завантаження...</p> : <RecipeList recipes={recipes} />}
       {/* Кнопка Load More */}
       {!loading && (
         <>
-          <RecipesList recipes={recipes} />
+          <RecipeList recipes={recipes} />
           {hasMore && <LoadMoreBtn />}
         </>
       )}

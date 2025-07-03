@@ -1,88 +1,33 @@
-import { useState, useEffect } from 'react';
-import RecipeCard from '../RecipeCard/RecipeCard';
-import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
-import css from './RecipeList.module.css';
-import axios from 'axios';
+import RecipeCard from "../RecipeCard/RecipeCard";
+import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
+import css from "./RecipeList.module.css";
+import { useDispatch } from "react-redux";
+import { nextPage } from "../../redux/recipes/slice"
 
-const RecipeList = ({
-  recipes,
-  setTotalRecipes,
-  totalRecipes,
-  selectedCategory,
-  selectedIngredient,
-}) => {
-  const [allRecipes, setAllRecipes] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+const RecipeList = ({recipes, total}) => {
+  const dispatch = useDispatch();
 
-  const LIMIT = 12;
-
-  const fetchRecipes = async (pageToFetch = 1) => {
-    setLoading(true);
-
-    const queryParams = new URLSearchParams({
-      page: pageToFetch,
-      limit: LIMIT,
-    });
-
-    if (selectedCategory) {
-      queryParams.append('category', selectedCategory);
-    }
-
-    if (selectedIngredient) {
-      queryParams.append('ingredient', selectedIngredient);
-    }
-
-    try {
-      const response = await axios.get(
-        `https://project-lucky7.onrender.com/api/recipes/search?${queryParams.toString()}`
-      );
-
-      if (pageToFetch === 1) {
-        setAllRecipes(response.data.results);
-      } else {
-        setAllRecipes(prev => [...prev, ...response.data.results]);
-      }
-
-      setTotalRecipes?.(response.data.total);
-      setError(null);
-    } catch (err) {
-      setError('Failed to load recipes');
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (!recipes) {
-      fetchRecipes(page);
-    }
-  }, [recipes, page, selectedCategory, selectedIngredient]);
-
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null);
+  
   const handleLoadMore = () => {
-    setPage(prevPage => prevPage + 1);
+    dispatch(nextPage());
   };
 
-  const listToRender = recipes || allRecipes;
+  const hasMore = recipes.length < total;
 
   return (
     <>
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-
+      {/* {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>} */}
       <ul className={css.list}>
-        {listToRender.map(recipe => (
-          <li key={recipe._id?.$oid || recipe._id} className={css.item}>
+        {recipes.map((recipe) => (
+          <li key={recipe._id} className={css.item}>
             <RecipeCard data={recipe} />
           </li>
         ))}
       </ul>
-
-      {!loading && !recipes && listToRender.length < totalRecipes && (
-        <LoadMoreBtn onClick={handleLoadMore} />
-      )}
+      {hasMore && <LoadMoreBtn onClick={handleLoadMore} />}
     </>
   );
 };

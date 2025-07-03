@@ -1,18 +1,38 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchRecipesByType } from './operations';
 import { removeFavoriteRecipe } from './operations';
+import { fetchAllRecipes, fetchRecipesForQuery } from './operations';
+
+const handlePending = (state) => {
+  state.loading = true
+}
+
+const handleRejected = (state, action) => {
+  state.loading = false
+  state.error = action.payload
+}
 
 const initialState = {
   items: [],
-  page: 1,
+  itemsOnSearch: [],
+  total: 0,
   isLoading: false,
   error: null,
   hasMore: true,
+  page: 1, 
 };
 
 const recipesSlice = createSlice({
   name: 'recipes',
   initialState,
+  reducers: {
+    nextPage: (state) => {
+      state.page += 1;
+    },
+    resetPage: (state) => {
+      state.page = 1;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchRecipesByType.pending, state => {
@@ -32,9 +52,41 @@ const recipesSlice = createSlice({
       .addCase(removeFavoriteRecipe.fulfilled, (state, action) => {
         const removedId = action.meta.arg;
         state.items = state.items.filter(recipe => recipe._id !== removedId);
-})
+      })
+   
+      .addCase(fetchAllRecipes.fulfilled, (state, action) => {
+        const { results, total, page } = action.payload;
 
+        state.isLoading = false;
+        state.total = total;
+        state.error = null;
+
+        if (page > 1) {
+        state.items = [...state.items, ...results];
+        } else {
+        state.items = results;}
+        state.hasMore = state.items.length < total;
+})
+.addCase(fetchAllRecipes.rejected, handleRejected)
+.addCase(fetchAllRecipes.pending, handlePending)
+    
+.addCase(fetchRecipesForQuery.fulfilled, (state, action) => {
+        const { results, total, page } = action.payload;
+
+        state.isLoading = false;
+        state.total = total;
+        state.error = null;
+
+        if (page > 1) {
+        state.itemsOnSearch = [...state.itemsOnSearch, ...results];
+        } else {
+        state.itemsOnSearch = results;}
+        state.hasMore = state.itemsOnSearch.length < total;
+})
+.addCase(fetchRecipesForQuery.rejected, handleRejected)
+.addCase(fetchRecipesForQuery.pending, handlePending)
   },
 });
 
+export const { nextPage, resetPage} = recipesSlice.actions;
 export const recipesReducer = recipesSlice.reducer;
