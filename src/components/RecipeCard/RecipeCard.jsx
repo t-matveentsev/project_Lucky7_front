@@ -1,9 +1,7 @@
+import { NavLink } from 'react-router-dom';
 import css from './RecipeCard.module.css';
 
-const RecipeCard = ({ data: { thumb, time, title, description, calories="-" } }) => {
-  const handleLearnMore = () => {
-    console.log(`Learn more about: ${title}`);
-  };
+const RecipeCard = ({ data: { _id, thumb, time, title, description, calories="-" } }) => {
 
   const handleSave = () => {
     console.log(`Saved recipe: ${title}`);
@@ -18,9 +16,11 @@ const RecipeCard = ({ data: { thumb, time, title, description, calories="-" } })
       <p className={css.calories}>~{calories} cals</p>
       <div className={css.actions}>
         <div className={css.btnsWrapper}>
-          <button className={css.learnMore} onClick={handleLearnMore}>
-            Learn More
-          </button>
+        <button className={css.learnMore}>
+          <NavLink to={`/recipes/${_id}`} className={css.navLink}>
+              Learn More
+            </NavLink>
+            </button>
           <button className={css.save} onClick={handleSave}>
             <svg className='css.saveBtnIcon' width="24" height="24">
               <use href="/icons.svg#icon-save-icon"/>
