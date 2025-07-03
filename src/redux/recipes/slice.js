@@ -4,11 +4,11 @@ import { removeFavoriteRecipe } from './operations';
 import { fetchAllRecipes, fetchRecipesForQuery } from './operations';
 
 const handlePending = (state) => {
-  state.loading = true
+  state.isLoading = true
 }
 
 const handleRejected = (state, action) => {
-  state.loading = false
+  state.isLoading = false
   state.error = action.payload
 }
 
@@ -20,6 +20,7 @@ const initialState = {
   error: null,
   hasMore: true,
   page: 1, 
+  pageOnSearch: 1,
 };
 
 const recipesSlice = createSlice({
@@ -31,6 +32,17 @@ const recipesSlice = createSlice({
     },
     resetPage: (state) => {
       state.page = 1;
+    },
+    nextPageOnSearch: (state) => {
+      state.pageOnSearch += 1;
+    },
+    resetPageOnSearch: (state) => {
+      state.pageOnSearch = 1;
+    },
+    resetSearchResults: (state) => {
+      state.itemsOnSearch = [];
+      state.total = 0;
+      state.pageOnSearch = 1;
     },
   },
   extraReducers: builder => {
@@ -71,13 +83,13 @@ const recipesSlice = createSlice({
 .addCase(fetchAllRecipes.pending, handlePending)
     
 .addCase(fetchRecipesForQuery.fulfilled, (state, action) => {
-        const { results, total, page } = action.payload;
+        const { results, total, pageOnSearch } = action.payload;
 
         state.isLoading = false;
         state.total = total;
         state.error = null;
 
-        if (page > 1) {
+        if (pageOnSearch > 1) {
         state.itemsOnSearch = [...state.itemsOnSearch, ...results];
         } else {
         state.itemsOnSearch = results;}
@@ -88,5 +100,5 @@ const recipesSlice = createSlice({
   },
 });
 
-export const { nextPage, resetPage} = recipesSlice.actions;
+export const { nextPage, resetPage, nextPageOnSearch, resetPageOnSearch, resetSearchResults} = recipesSlice.actions;
 export const recipesReducer = recipesSlice.reducer;
