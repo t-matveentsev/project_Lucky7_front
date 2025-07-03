@@ -1,74 +1,141 @@
-// import axios from 'axios';
-import allRecipes from '../../../recipes.json';
-import { useState } from 'react';
-import css from './searchRecipes.module.css';
-import { toast } from 'react-hot-toast';
-import RecipeList from '../RecipeList/RecipeList';
-import Filters from '../Filters/Filters';
+// import { useState } from 'react';
+// import css from './SearchRecipes.module.css';
+// import { toast } from 'react-hot-toast';
 
-const SearchRecipes = () => {
-  const [searchQuery, setsearchQuery] = useState('');
-  const [recipesOnSearch, setRecipesOnSearch] = useState(null);
-  // const [loading, setLoading] = useState(false);
+// const SearchRecipes = ({ onSearch }) => {
+//   const [inputValue, setInputValue] = useState('');
 
-  const handleChange = event => {
-    setsearchQuery(event.target.value);
-  };
+//   const handleInputChange = event => {
+//     setInputValue(event.target.value);
+//   };
 
-  const triggerSearch = () => {
-    const query = searchQuery.trim().toLowerCase();
+//   const handleSearch = () => {
 
-    if (!query) {
-      setRecipesOnSearch(null);
-      return;
-    }
+//     const rawQuery = inputValue.trim().toLowerCase();
+    
+//     if (!rawQuery) {
+//       toast('Your query must be some part a recipe title.', {
+//         icon: '🔍',
+//         duration: 3000,
+//       });
+//       onSearch('');
+//       return;
+//     }
 
-    const foundRecipes = allRecipes.filter(recipe =>
-      recipe.title.toLowerCase().includes(query)
-    );
+//     const isValidLength = rawQuery.length >= 2;
+//     if (!isValidLength) {
+//       toast('Search term must be at least 2 characters.', {
+//         icon: '⚠️',
+//         duration: 3000,
+//       });
+//       return;
+//     }
+  
+//     const isValidString = typeof rawQuery === 'string' && /^[a-zA-Z0-9\s\-_]+$/.test(rawQuery);
+//     if (!isValidString) {
+//       toast('Recipe title must only contain letters, numbers, spaces, hyphens, or underscores.', {
+//         icon: '🚫',
+//         duration: 3000,
+//       });
+//       return;
+//     }
+  
+//     const query = rawQuery.replace(/[-_]/g, '').toLowerCase();
 
-    if (foundRecipes.length > 0) {
-      setRecipesOnSearch(foundRecipes);
-    } else {
-      setRecipesOnSearch(null);
-      toast('No recipes found for your query.', {
-        icon: '😕',
-        duration: 3000,
-      });
-    }
-  };
+//     onSearch(query);
+//   };
 
-  const handleKeyDown = event => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      triggerSearch();
-    }
-  };
+//   const handleKeyDown = event => {
+//     if (event.key === 'Enter') {
+//       event.preventDefault();
+//       handleSearch();
+//     }
+//   };
 
-  const handleClick = () => {
-    triggerSearch();
-  };
+//   return (
+//     <div>
+//       <div className={css.hero}>
+//         <h1 className={css.heroHeader}>Plan, Cook, and Share Your Flavors</h1>
+//         <input
+//           type="text"
+//           id="search"
+//           className={css.input}
+//           value={inputValue}
+//           onChange={handleInputChange}
+//           onKeyDown={handleKeyDown}
+//           placeholder="Search recipes"
+//         />
+//         <button type="button" className={css.button} onClick={handleSearch}>
+//           Search
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
 
+// export default SearchRecipes;
+
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import css from './SearchRecipes.module.css';
+
+const validationSchema = Yup.object().shape({
+  search: Yup.string()
+    .required('Your query must contain some part of a recipe title.')
+    .min(2, 'Search term must be at least 2 characters.')
+    .matches(
+      /^[a-zA-Z0-9\s\-_]+$/,
+      'Recipe title must only contain letters, numbers, spaces, hyphens, or underscores.'
+    ),
+});
+
+const SearchRecipes = ({ onSearch }) => {
   return (
     <div>
       <div className={css.hero}>
         <h1 className={css.heroHeader}>Plan, Cook, and Share Your Flavors</h1>
-        <input
-          type="text"
-          id="search"
-          className={css.input}
-          value={searchQuery}
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-          placeholder="Search recipes"
-        />
-        <button type="button" className={css.button} onClick={handleClick}>
-          Search
-        </button>
+
+        <Formik
+          initialValues={{ search: '' }}
+          validationSchema={validationSchema}
+          validateOnChange={false}
+          validateOnBlur={false}
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            const cleanedQuery = values.search.trim().toLowerCase().replace(/[-_]/g, '');
+            onSearch(cleanedQuery);
+            setSubmitting(false);
+            resetForm();
+          }}
+        >
+          {({ handleSubmit }) => (
+            <Form
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleSubmit();
+                }
+              }}
+            >
+              <Field
+                type="text"
+                name="search"
+                id="search"
+                className={css.input}
+                placeholder="Search recipes"
+              />
+              <ErrorMessage
+                name="search"
+                component="div"
+                className={css.error}
+              />
+
+              <button type="submit" className={css.button}>
+                Search
+              </button>
+            </Form>
+          )}
+        </Formik>
       </div>
-      <Filters />
-      {/* {recipesOnSearch && <RecipeList recipes={recipesOnSearch} />} */}
-      <RecipeList recipes={recipesOnSearch ?? undefined} />
     </div>
   );
 };

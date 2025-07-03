@@ -1,9 +1,9 @@
-import RecipeForm from "../../components/RecipeForm/RecipeForm";
+import AddRecipeForm from '../../components/AddRecipeForm/AddRecipeForm';
 
 const AddRecipePage = () => {
   return (
     <div>
-      <RecipeForm />
+      <AddRecipeForm />
     </div>
   );
 };

@@ -1,46 +1,140 @@
-.card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-  background-color: #faf3e0;
-  width: 288px;
-  height: 431px;
-  padding: 12px;
+/* ===================== MOBILE ===================================*/
+@media screen and (max-width: 767px) {
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #faf3e0;
+    width: 361px;
+    height: 483px;
+    padding: 12px;
+  }
+
+  .learnMore {
+    background-color: transparent;
+    width: 289px;
+    height: 40px;
+    border-radius: 8px;
+    border-width: 1px;
+    padding: 8px;
+  }
+
+  .save {
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border-width: 1px;
+    padding: 8px;
+  }
+
+  .btnsWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .thumb {
+    width: 337px;
+    height: 230px;
+    border-radius: 8px;
+  }
 }
 
-.card:hover {
-  transform: translateY(-4px);
+/* ======================= TABLET ================================= */
+@media screen and (min-width: 768px) {
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #faf3e0;
+    width: 339px;
+    height: 483px;
+    padding: 12px;
+  }
+
+  .learnMore {
+    background-color: transparent;
+    width: 267px;
+    height: 40px;
+    border-radius: 8px;
+    border-width: 1px;
+  }
+
+  .save {
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border-width: 1px;
+    padding: 8px;
+  }
+
+  .btnsWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .thumb {
+    width: 315px;
+    height: 230px;
+    border-radius: 8px;
+  }
 }
 
-.learnMore {
-  background-color: transparent;
-  width: 289px;
-  height: 40px;
-  border-radius: 8px;
-  border-width: 1px;
-}
+/* ======================= DESKTOP ================================ */
+@media screen and (min-width: 1158px) {
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #faf3e0;
+    width: 288px;
+    height: 431px;
+    padding: 12px;
+  }
 
-.save {
-  background-color: transparent;
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  border-width: 1px;
-}
+  .learnMore {
+    background-color: transparent;
+    width: 289px;
+    height: 40px;
+    border-radius: 8px;
+    border-width: 1px;
+    padding: 8px;
+  }
 
-.btnsWrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-}
+  .save {
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border-width: 1px;
+    padding: 8px;
+  }
 
-.thumb {
-  width: 264px;
-  height: 178px;
-  border-radius: 16px;
+  .btnsWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .thumb {
+    width: 264px;
+    height: 178px;
+    border-radius: 16px;
+  }
+
+  .saveBtnIcon {
+    fill: white;
+    stroke: black;
+  }
 }

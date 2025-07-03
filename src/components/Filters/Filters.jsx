@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../../redux/ingredients/operation';
 import {
@@ -9,10 +9,15 @@ import {
 import { selectCategory } from '../../redux/category/selectors';
 import { fetchCategory } from '../../redux/category/operation';
 
-const Filters = () => {
-  const [selectedIngredient, setSelectedIngredient] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
-
+const Filters = ({
+  totalRecipes,
+  selectedCategory,
+  setSelectedCategory,
+  selectedIngredient,
+  setSelectedIngredient,
+  setSearchQuery,
+  setRecipesOnSearch,
+}) => {
   const dispatch = useDispatch();
   const ingredients = useSelector(selectIngredients);
   const category = useSelector(selectCategory);
@@ -22,6 +27,8 @@ const Filters = () => {
   const handleReset = () => {
     setSelectedIngredient('');
     setSelectedCategory('');
+    setSearchQuery('');
+    setRecipesOnSearch('');
   };
 
   useEffect(() => {
@@ -31,7 +38,7 @@ const Filters = () => {
 
   return (
     <div>
-      <p>count recipes</p>
+      <p>{totalRecipes ?? '—'} recipes</p>
       <button onClick={() => handleReset()}>reset filters</button>
       {loading && <p>Loading...</p>}
       {error && <p>Error: {error}</p>}
@@ -39,7 +46,7 @@ const Filters = () => {
         value={selectedIngredient}
         onChange={e => setSelectedIngredient(e.target.value)}
       >
-        <option value="">Select ingredient</option>
+        <option value="">Ingredient</option>
         {Array.isArray(ingredients) &&
           ingredients.map(({ _id, name }) => (
             <option key={_id} value={name}>
@@ -51,7 +58,7 @@ const Filters = () => {
         value={selectedCategory}
         onChange={e => setSelectedCategory(e.target.value)}
       >
-        <option value="">Select category</option>
+        <option value="">Category</option>
         {Array.isArray(category) &&
           category.map(({ _id, name }) => (
             <option key={_id} value={name}>

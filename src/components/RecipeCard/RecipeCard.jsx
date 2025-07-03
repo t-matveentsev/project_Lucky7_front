@@ -1,7 +1,6 @@
-import css from "./RecipeCard.module.css";
+import css from './RecipeCard.module.css';
 
-const RecipeCard = ({ data: { thumb, time, title, description } }) => {
-  
+const RecipeCard = ({ data: { thumb, time, title, description, calories="-" } }) => {
   const handleLearnMore = () => {
     console.log(`Learn more about: ${title}`);
   };
@@ -13,20 +12,22 @@ const RecipeCard = ({ data: { thumb, time, title, description } }) => {
   return (
     <div className={css.card}>
       <img src={thumb} alt={title} className={css.thumb} />
-        <h3 className={css.title}>{title}</h3>
-        <p className={css.time}>⏱ {time} minutes</p>
-        <p className={css.description}>{description}</p>
-        <div className={css.actions}>
-          <div className={css.btnsWrapper}>
+      <h3 className={css.title}>{title}</h3>
+      <p className={css.time}>⏱ {time} minutes</p>
+      <p className={css.description}>{description}</p>
+      <p className={css.calories}>~{calories} cals</p>
+      <div className={css.actions}>
+        <div className={css.btnsWrapper}>
           <button className={css.learnMore} onClick={handleLearnMore}>
             Learn More
           </button>
           <button className={css.save} onClick={handleSave}>
-            {/* <SaveIcon /> */}
-            S
-            </button>
-            </div>
+            <svg className='css.saveBtnIcon' width="24" height="24">
+              <use href="/icons.svg#icon-save-icon"/>
+            </svg>
+          </button>
         </div>
+      </div>
     </div>
   );
 };
