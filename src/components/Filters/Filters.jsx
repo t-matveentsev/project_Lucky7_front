@@ -1,49 +1,26 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchData } from '../../redux/ingredients/operation';
-import {
-  selectError,
-  selectIngredients,
-  selectLoading,
-} from '../../redux/ingredients/selectors';
+import { useSelector } from 'react-redux';
+import { selectIngredients } from '../../redux/ingredients/selectors';
 import { selectCategory } from '../../redux/category/selectors';
-import { fetchCategory } from '../../redux/category/operation';
+import { useState } from 'react';
 
-const Filters = ({
-  totalRecipes,
-  selectedCategory,
-  setSelectedCategory,
-  selectedIngredient,
-  setSelectedIngredient,
-  setSearchQuery,
-  setRecipesOnSearch,
-}) => {
-  const dispatch = useDispatch();
+const Filters = () => {
   const ingredients = useSelector(selectIngredients);
   const category = useSelector(selectCategory);
-  const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
+
+  const [selectedIngredients, setSelectedIngredient] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const handleReset = () => {
     setSelectedIngredient('');
     setSelectedCategory('');
-    setSearchQuery('');
-    setRecipesOnSearch('');
   };
-
-  useEffect(() => {
-    dispatch(fetchData());
-    dispatch(fetchCategory());
-  }, [dispatch]);
 
   return (
     <div>
-      <p>{totalRecipes ?? '—'} recipes</p>
+      <p>- recipes</p>
       <button onClick={() => handleReset()}>reset filters</button>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
       <select
-        value={selectedIngredient}
+        value={selectedIngredients}
         onChange={e => setSelectedIngredient(e.target.value)}
       >
         <option value="">Ingredient</option>

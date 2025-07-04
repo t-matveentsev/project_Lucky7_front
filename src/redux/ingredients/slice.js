@@ -1,11 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchData } from './operation';
+import { fetchIngredients } from './operation';
 
 const initialState = {
   ingredients: [],
-  category: [],
-  loading: false,
-  error: null,
 };
 
 const slice = createSlice({
@@ -13,14 +10,14 @@ const slice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
-      .addCase(fetchData.fulfilled, (state, action) => {
+      .addCase(fetchIngredients.fulfilled, (state, action) => {
         state.ingredients = action.payload;
         state.loading = false;
       })
-      .addCase(fetchData.pending, state => {
+      .addCase(fetchIngredients.pending, state => {
         state.loading = true;
       })
-      .addCase(fetchData.rejected, (state, action) => {
+      .addCase(fetchIngredients.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
