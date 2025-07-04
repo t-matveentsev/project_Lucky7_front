@@ -1,18 +1,71 @@
-.wrapper {
-  display: flex;
-  justify-content: center;
-  margin: 24px 0;
+/* ===================== MOBILE ===================================*/
+@media screen and (max-width: 767px) {
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 24px 0;
+  }
+  .button {
+    padding: 10px 24px;
+    background-color: #9b6c43;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 372px;
+    height: 54px;
+    padding: 16px;
+  }
 }
 
-.button {
-  padding: 10px 24px;
-  background-color: #9b6c43;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  width: 289px;
-  height: 54px;
-  padding: 16px;
+/* ======================= TABLET ================================= */
+@media screen and (min-width: 768px) {
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 24px 0;
+  }
+  .button {
+    padding: 10px 24px;
+    background-color: #9b6c43;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 344px;
+    height: 54px;
+    padding: 16px;
+  }
+}
+
+/* ======================= DESKTOP ================================ */
+@media screen and (min-width: 1158px) {
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 24px 0;
+  }
+
+  .button {
+    padding: 10px 24px;
+    background-color: #9b6c43;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 289px;
+    height: 54px;
+    padding: 16px;
+  }
+
+  .button:hover {
+    background-color: #6d554b;
+  }
+
+  .button:focus {
+    border-color: #ffffff;
+  }
 }

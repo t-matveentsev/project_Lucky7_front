@@ -44,10 +44,13 @@ const HomePage = () => {
     <div>
       <SearchRecipes onSearch={setSearchQuery} />
       <Filters />
+
       {isLoading && <p className={css.loading}>Loading...</p>}
       {error && <p className={css.error}>{error}</p>}
       {total > 0 && !isLoading && <p className={css.totalRec}>{total} recipes</p>}
-      {!isLoading && searchQuery && recipesOnSearch.length === 0 && <p className={css.noResults}>Unfortunately, no results for your search</p>}
+      {!isLoading && searchQuery && recipesOnSearch.length === 0 &&
+        <p className={css.noResults}>Unfortunately, no results for your search</p>}
+      
       {recipesOnSearch && recipesOnSearch.length > 0
         ? (<RecipeList recipes={recipesOnSearch} total={total} listOnSearch={true} />)
         : (<RecipeList recipes={recipes} total={total} />)}

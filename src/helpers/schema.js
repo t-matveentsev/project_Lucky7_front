@@ -18,11 +18,13 @@ export const addRecipeSchema = Yup.object().shape({
     .max(200, 'Maximum 200 symbols'),
 
   time: Yup.number()
+    .transform((_, val) => (val === '' ? undefined : Number(val)))
     .required('Cooking time is required')
     // .matches(onlyNumber, "Only numbers are allowed")
     .min(1)
     .max(360),
   calories: Yup.number()
+    .transform((_, val) => (val === '' ? undefined : Number(val)))
     // .required('Calories field is required')
     // .matches(onlyNumber, "Only numbers are allowed")
     .min(1)

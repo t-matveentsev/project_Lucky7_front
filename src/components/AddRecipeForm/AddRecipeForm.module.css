@@ -1,0 +1,206 @@
+/* ...................Layout Structur.................     */
+.recipeForm {
+  padding: 48px 0;
+}
+.wrapperInfo {
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  font-weight: 600;
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.description {
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.label {
+  font-size: 18px;
+  margin-top: 16px;
+}
+
+.array {
+  display: flex;
+  flex-direction: column;
+}
+
+.fieldGroup,
+.group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.ingredients {
+  margin-top: 40px;
+  margin-bottom: 16px;
+}
+/* ...................input.................     */
+.input,
+.textarea {
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 12px;
+  max-width: 361px;
+  margin-top: 8px;
+}
+.textarea {
+  min-height: 144px;
+  height: auto;
+}
+.errorMessage {
+  margin-top: 4px;
+  color: red;
+}
+/* ...................photo.................     */
+
+.customUpload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 361px;
+  height: 383px;
+  background: #c5c5c5;
+  border-radius: 16px;
+  cursor: pointer;
+  margin: 4px 0 24px;
+}
+
+.customUpload:hover svg {
+  transform: scale(1.1);
+}
+
+.photo {
+  display: none;
+}
+.svg {
+  width: 52px;
+  height: 52px;
+}
+
+/* ..................button.................. */
+.button {
+  margin-top: 32px;
+  padding: 12px 16px;
+  color: white;
+  background: var(--light-brown);
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.button:hover {
+  background: #6d554b;
+}
+
+.button:focus {
+  background: var(--light-brown);
+  box-shadow: 0 0 0 6px rgba(78, 70, 180, 0.12), 0 0 0 2px var(--white);
+}
+
+.button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: var(--light-brown);
+  box-shadow: 0 0 0 4px rgba(78, 70, 180, 0.12), 0 0 0 2px var(--white);
+  transition: none;
+}
+
+.buttonPublish {
+  margin-top: 40px;
+}
+.buttonAdd {
+  width: 100%;
+  margin-top: 32px;
+}
+/* ...............................Responsive ................... */
+@media only screen and (min-width: 768px) {
+  .title {
+    font-size: 48px;
+  }
+  .customUpload {
+    max-width: 704px;
+  }
+  /* .descriptionPhoto {
+    padding: 16px 0;
+  } */
+  .description {
+    font-size: 32px;
+  }
+
+  .input,
+  .textarea {
+    max-width: 704px;
+  }
+  .label {
+    margin-top: 32px;
+  }
+  .CaloriesCategory {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+  }
+  .fieldGroup {
+    max-width: calc((100% - 24px) / 2);
+  }
+  .row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .array {
+    display: grid;
+    flex-direction: column;
+    gap: 24px;
+    grid-template-columns: 1.73fr 1fr;
+  }
+  .buttonAdd {
+    margin-top: 0;
+  }
+  .ingredients {
+    margin-bottom: 0;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+  }
+  .title {
+    margin-bottom: 40px;
+  }
+  .recipeInfo {
+    display: grid;
+    grid-template-columns: 2.06fr 1fr;
+    gap: 24px;
+  }
+  .wrapperPhoto {
+    order: 2;
+  }
+  .wrapperInfo {
+    order: 1;
+    min-width: 809px;
+  }
+  .input,
+  .textarea {
+    max-width: 809px;
+  }
+  .CaloriesCategory,
+  .array {
+    max-width: 809px;
+  }
+  .buttonPublish {
+    max-width: 809px;
+  }
+  .ingredients,
+  .buttonPublish {
+    margin-top: 72px;
+  }
+  .svg {
+    width: 99px;
+    height: 82px;
+  }
+}
