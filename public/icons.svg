@@ -1,10 +1,28 @@
-<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
+<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;"
+    version="1.1"
     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
         <symbol id="icon-save-icon" viewBox="0 0 32 32">
-            <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="1.3333"
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4"
+                stroke-width="1.3333"
                 d="M15.996 4.667c1.685 0 3.231 0.161 4.457 0.348 1.552 0.236 2.768 1.299 3.115 2.785 0.418 1.794 0.828 4.522 0.758 8.187-0.078 4.044-0.668 6.962-1.237 8.866-0.154 0.515-0.51 0.78-0.913 0.848-0.421 0.071-0.941-0.069-1.363-0.49-0.769-0.766-1.65-1.593-2.462-2.232-0.405-0.319-0.809-0.604-1.184-0.811-0.353-0.196-0.767-0.374-1.171-0.374-0.397 0-0.825 0.175-1.199 0.367-0.399 0.205-0.84 0.486-1.292 0.805-0.905 0.639-1.907 1.466-2.789 2.233-0.466 0.405-1.014 0.5-1.447 0.383-0.417-0.114-0.769-0.434-0.878-0.992-0.372-1.917-0.725-4.749-0.725-8.59 0-3.831 0.395-6.534 0.788-8.273 0.326-1.442 1.502-2.468 3.014-2.702 1.236-0.191 2.81-0.358 4.527-0.358z">
             </path>
         </symbol>
+        <symbol id="icon-checkbox-privacy-mobile" viewBox="0 0 40 32">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4"
+                stroke-width="4" d="M2 13.882l13.333 14.118 22.667-24"></path>
+        </symbol>
+        <symbol id="icon-checkbox-privacy-tablet" viewBox="0 0 51 32">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4"
+                stroke-width="3.2" d="M4 13.459l16 16.941 27.2-28.8"></path>
+        </symbol>
+        <symbol id="icon-checkbox-privacy-desk" viewBox="0 0 46 32">
+            <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4"
+                stroke-width="2.2857" d="M2.286 13.58l15.238 16.134 25.905-27.429"></path>
+        </symbol>
     </defs>
+</svg>
+
+<svg width="20" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M1 5.941 7.667 13 19 1" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
