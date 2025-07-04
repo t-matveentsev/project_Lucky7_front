@@ -115,10 +115,12 @@ export const refreshThunk = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
     try {
-      const { data } = await api.post('/auth/refresh');
-      const accessToken = data.data.accessToken;
-      setAuthHeader(accessToken);
-      return accessToken;
+      const { data } = await api.post('/auth/refresh', null, {
+        withCredentials: true,
+      });
+
+      setAuthHeader(data.data.accessToken);
+      return { accessToken: data.data.accessToken };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

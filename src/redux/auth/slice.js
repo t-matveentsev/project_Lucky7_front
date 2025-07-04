@@ -38,7 +38,7 @@ const slice = createSlice({
         state.isRefreshing = true;
       })
       .addCase(refreshThunk.fulfilled, (state, action) => {
-        state.token = action.payload;
+        state.token = action.payload.accessToken;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
