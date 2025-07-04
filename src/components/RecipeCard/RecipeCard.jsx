@@ -2,10 +2,11 @@ import { NavLink } from 'react-router-dom';
 import css from './RecipeCard.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import clsx from 'clsx'
+// import clsx from 'clsx'
 
-const RecipeCard = ({ data: { _id, thumb, time, title, description, calories="-" } }) => {
-
+const RecipeCard = ({
+  data: { _id, thumb, time, title, description, calories = '-' },
+}) => {
   const navigate = useNavigate();
 
   const isAuthorized = useSelector(state => state.auth.isLoggedIn);
@@ -14,12 +15,12 @@ const RecipeCard = ({ data: { _id, thumb, time, title, description, calories="-"
     if (isAuthorized) {
       navigate(`/recipes/${_id}`);
     } else {
-      navigate('/login'); 
+      navigate('/login');
     }
   };
 
-  const favorites = useSelector(state => state.recipes.favorites);
-  const isRecipeFavorite = favorites.includes(_id);
+  // const favorites = useSelector(state => state.recipes.favorites);
+  // const isRecipeFavorite = favorites.includes(_id);
 
   return (
     <div className={css.card}>
@@ -30,14 +31,11 @@ const RecipeCard = ({ data: { _id, thumb, time, title, description, calories="-"
       <p className={css.calories}>~{calories} cals</p>
       <div className={css.actions}>
         <div className={css.btnsWrapper}>
-        
           <NavLink className={css.learnMore} to={`/recipes/${_id}`}>
-          <button className={css.learnMoreBtn}>
-              Learn More
-              </button>
-            </NavLink>
-           
-            {/* className={clsx(isRecipeFavorite ? "css.saved" : "css.save")} */}
+            <button className={css.learnMoreBtn}>Learn More</button>
+          </NavLink>
+
+          {/* className={clsx(isRecipeFavorite ? "css.saved" : "css.save")} */}
           <button className={css.save} onClick={handleSave}>
             <svg className='css.saveBtnIcon' width="24" height="24">
               <use href="../../../public/icons.svg#icon-save-icon"/>

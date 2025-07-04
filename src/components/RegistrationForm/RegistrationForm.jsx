@@ -60,7 +60,11 @@ const RegistrationForm = () => {
                       touched.name && errors.name ? s.invalid : s.input
                     }
                   />
-                  <ErrorMessage name="name" component="div" className={s.error}/>
+                  <ErrorMessage
+                    name="name"
+                    component="div"
+                    className={s.error}
+                  />
                 </label>
               </div>
               <div className={s.fieldBlock}>
@@ -71,9 +75,15 @@ const RegistrationForm = () => {
                     name="email"
                     type="email"
                     placeholder="email@gmail.com"
-                    className={touched.email && errors.email ? s.invalid : s.input}
+                    className={
+                      touched.email && errors.email ? s.invalid : s.input
+                    }
                   />
-                  <ErrorMessage name="email" component="div" className={s.error} />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className={s.error}
+                  />
                 </label>
               </div>
               <div className={s.fieldBlock}>
@@ -84,9 +94,15 @@ const RegistrationForm = () => {
                     name="password"
                     type="password"
                     placeholder="*********"
-                    className={touched.password && errors.password ? s.invalid : s.input}
+                    className={
+                      touched.password && errors.password ? s.invalid : s.input
+                    }
                   />
-                  <ErrorMessage name="password" component="div" className={s.error}/>
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className={s.error}
+                  />
                 </label>
               </div>
 
@@ -98,9 +114,17 @@ const RegistrationForm = () => {
                     name="confirmPassword"
                     type="password"
                     placeholder="*********"
-                    className={touched.confirmPassword && errors.confirmPassword ? s.invalid : s.input}
+                    className={
+                      touched.confirmPassword && errors.confirmPassword
+                        ? s.invalid
+                        : s.input
+                    }
                   />
-                  <ErrorMessage name="confirmPassword" component="div"  className={s.error}/>
+                  <ErrorMessage
+                    name="confirmPassword"
+                    component="div"
+                    className={s.error}
+                  />
                 </label>
               </div>
               <label htmlFor="agree" className={s.checkboxLabelWrapper}>
@@ -110,14 +134,18 @@ const RegistrationForm = () => {
                   type="checkbox"
                   className={s.checkbox}
                 />
-                <span className={s.checkmark}></span>
+                <span className={s.checkmark}>
+                  {values.agree && (
+                    <svg className={s.checkmarkIcon}>
+                      <use href="/icons.svg#icon-checkbox-privacy-mobile" />
+                    </svg>
+                  )}
+                </span>
                 <span className={s.labelChekbox}>
                   I agree to the Terms of Service and Privacy Policy
                 </span>
-                
               </label>
-
-              <ErrorMessage name="agree" component="div" className={s.error}/>
+              <ErrorMessage name="agree" component="div" className={s.error} />
 
               {serverError && <div>{serverError}</div>}
 
