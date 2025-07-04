@@ -1,9 +1,3 @@
-// const PrivateRoute = () => {
-//   return <div>PrivateRoute</div>;
-// };
-
-// export default PrivateRoute;
-
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { selectIsLoggedIn, selectIsRefreshing } from '../redux/auth/selectors';
