@@ -1,110 +1,6 @@
-/* .backdrop {
-  background-color: #fdf2e9;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.modal {
-  background-color: #fff7ed;
-  padding: 40px;
-  border-radius: 24px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
 
-.title {
-  text-align: center;
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 24px;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.fieldBlock {
-  display: flex;
-  flex-direction: column;
-}
-
-.label {
-  font-size: 14px;
-  margin-bottom: 6px;
-}
-
-.inputWrapper {
-  position: relative;
-}
-
-.input {
-  width: 100%;
-  padding: 10px 40px 10px 36px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  font-size: 16px;
-}
-
-.icon {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  font-size: 20px;
-  color: #888;
-}
-
-.toggleBtn {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  transform: translateY(-50%);
-}
-
-.loginBtn {
-  background-color: #a1662f;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 12px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.loginBtn:hover {
-  background-color: #8a5427;
-}
-
-.errorText {
-  color: red;
-  font-size: 13px;
-  margin-top: 4px;
-}
-
-.registerText {
-  text-align: center;
-  font-size: 14px;
-}
-
-.registerLink {
-  font-weight: bold;
-  color: black;
-  text-decoration: underline;
-  margin-left: 4px;
-} */
-
-.formWrapper {
+ /*.formWrapper {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -168,4 +64,87 @@
 .redirectInfo {
   display: flex;
   justify-content: space-between;
+} */
+
+.formWrapper {
+  background-color: #FAF3E0;
+  padding: 40px;
+  border-radius: 25px;
+  max-width: 420px;
+  margin: 40px auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  font-family: inherit;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #000;
+}
+
+.label {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.input {
+  width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+.passwordField {
+  position: relative;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.loginBtn {
+  background-color: #9B6C43;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.redirectInfo {
+font-weight: 400;
+font-size: 16px;
+line-height: 155%;
+letter-spacing: 0%;
+text-align: center;
+margin-top: 20px;
+}
+
+.redirectLink {
+  color: black;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-left: 5px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }

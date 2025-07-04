@@ -26,32 +26,41 @@ export const removeFavoriteRecipe = createAsyncThunk(
 );
 
 export const fetchAllRecipes = createAsyncThunk(
-  "recipes/fetchAll",
+  'recipes/fetchAll',
   async ({ page = 1 }, thunkAPI) => {
-  try {
-    const response = await api.get("/recipes/search", {
-      params: { page },
-    });
+    try {
+      const response = await api.get('/recipes/search', {
+        params: { page },
+      });
       return {
         results: response.data.results,
         total: response.data.total,
         page,
       };
-    } catch (error) { return thunkAPI.rejectWithValue(error.message) }
-  })
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
 export const fetchRecipesForQuery = createAsyncThunk(
+
   "recipes/fetchQueryRecipes",
   async ({ searchQuery, pageOnSearch = 1 }, thunkAPI) => {
   try {
     const response = await api.get(`/recipes/search?query=${searchQuery}&page=${pageOnSearch}`);
+
       return {
         results: response.data.results,
         total: response.data.total,
         pageOnSearch,
       };
-    } catch (error) { return thunkAPI.rejectWithValue(error.message) }
-  })
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 
 export const fetchFavorites = createAsyncThunk(
   "recipes/fetchFavRec",
@@ -63,4 +72,17 @@ export const fetchFavorites = createAsyncThunk(
       };
     } catch (error) { return thunkAPI.rejectWithValue(error.message) }
   })
+
+
+export const addRecipe = createAsyncThunk(
+  'recipes/addRecipe',
+  async (recipe, thunkAPI) => {
+    try {
+      const response = await api.post('/recipes/own', recipe);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
