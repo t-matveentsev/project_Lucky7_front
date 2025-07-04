@@ -53,3 +53,14 @@ export const fetchRecipesForQuery = createAsyncThunk(
     } catch (error) { return thunkAPI.rejectWithValue(error.message) }
   })
 
+export const fetchFavorites = createAsyncThunk(
+  "recipes/fetchFavRec",
+  async (_, thunkAPI) => {
+  try {
+    const response = await api.get(`/recipes/favorites`);
+      return {
+        results: response.data.results,
+      };
+    } catch (error) { return thunkAPI.rejectWithValue(error.message) }
+  })
+
