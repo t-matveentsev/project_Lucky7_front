@@ -15,7 +15,7 @@ const RecipeCard = ({
     if (isAuthorized) {
       navigate(`/recipes/${_id}`);
     } else {
-      navigate('/login');
+      navigate('/auth/login');
     }
   };
 
