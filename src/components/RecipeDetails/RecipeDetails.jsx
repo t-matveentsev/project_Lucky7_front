@@ -27,7 +27,9 @@ const RecipeDetails = ({ recipe }) => {
                 </li>
                 <li className={css.generalList}>
                   <h3 className={css.generalListTitle}>Caloric content:</h3>
-                  <p className={css.generalListContent}>{recipe?.calories}</p>
+                  <p className={css.generalListContent}>
+                    Approximately {recipe?.calories} kcal per serving
+                  </p>
                 </li>
               </ul>
             </div>
