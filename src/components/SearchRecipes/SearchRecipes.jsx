@@ -17,7 +17,6 @@ const SearchRecipes = ({ onSearch }) => {
     <div>
       <div className={css.hero}>
         <h1 className={css.heroHeader}>Plan, Cook, and Share Your Flavors</h1>
-
         <Formik
           initialValues={{ search: '' }}
           validationSchema={validationSchema}
@@ -51,7 +50,6 @@ const SearchRecipes = ({ onSearch }) => {
                 component="div"
                 className={css.error}
               />
-
               <button type="submit" className={css.button}>
                 Search
               </button>
