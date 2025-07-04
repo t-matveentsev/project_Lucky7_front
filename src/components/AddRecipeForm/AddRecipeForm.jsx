@@ -13,7 +13,7 @@ import {
   selectRequestState as selectCategoryRequest,
 } from '../../redux/category/selectors';
 import { selectIngredients } from '../../redux/ingredients/selectors';
-import { fetchData as fetchIngredients } from '../../redux/ingredients/operation';
+import { fetchIngredients } from '../../redux/ingredients/operation';
 import { addRecipe } from '../../redux/recipes/operations';
 
 const initialValues = {

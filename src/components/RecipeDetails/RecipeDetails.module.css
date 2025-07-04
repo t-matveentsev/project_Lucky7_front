@@ -34,11 +34,15 @@
   font-size: 16px;
   color: var(--black);
   padding-right: 8px;
+  white-space: nowrap;
 }
 .generalListContent {
   font-size: 16px;
   color: var(--black);
   font-weight: 400;
+}
+li:last-child {
+  margin-bottom: 0;
 }
 
 .button {
@@ -46,7 +50,6 @@
   padding: 16px;
   background: var(--light-brown);
   border: none;
-
   margin-bottom: 24px;
   width: 100%;
 }
@@ -59,8 +62,7 @@
   fill: none;
   stroke: var(--white);
   margin-left: 16px;
-  /* display: flex;
-  align-items: center; */
+  vertical-align: middle;
 }
 
 .button:hover {
