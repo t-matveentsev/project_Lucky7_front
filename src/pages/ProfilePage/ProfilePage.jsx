@@ -9,7 +9,7 @@ import {
 } from '../../redux/recipes/selectors';
 import RecipeList from '../../components/RecipeList/RecipeList';
 import LoadMoreBtn from '../../components/LoadMoreBtn/LoadMoreBtn';
-
+import Container from '../../components/Container/Container';
 import css from './ProfilePage.module.css';
 import ProfileNavigation from '../../components/ProfileNavigation/ProfileNavigation';
 
@@ -25,19 +25,21 @@ const ProfilePage = () => {
   }, [dispatch, recipeType]);
 
   return (
+    <Container>
     <div className={css.wrapper}>
       <h1 className={css.title}>My profile</h1>
       <ProfileNavigation />
-      <Outlet />
-      {loading ? <p>Завантаження...</p> : <RecipeList recipes={recipes} />}
-      {/* Кнопка Load More */}
-      {!loading && (
+      {loading ? (
+        <p>Завантаження...</p> 
+      ) : (
         <>
           <RecipeList recipes={recipes} />
           {hasMore && <LoadMoreBtn />}
         </>
       )}
     </div>
+    </Container>
+    
   );
 };
 

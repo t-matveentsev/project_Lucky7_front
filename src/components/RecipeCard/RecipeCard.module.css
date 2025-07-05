@@ -152,6 +152,7 @@
   }
 
   .saveBtnIcon {
-    fill: pink;
+    fill: none;
+    stroke: #fff;
   }
 }

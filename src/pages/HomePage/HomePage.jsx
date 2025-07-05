@@ -11,6 +11,7 @@ import css from './HomePage.module.css';
 import { resetSearchResults } from '../../redux/recipes/slice';
 import { fetchIngredients } from '../../redux/ingredients/operation';
 import { fetchCategory } from '../../redux/category/operation';
+import Container from '../../components/Container/Container';
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -96,6 +97,8 @@ const HomePage = () => {
   return (
     <div>
       <SearchRecipes onSearch={setSearchQuery} />
+
+<Container>
       <Filters
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
@@ -104,24 +107,18 @@ const HomePage = () => {
         handleReset={handleReset}
         total={total}
       />
-
       {isLoading && <p className={css.loading}>Loading...</p>}
       {error && <p className={css.error}>{error}</p>}
       {!isLoading && searchQuery && recipesOnSearch.length === 0 && (
-        <p className={css.noResults}>
-          Unfortunately, no results for your search
-        </p>
-      )}
-
-      {recipesOnSearch && recipesOnSearch.length > 0 ? (
-        <RecipeList
+        <p className={css.noResults}>Unfortunately, no results for your search</p>)}
+      {recipesOnSearch && recipesOnSearch.length > 0 
+      ? 
+      (<RecipeList
           recipes={recipesOnSearch}
           total={total}
-          listOnSearch={true}
-        />
-      ) : (
-        <RecipeList recipes={recipes} total={total} />
-      )}
+          listOnSearch={true}/>) 
+      : (<RecipeList recipes={recipes} total={total} />)}
+    </Container>
     </div>
   );
 };
