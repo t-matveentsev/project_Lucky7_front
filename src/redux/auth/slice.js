@@ -21,17 +21,16 @@ const slice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
-
       .addCase(registerThunk.fulfilled, (state, action) => {
-        state.user = action.payload.user || { name: '', email: '' };
-        state.token = action.payload.token || '';
-        state.isLoggedIn = !!action.payload.token;
-      })
-
-      .addCase(loginThunk.fulfilled, (state, action) => {
-        state.user = action.payload.user || { name: '', email: '' };
-        state.token = action.payload.accessToken || '';
+        state.user = action.payload.user;
+        state.token = action.payload.token;
         state.isLoggedIn = true;
+      })
+      .addCase(loginThunk.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+        console.log(action.payload);
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload;

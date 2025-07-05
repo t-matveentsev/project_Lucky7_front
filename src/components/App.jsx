@@ -11,9 +11,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectIsRefreshing } from '../redux/auth/selectors.js';
 import { refreshUser } from '../redux/auth/operation.js';
 
-import { refreshThunk } from '../redux/auth/operation';
-import { selectIsRefreshing } from '../redux/auth/selectors';
-
 const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
 const AddRecipePage = lazy(() =>
   import('../pages/AddRecipePage/AddRecipePage.jsx')
@@ -27,7 +24,7 @@ export default function App() {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  return isRefreshing ? null : 
+  return isRefreshing ? null : (
     <Layout>
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -43,6 +40,7 @@ export default function App() {
         <Route path="/not-found" element={<NotFoundPage />} />
         <Route path="/auth/register" element={<RegisterPage />} />
         <Route path="/auth/login" element={<LoginPage />} />
+        {/*Temporarily not private*/}
         <Route path="/add-recipe" element={<AddRecipePage />} />
       </Routes>
     </Layout>
