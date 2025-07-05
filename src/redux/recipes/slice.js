@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchRecipesByType } from './operations';
+import { fetchFavorites, fetchRecipesByType } from './operations';
 import { removeFavoriteRecipe } from './operations';
 import { fetchAllRecipes, fetchRecipesForQuery } from './operations';
 
@@ -15,6 +15,7 @@ const handleRejected = (state, action) => {
 const initialState = {
   items: [],
   itemsOnSearch: [],
+  favorites: [],
   total: 0,
   isLoading: false,
   error: null,
@@ -66,7 +67,7 @@ const recipesSlice = createSlice({
         state.items = state.items.filter(recipe => recipe._id !== removedId);
       })
    
-      .addCase(fetchAllRecipes.fulfilled, (state, action) => {
+.addCase(fetchAllRecipes.fulfilled, (state, action) => {
         const { results, total, page } = action.payload;
 
         state.isLoading = false;
@@ -97,6 +98,16 @@ const recipesSlice = createSlice({
 })
 .addCase(fetchRecipesForQuery.rejected, handleRejected)
 .addCase(fetchRecipesForQuery.pending, handlePending)
+
+.addCase(fetchFavorites.fulfilled, (state, action) => {
+        const { results } = action.payload;
+        state.isLoading = false;
+        state.error = null;
+        state.favorites = results;
+})
+.addCase(fetchFavorites.rejected, state => { state.error = null })
+.addCase(fetchFavorites.pending, state => {
+  state.isLoading = false;})
   },
 });
 
