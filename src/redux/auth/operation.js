@@ -6,7 +6,7 @@ export const api = axios.create({
   //baseURL: 'http://localhost:3000/api/',
 });
 
-const setAuthHeader = token => {
+export const setAuthHeader = token => {
   api.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
@@ -31,10 +31,18 @@ export const loginThunk = createAsyncThunk(
   'auth/login',
   async (body, thunkAPI) => {
     try {
-      const { data } = await api.post('/auth/login', body);
-      setAuthHeader(data.token);
-      console.log(data);
-      return data;
+      const response = await api.post('/auth/login', body);
+      const { accessToken, user } = response.data.data; // ← тут ключове
+
+      setAuthHeader(accessToken);
+      localStorage.setItem('token', accessToken);
+
+      return { token: accessToken, user };
+      // const { data } = await api.post('/auth/login', body);
+      // console.log('LOGIN RESPONSE:', data);
+      // setAuthHeader(data.token);
+      // console.log(data);
+      // return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

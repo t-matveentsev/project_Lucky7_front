@@ -11,7 +11,9 @@ const getNavStyles = ({ isActive }) => {
 };
 
 const UserMenu = () => {
-  const { name } = useSelector(selectUser);
+  const user = useSelector(selectUser);
+  // console.log('user from Redux:', user);
+  const name = user?.name ?? 'User';
 
   const userNameLetter = name[0].toUpperCase();
 

@@ -47,7 +47,7 @@ const ProfilePage = () => {
         {loading ? (
           <p>Завантаження...</p>
         ) : (
-          <RecipeList recipes={recipeToShow} />
+          <RecipeList recipes={Array.isArray(recipeToShow) ? recipeToShow : []} />
         )}
         {!loading && !isSaved && hasMore && <LoadMoreBtn />}
 
