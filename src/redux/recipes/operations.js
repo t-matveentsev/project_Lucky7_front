@@ -56,10 +56,14 @@ export const fetchAllRecipes = createAsyncThunk(
 
 export const fetchRecipesForQuery = createAsyncThunk(
   'recipes/fetchQueryRecipes',
-  async ({ searchQuery, pageOnSearch = 1 }, thunkAPI) => {
+
+  async (
+    { searchQuery, pageOnSearch = 1, selectedCategory, selectedIngredient },
+    thunkAPI
+  ) => {
     try {
       const response = await api.get(
-        `/recipes/search?query=${searchQuery}&page=${pageOnSearch}`
+        `/recipes/search?query=${searchQuery}&page=${pageOnSearch}&category=${selectedCategory}&ingredient=${selectedIngredient.toLowerCase()}`
       );
 
       return {

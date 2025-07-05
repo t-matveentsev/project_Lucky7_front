@@ -11,12 +11,14 @@ import css from './HomePage.module.css';
 import { resetSearchResults } from '../../redux/recipes/slice';
 import { fetchIngredients } from '../../redux/ingredients/operation';
 import { fetchCategory } from '../../redux/category/operation';
+import Container from '../../components/Container/Container';
 
 const HomePage = () => {
   const dispatch = useDispatch();
 
   const [searchQuery, setSearchQuery] = useState('');
-  // console.log(searchQuery)
+  const [selectedIngredient, setSelectedIngredient] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const recipes = useSelector(state => state.recipes.items);
   const recipesOnSearch = useSelector(state => state.recipes.itemsOnSearch);
@@ -26,6 +28,14 @@ const HomePage = () => {
   const isLoading = useSelector(state => state.recipes.isLoading);
   const error = useSelector(state => state.recipes.error);
 
+  const handleReset = () => {
+    setSelectedCategory('');
+    setSelectedIngredient('');
+    setSearchQuery('');
+    dispatch(resetSearchResults());
+    dispatch(fetchAllRecipes({ page: 1 }));
+  };
+
   useEffect(() => {
     dispatch(fetchIngredients());
     dispatch(fetchCategory());
@@ -34,47 +44,81 @@ const HomePage = () => {
   useEffect(() => {
     if (searchQuery) {
       dispatch(resetSearchResults());
-      dispatch(fetchRecipesForQuery({ pageOnSearch: 1, searchQuery }));
+      dispatch(
+        fetchRecipesForQuery({
+          pageOnSearch: 1,
+          searchQuery,
+          selectedIngredient,
+          selectedCategory,
+        })
+      );
     }
-  }, [dispatch, searchQuery]);
+  }, [dispatch, searchQuery, selectedCategory, selectedIngredient]);
+
+  useEffect(() => {
+    if (!searchQuery && (selectedCategory || selectedIngredient)) {
+      dispatch(resetSearchResults());
+      dispatch(
+        fetchRecipesForQuery({
+          pageOnSearch: 1,
+          searchQuery: '',
+          selectedIngredient,
+          selectedCategory,
+        })
+      );
+    }
+  }, [dispatch, selectedCategory, selectedIngredient, searchQuery]);
 
   useEffect(() => {
     if (searchQuery && pageOnSearch > 1) {
-      dispatch(fetchRecipesForQuery({ pageOnSearch, searchQuery }));
+      dispatch(
+        fetchRecipesForQuery({
+          pageOnSearch,
+          searchQuery,
+          selectedIngredient,
+          selectedCategory,
+        })
+      );
     }
-  }, [dispatch, pageOnSearch, searchQuery]);
+  }, [
+    dispatch,
+    pageOnSearch,
+    searchQuery,
+    selectedCategory,
+    selectedIngredient,
+  ]);
 
   useEffect(() => {
-    if (!searchQuery) {
+    if (!searchQuery && !selectedCategory && !selectedIngredient) {
       dispatch(fetchAllRecipes({ page }));
     }
-  }, [dispatch, page, searchQuery]);
+  }, [dispatch, page, searchQuery, selectedCategory, selectedIngredient]);
 
   return (
     <div>
       <SearchRecipes onSearch={setSearchQuery} />
-      <Filters />
 
+<Container>
+      <Filters
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        selectedIngredient={selectedIngredient}
+        setSelectedIngredient={setSelectedIngredient}
+        handleReset={handleReset}
+        total={total}
+      />
       {isLoading && <p className={css.loading}>Loading...</p>}
       {error && <p className={css.error}>{error}</p>}
-      {total > 0 && !isLoading && (
-        <p className={css.totalRec}>{total} recipes</p>
-      )}
       {!isLoading && searchQuery && recipesOnSearch.length === 0 && (
-        <p className={css.noResults}>
-          Unfortunately, no results for your search
-        </p>
-      )}
-
-      {recipesOnSearch && recipesOnSearch.length > 0 ? (
-        <RecipeList
+        <p className={css.noResults}>Unfortunately, no results for your search</p>)}
+      {recipesOnSearch && recipesOnSearch.length > 0 
+      ? 
+      (<RecipeList
           recipes={recipesOnSearch}
           total={total}
-          listOnSearch={true}
-        />
-      ) : (
-        <RecipeList recipes={recipes} total={total} />
-      )}
+          listOnSearch={true}/>) 
+      : (<RecipeList recipes={recipes} total={total} />)}
+    </Container>
     </div>
   );
 };
