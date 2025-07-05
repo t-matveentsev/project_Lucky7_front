@@ -55,6 +55,20 @@ const HomePage = () => {
   }, [dispatch, searchQuery, selectedCategory, selectedIngredient]);
 
   useEffect(() => {
+    if (!searchQuery && (selectedCategory || selectedIngredient)) {
+      dispatch(resetSearchResults());
+      dispatch(
+        fetchRecipesForQuery({
+          pageOnSearch: 1,
+          searchQuery: '',
+          selectedIngredient,
+          selectedCategory,
+        })
+      );
+    }
+  }, [dispatch, selectedCategory, selectedIngredient, searchQuery]);
+
+  useEffect(() => {
     if (searchQuery && pageOnSearch > 1) {
       dispatch(
         fetchRecipesForQuery({
@@ -74,10 +88,10 @@ const HomePage = () => {
   ]);
 
   useEffect(() => {
-    if (!searchQuery) {
+    if (!searchQuery && !selectedCategory && !selectedIngredient) {
       dispatch(fetchAllRecipes({ page }));
     }
-  }, [dispatch, page, searchQuery]);
+  }, [dispatch, page, searchQuery, selectedCategory, selectedIngredient]);
 
   return (
     <div>
