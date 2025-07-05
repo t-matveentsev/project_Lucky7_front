@@ -1,81 +1,55 @@
-import { useState } from 'react';
-import css from './searchRecipes.module.css';
-import { toast } from 'react-hot-toast';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import css from './SearchRecipes.module.css';
+import { validationSchema } from '../../helpers/schema';
 
-const SearchRecipes = ({onSearch}) => {
-  const [inputValue, setInputValue] = useState('');
-  // const [recipesOnSearch, setRecipesOnSearch] = useState(null);
-  // const [loading, setLoading] = useState(false);
-
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
-
-  // console.log(inputValue)
-
-  const handleSearch = () => {
-    const query = inputValue.trim().toLowerCase();
-    // console.log(query)
-    
-    if (!query) {
-      toast('Please enter a search term.', {
-        icon: '🔍',
-        duration: 3000,
-      });
-      onSearch("");
-      return;
-    }
-    onSearch(query);
-  };
-
-  //   if (!query) {
-  //     setRecipesOnSearch(null);
-  //     return;
-  //   }
-
-  //   const foundRecipes = allRecipes.filter(recipe =>
-  //     recipe.title.toLowerCase().includes(query)
-  //   );
-
-  //   if (foundRecipes.length > 0) {
-  //     setRecipesOnSearch(foundRecipes);
-  //   } else {
-  //     setRecipesOnSearch(null);
-  //     toast('No recipes found for your query.', {
-  //       icon: '😕',
-  //       duration: 3000,
-  //     });
-  //   }
-  // };
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      handleSearch();
-    }
-  };
-
-  // const handleClick = () => {
-  //   triggerSearch();
-  // };
-
+const SearchRecipes = ({ onSearch }) => {
   return (
     <div>
       <div className={css.hero}>
         <h1 className={css.heroHeader}>Plan, Cook, and Share Your Flavors</h1>
-        <input
-          type="text"
-          id="search"
-          className={css.input}
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          placeholder="Search recipes"
-        />
-        <button type="button" className={css.button}
-          onClick={handleSearch}>
-          Search
-        </button>
+        <Formik
+          initialValues={{ search: '' }}
+          validationSchema={validationSchema}
+          validateOnChange={false}
+          validateOnBlur={false}
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            const cleanedQuery = values.search.trim().toLowerCase().replace(/[\s-_]/g, '');
+            onSearch(cleanedQuery);
+            setSubmitting(false);
+            resetForm();
+          }}
+        >
+          {({ handleSubmit }) => (
+            <Form
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleSubmit();
+                }
+              }}
+            >
+              <div className={css.searchForm}>
+              <Field
+              as="input"
+                type="text"
+                name="search"
+                id="search"
+                className={css.input}
+                placeholder="Search recipes"
+                />
+              <button type="submit" className={css.button}>
+                Search
+              </button>                
+                </div>
+              <ErrorMessage
+                name="search"
+                component="div"
+                className={css.error}
+              />
+
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );

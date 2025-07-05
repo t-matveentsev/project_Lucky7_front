@@ -1,106 +1,91 @@
-import * as Yup from 'yup';
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { MdOutlineMailOutline, MdVisibility, MdVisibilityOff, MdLock } from 'react-icons/md';
-import { loginThunk } from '../../redux/auth/operation';
-import { usersLogin } from '../../helpers/schema';
-import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
+import { Field, Formik, Form, ErrorMessage } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
+import { usersLogin } from '../../helpers/schema';
+import { loginThunk } from '../../redux/auth/operation';
+import { useState } from 'react';
 import s from './LoginForm.module.css';
 
 
-const usersLogin = Yup.object().shape({
-  email: Yup.string().email('Invalid email format').required('Email is required'),
-  password: Yup.string().min(6, 'Minimum 6 characters').required('Password is required'),
-});
 
-export const LoginForm = () => {
+const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [loginError, setLoginError] = useState(null);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm({
-    resolver: yupResolver(usersLogin),
-    mode: 'onChange',
-  });
-
-  const onSubmit = async data => {
-    try {
-      await dispatch(loginThunk(data)).unwrap();
-      reset();
-      setLoginError(null);
-      navigate('/');
-    } catch (error) {
-       setLoginError('Incorrect email or password. Please try again.');
-    }
+  const initialValues = {
+    email: '',
+    password: '',
   };
 
-   return (
-    <div className={s.backdrop}>
-      <div className={s.modal}>
-        <h2 className={s.title}>Login</h2>
-        <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-          <div className={s.fieldBlock}>
-            <label className={s.label} htmlFor="email">
-              Enter your email address
-            </label>
-            <div className={s.inputWrapper}>
-              <MdOutlineMailOutline className={s.icon} />
-              <input
-                id="email"
-                type="email"
-                placeholder="email@gmail.com"
-                className={`${s.input} ${errors.email ? s.error : ''}`}
-                {...register('email')}
-              />
-            </div>
-            {errors.email && <p className={s.errorText}>{errors.email.message}</p>}
-          </div>
+  const handleSubmit = (values, options) => {
+    dispatch(loginThunk(values))
+      .unwrap()
+      .then(() => {
+        navigate('/', { replace: true });
+        options.resetForm();
+      })
+      .catch(() =>
+        options.setFieldError('password', 'invalid email or password')
+      )
+      .finally(() => options.setSubmitting(false));
+  };
 
-          <div className={s.fieldBlock}>
-            <label className={s.label} htmlFor="password">
-              Create a strong password
-            </label>
-            <div className={s.inputWrapper}>
-              <MdLock className={s.icon} />
-              <input
+  return (
+    <div className={s.formWrapper}>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={usersLogin}
+      >
+        <Form className={s.form}>
+          <h2 className={s.title}>Login</h2>
+
+          <label className={s.label} htmlFor="email">
+            Enter your email address
+            <Field
+              id="email"
+              name="email"
+              type="email"
+              placeholder="email@gmail.com"
+              className={s.input}
+            />
+            <ErrorMessage name="email" component="div" className={s.error} />
+          </label>
+
+          <label className={s.label} htmlFor="password">
+            Create a strong password
+            <div className={s.passwordField}>
+              <Field
                 id="password"
+                name="password"
                 type={showPassword ? 'text' : 'password'}
-                placeholder="********"
-                className={`${s.input} ${errors.password ? s.error : ''}`}
-                {...register('password')}
+                placeholder="*********"
+                className={s.input}
               />
-              <button
-                type="button"
-                className={s.toggleBtn}
-                onClick={() => setShowPassword(prev => !prev)}
-              >
-               {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
-              </button>
+              <span
+  className={s.eyeIcon}
+  onClick={() => setShowPassword(!showPassword)}
+  role="button"
+  aria-label="Toggle password visibility"
+>
+  <svg className={s.icon}>
+    <use xlinkHref={`/icons.svg#${showPassword ? 'icon-' : 'icon-'}`} />
+  </svg>
+</span>
             </div>
-            {errors.password && <p className={s.errorText}>{errors.password.message}</p>}
+            <ErrorMessage name="password" component="div" className={s.error} />
+          </label>
+
+          <button type="submit" className={s.loginBtn}>
+            Login
+          </button>
+
+          <div className={s.redirectInfo}>
+            <p>Don’t have an account? <Link className={s.redirectLink} to="/register">Register</Link></p>
           </div>
-
-           {loginError && <p className={s.errorText}>{loginError}</p>}
-
-          <LoadMoreBtn type="submit" text="Login" variant="brownButton" />
-
-          <p className={s.registerText}>
-            Don’t have an account?{' '}
-            <Link to="/register" className={s.registerLink}>
-              Register
-            </Link>
-          </p>
-        </form>
-      </div>
+        </Form>
+      </Formik>
     </div>
   );
 };

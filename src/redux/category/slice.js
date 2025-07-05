@@ -3,8 +3,6 @@ import { fetchCategory } from './operation';
 
 const initialState = {
   category: [],
-  loading: false,
-  error: null,
 };
 
 const slice = createSlice({

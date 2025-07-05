@@ -1,13 +1,26 @@
+import { NavLink } from 'react-router-dom';
 import css from './RecipeCard.module.css';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+// import clsx from 'clsx'
 
-const RecipeCard = ({ data: { thumb, time, title, description } }) => {
-  const handleLearnMore = () => {
-    console.log(`Learn more about: ${title}`);
-  };
+const RecipeCard = ({
+  data: { _id, thumb, time, title, description, calories = '-' },
+}) => {
+  const navigate = useNavigate();
+
+  const isAuthorized = useSelector(state => state.auth.isLoggedIn);
 
   const handleSave = () => {
-    console.log(`Saved recipe: ${title}`);
+    if (isAuthorized) {
+      navigate(`/recipes/${_id}`);
+    } else {
+      navigate('/auth/login');
+    }
   };
+
+  // const favorites = useSelector(state => state.recipes.favorites);
+  // const isRecipeFavorite = favorites.includes(_id);
 
   return (
     <div className={css.card}>
@@ -15,13 +28,21 @@ const RecipeCard = ({ data: { thumb, time, title, description } }) => {
       <h3 className={css.title}>{title}</h3>
       <p className={css.time}>⏱ {time} minutes</p>
       <p className={css.description}>{description}</p>
+      <p className={css.calories}>~{calories} cals</p>
       <div className={css.actions}>
         <div className={css.btnsWrapper}>
-          <button className={css.learnMore} onClick={handleLearnMore}>
-            Learn More
-          </button>
+          <NavLink className={css.learnMore} to={`/recipes/${_id}`}>
+            <button className={css.learnMoreBtn}>Learn More</button>
+          </NavLink>
+
+          {/* className={clsx(isRecipeFavorite ? "css.saved" : "css.save")} */}
           <button className={css.save} onClick={handleSave}>
-            {/* <SaveIcon /> */}S
+            <svg className='css.saveBtnIcon' width="24" height="24">
+              <use href="../../../public/icons.svg#icon-save-icon"/>
+            </svg>
+            {/* <svg className='css.saveBtnIcon' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.9971 3.5C13.5127 3.50001 14.8786 3.67394 15.8584 3.8457C16.6903 3.9916 17.3397 4.5567 17.5498 5.34277C17.9004 6.65504 18.304 8.87073 18.2441 11.9902C18.1778 15.4445 17.6121 17.8033 17.1396 19.1914C17.0568 19.4345 16.8855 19.5548 16.6943 19.585C16.4923 19.6167 16.2403 19.5493 16.0352 19.3389C15.4376 18.7256 14.6944 18.0001 13.998 17.4248C13.6508 17.138 13.3037 16.8793 12.9844 16.6895C12.6854 16.5118 12.3332 16.3457 11.9971 16.3457C11.6673 16.3457 11.3018 16.5069 10.9824 16.6816C10.6397 16.8692 10.2571 17.1264 9.86816 17.4131C9.0886 17.9877 8.23902 18.7133 7.55176 19.3262C7.32464 19.5285 7.05894 19.5745 6.85156 19.5205C6.65318 19.4688 6.48216 19.3213 6.42188 19.0547C6.10188 17.6365 5.75 15.321 5.75 12C5.75 8.73654 6.13205 6.56481 6.45996 5.30273C6.65768 4.54211 7.28508 3.99622 8.0957 3.85254C9.07802 3.67853 10.4607 3.5 11.9971 3.5Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+</svg> */}
           </button>
         </div>
       </div>

@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../redux/auth/selectors';
 import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 import css from './UserMenu.module.css';
 import LogOutModal from '../LogoutModal/LogoutModal';
 import { useState } from 'react';
+import { selectUser } from '../../redux/auth/selectors';
 
 const getNavStyles = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);

@@ -12,7 +12,7 @@
     padding: 12px;
   }
 
-  .learnMore {
+  .learnMoreBtn {
     background-color: transparent;
     width: 289px;
     height: 40px;
@@ -58,7 +58,7 @@
     padding: 12px;
   }
 
-  .learnMore {
+  .learnMoreBtn {
     background-color: transparent;
     width: 267px;
     height: 40px;
@@ -103,17 +103,35 @@
     padding: 12px;
   }
 
-  .learnMore {
+  /* .learnMore {
     background-color: transparent;
-    width: 289px;
+    width: 216px;
+    height: 40px;
+    border-radius: 8px;
+    border-width: 1px;
+    padding: 8px;
+  } */
+
+  .learnMoreBtn {
+    background-color: transparent;
+    background-color: inherit;
+    width: 216px;
+    height: 100%;
+    border-radius: 8px;
+    border-width: 1px;
+    padding: inherit;
+  }
+
+  .save {
+    background-color: transparent;
+    width: 40px;
     height: 40px;
     border-radius: 8px;
     border-width: 1px;
     padding: 8px;
   }
-
-  .save {
-    background-color: transparent;
+  .saved {
+    background-color: #9b6c43;
     width: 40px;
     height: 40px;
     border-radius: 8px;
@@ -131,5 +149,10 @@
     width: 264px;
     height: 178px;
     border-radius: 16px;
+  }
+
+  .saveBtnIcon {
+    fill: none;
+    stroke: #fff;
   }
 }

@@ -1,25 +1,23 @@
 import RecipeCard from "../RecipeCard/RecipeCard";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import css from "./RecipeList.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { nextPage } from "../../redux/recipes/slice"
+import { useDispatch } from "react-redux";
+import { nextPage, nextPageOnSearch } from "../../redux/recipes/slice"
 
-const RecipeList = ({recipes, total}) => {
+const RecipeList = ({recipes, total, listOnSearch}) => {
   const dispatch = useDispatch();
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
   
   const handleLoadMore = () => {
     dispatch(nextPage());
   };
+  const handleLoadMoreOnSearch = () => {
+    dispatch(nextPageOnSearch());
+  };
+
   const hasMore = recipes.length < total;
 
   return (
     <>
-      {/* {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>} */}
-
-{total && <p className={css.totalRec}>{total} recipes</p>}
       <ul className={css.list}>
         {recipes.map((recipe) => (
           <li key={recipe._id} className={css.item}>
@@ -27,7 +25,9 @@ const RecipeList = ({recipes, total}) => {
           </li>
         ))}
       </ul>
-      {hasMore && <LoadMoreBtn onClick={handleLoadMore} />}
+      {listOnSearch
+  ? (hasMore && <LoadMoreBtn onClick={handleLoadMoreOnSearch} />)
+  : (hasMore && <LoadMoreBtn onClick={handleLoadMore} />)}
     </>
   );
 };
