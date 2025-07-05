@@ -6,8 +6,6 @@ import { loginThunk } from '../../redux/auth/operation';
 import { useState } from 'react';
 import s from './LoginForm.module.css';
 
-
-
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -64,15 +62,17 @@ const LoginForm = () => {
                 className={s.input}
               />
               <span
-  className={s.eyeIcon}
-  onClick={() => setShowPassword(!showPassword)}
-  role="button"
-  aria-label="Toggle password visibility"
->
-  <svg className={s.icon}>
-    <use xlinkHref={`/icons.svg#${showPassword ? 'icon-' : 'icon-'}`} />
-  </svg>
-</span>
+                className={s.eyeIcon}
+                onClick={() => setShowPassword(!showPassword)}
+                role="button"
+                aria-label="Toggle password visibility"
+              >
+                <svg className={s.icon}>
+                  <use
+                    xlinkHref={`/icons.svg#${showPassword ? 'icon-' : 'icon-'}`}
+                  />
+                </svg>
+              </span>
             </div>
             <ErrorMessage name="password" component="div" className={s.error} />
           </label>
@@ -82,7 +82,12 @@ const LoginForm = () => {
           </button>
 
           <div className={s.redirectInfo}>
-            <p>Don’t have an account? <Link className={s.redirectLink} to="/register">Register</Link></p>
+            <p>
+              Don’t have an account?{' '}
+              <Link className={s.redirectLink} to="/auth/register">
+                Register
+              </Link>
+            </p>
           </div>
         </Form>
       </Formik>

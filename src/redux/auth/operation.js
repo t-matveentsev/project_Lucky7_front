@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const api = axios.create({
   baseURL: 'https://project-lucky7.onrender.com/api/',
+  //baseURL: 'http://localhost:3000/api/',
 });
 
 export const setAuthHeader = token => {
@@ -17,7 +18,7 @@ export const registerThunk = createAsyncThunk(
   'auth/register',
   async (body, thunkAPI) => {
     try {
-      const { data } = await api.post('/auth/register', body);
+      const { data } = await api.post('/users/signup', body);
       setAuthHeader(data.token);
       return data;
     } catch (error) {
@@ -41,7 +42,6 @@ export const loginThunk = createAsyncThunk(
     }
   }
 );
-
 
 export const logoutThunk = createAsyncThunk(
   'auth/logout',
@@ -70,3 +70,8 @@ export const refreshUser = createAsyncThunk(
     }
   }
 );
+
+export const logOutThunk = createAsyncThunk('auth/logout', async () => {
+  await axios.post('/auth/logout');
+  clearAuthHeader();
+});

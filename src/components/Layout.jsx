@@ -4,11 +4,11 @@ import Footer from './Footer/Footer';
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <>
       <Header />
       <Suspense fallback={<p>Loading...</p>}>{children}</Suspense>
       <Footer />
-    </div>
+    </>
   );
 };
 
