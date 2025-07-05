@@ -1,13 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import css from './LogoutModal.module.css';
 import { useDispatch } from 'react-redux';
 import { logOutThunk } from '../../redux/auth/operation';
 
 const LogOutModal = ({ onLogOut }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogOut = () => {
     dispatch(logOutThunk());
+    navigate('/');
   };
 
   return (
