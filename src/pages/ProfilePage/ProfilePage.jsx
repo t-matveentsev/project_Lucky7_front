@@ -11,15 +11,18 @@ import {
   selectHasMore,
 } from '../../redux/recipes/selectors';
 import { selectFavorites } from '../../redux/recipes/selectors';
+import { selectToken } from '../../redux/auth/selectors';
 import RecipeList from '../../components/RecipeList/RecipeList';
 import LoadMoreBtn from '../../components/LoadMoreBtn/LoadMoreBtn';
 import Container from '../../components/Container/Container';
 import css from './ProfilePage.module.css';
 import ProfileNavigation from '../../components/ProfileNavigation/ProfileNavigation';
 
+
 const ProfilePage = () => {
   const { recipeType } = useParams();
   const dispatch = useDispatch();
+  const token = useSelector(selectToken);
   const recipes = useSelector(selectRecipes);
   const favorites = useSelector(selectFavorites);
   const loading = useSelector(selectIsLoading);
@@ -28,12 +31,14 @@ const ProfilePage = () => {
   const recipeToShow = isSaved ? favorites : recipes;
 
   useEffect(() => {
+    if (!token)
+      return;   
     if (isSaved) {
       dispatch(fetchFavorites());
     } else {
       dispatch(fetchRecipesByType({ type: recipeType }));
     }
-  }, [dispatch, recipeType, isSaved]);
+  }, [dispatch, recipeType, isSaved, token]);
 
   // useEffect(() => {
   //   dispatch(fetchRecipesByType(recipeType));

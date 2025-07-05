@@ -80,7 +80,7 @@ const Filters = ({
         >
           Filters
           <svg className={s.filterIcon} width="24" height="24">
-            <use href="/icons.svg#filter-icon" />
+            <use href="#filter-icon" />
           </svg>
         </button>
 
