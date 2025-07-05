@@ -6,7 +6,7 @@ export const api = axios.create({
   //baseURL: 'http://localhost:3000/api/',
 });
 
-const setAuthHeader = token => {
+export const setAuthHeader = token => {
   api.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
@@ -32,9 +32,23 @@ export const loginThunk = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const { data } = await api.post('/auth/login', body);
-      setAuthHeader(data.token);
-      console.log(data);
+
+      setAuthHeader(data.token);               // додаємо токен в заголовок axios
+      localStorage.setItem('token', data.token); // ✅ тут зберігаємо токен у localStorage
+
       return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const logoutThunk = createAsyncThunk(
+  'auth/logout',
+  async (__, thunkAPI) => {
+    try {
+      await api.post('/auth/logout');
+      clearAuthHeader();
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
