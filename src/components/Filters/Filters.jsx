@@ -1,26 +1,24 @@
 import { useSelector } from 'react-redux';
 import { selectIngredients } from '../../redux/ingredients/selectors';
 import { selectCategory } from '../../redux/category/selectors';
-import { useState } from 'react';
 
-const Filters = () => {
+const Filters = ({
+  selectedIngredient,
+  selectedCategory,
+  setSelectedIngredient,
+  setSelectedCategory,
+  handleReset,
+  total,
+}) => {
   const ingredients = useSelector(selectIngredients);
   const category = useSelector(selectCategory);
 
-  const [selectedIngredients, setSelectedIngredient] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
-
-  const handleReset = () => {
-    setSelectedIngredient('');
-    setSelectedCategory('');
-  };
-
   return (
     <div>
-      <p>- recipes</p>
+      <p>{total} recipes</p>
       <button onClick={() => handleReset()}>reset filters</button>
       <select
-        value={selectedIngredients}
+        value={selectedIngredient}
         onChange={e => setSelectedIngredient(e.target.value)}
       >
         <option value="">Ingredient</option>
