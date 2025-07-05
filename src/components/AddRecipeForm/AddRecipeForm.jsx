@@ -100,7 +100,8 @@ const AddRecipeForm = () => {
     actions.resetForm();
     setShowList(false);
   };
-
+  console.log('Categories:', categories);
+  console.log('Request status:', categoryRequest);
   if (!categories.length || categoryRequest !== 'fulfilled') {
     return <div>Loading...</div>;
   }
@@ -111,7 +112,7 @@ const AddRecipeForm = () => {
       validationSchema={addRecipeSchema}
     >
       {({ values, setFieldValue, isValid, dirty }) => (
-        <Form className={`${css.recipeForm} ${css.container}`}>
+        <Form className={`${css.recipeForm}`}>
           <h2 className={css.title}>Add Recipe</h2>
           <div className={css.recipeInfo}>
             <div className={css.wrapperPhoto}>
@@ -119,8 +120,8 @@ const AddRecipeForm = () => {
                 Upload Photo
               </h3>
               <label htmlFor="photoUpload" className={css.customUpload}>
-                <svg className={css.svg}>
-                  <use href="/public/icons.svg#icon-camera" />
+                <svg className={css.icon}>
+                  <use href="/icon/icons.svg#icon-camera" />
                 </svg>
               </label>
               <input type="file" id="photoUpload" className={css.photo} />
@@ -149,7 +150,7 @@ const AddRecipeForm = () => {
                 id={descriptionId}
                 as="textarea"
                 placeholder="Enter a brief description of your recipe"
-                className={`${css.input} ${css.textarea}`}
+                className={css.textarea}
               />
               <ErrorMessage
                 className={css.errorMessage}
@@ -292,7 +293,7 @@ const AddRecipeForm = () => {
                 as="textarea"
                 name="instructions"
                 placeholder="Enter a text"
-                className={`${css.input} ${css.textarea}`}
+                className={css.textarea}
               />
               <ErrorMessage
                 className={css.errorMessage}
