@@ -1,7 +1,7 @@
 import css from './RecipeDetails.module.css';
 import Container from '../Container/Container.jsx';
 
-const RecipeDetails = ({ recipe }) => {
+const RecipeDetails = ({ recipe, handleClick }) => {
   console.log('!!!', recipe);
   return (
     <Container>
@@ -33,8 +33,10 @@ const RecipeDetails = ({ recipe }) => {
                 </li>
               </ul>
             </div>
-            <button className={css.button} type="button">
-              <span className={css.buttonText}>Save</span>
+            <button onClick={handleClick} className={css.button} type="button">
+              <span className={css.buttonText}>
+                {recipe.isFavorite ? 'Remove' : 'Save'}
+              </span>
               <svg class={css.icon} width="24" height="24">
                 <use href="../../../public/icons.svg#icon-save-icon"></use>
               </svg>
