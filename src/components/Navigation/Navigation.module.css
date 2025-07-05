@@ -1,0 +1,11 @@
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
