@@ -1,50 +1,54 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  loginThunk,
-  logoutThunk,
-  refreshUser,
   registerThunk,
+  loginThunk,
+  refreshThunk,
+  logoutThunk,
 } from './operation';
 
 const initialState = {
-  user: {
-    name: '',
-    email: '',
-  },
+  user: { name: '', email: '' },
   token: '',
   isLoggedIn: false,
   isRefreshing: false,
 };
 
-const slice = createSlice({
+const authSlice = createSlice({
   name: 'auth',
   initialState,
   extraReducers: builder => {
     builder
-      .addCase(registerThunk.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+
+      .addCase(registerThunk.fulfilled, (state, { payload }) => {
+        state.token = payload.token;
+        state.user = payload.user;
         state.isLoggedIn = true;
       })
-      .addCase(loginThunk.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+
+      .addCase(loginThunk.fulfilled, (state, { payload }) => {
+        state.token = payload.token;
+        state.user = payload.user;
         state.isLoggedIn = true;
-        console.log(action.payload);
       })
-      .addCase(refreshUser.fulfilled, (state, action) => {
-        state.user = action.payload;
-        state.isLoggedIn = true;
-        state.isRefreshing = false;
-      })
-      .addCase(refreshUser.pending, state => {
+
+      .addCase(refreshThunk.pending, state => {
         state.isRefreshing = true;
       })
-      .addCase(refreshUser.rejected, state => {
+      .addCase(refreshThunk.fulfilled, (state, { payload }) => {
+        state.token = payload.token;
+        state.user = payload.user;
+        state.isLoggedIn = true;
         state.isRefreshing = false;
       })
+      .addCase(refreshThunk.rejected, state => {
+        state.isRefreshing = false;
+        state.token = '';
+        state.user = { name: '', email: '' };
+        state.isLoggedIn = false;
+      })
+
       .addCase(logoutThunk.fulfilled, () => initialState);
   },
 });
 
-export const authReducer = slice.reducer;
+export const authReducer = authSlice.reducer;

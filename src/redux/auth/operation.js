@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const api = axios.create({
   baseURL: 'https://project-lucky7.onrender.com/api/',
+  withCredentials: true,
 });
 
 const setAuthHeader = token => {
@@ -34,11 +35,23 @@ export const loginThunk = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const { data } = await api.post('/auth/login', body);
-      setAuthHeader(data.data.accessToken);
-      return {
-        token: data.data.accessToken,
-        user: data.data.user || {},
-      };
+      const { accessToken, user } = data.data;
+      setAuthHeader(accessToken);
+      return { token: accessToken, user };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const refreshThunk = createAsyncThunk(
+  'auth/refresh',
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await api.post('/auth/refresh');
+      const { accessToken, user } = data.data;
+      setAuthHeader(accessToken);
+      return { token: accessToken, user };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -51,21 +64,6 @@ export const logoutThunk = createAsyncThunk(
     try {
       await api.post('/auth/logout');
       clearAuthHeader();
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-
-export const refreshUser = createAsyncThunk(
-  'auth/refresh',
-  async (_, thunkAPI) => {
-    try {
-      const savedToken = thunkAPI.getState().auth.token;
-      if (!savedToken) return thunkAPI.rejectWithValue('Token is not exist!');
-      setAuthHeader(savedToken);
-      const { data } = await api.get('/auth/refresh');
-      return data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
