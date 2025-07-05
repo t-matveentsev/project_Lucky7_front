@@ -1,20 +1,19 @@
-import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
-import { useEffect, useId, useMemo, useState } from 'react';
-import { addRecipeSchema } from '../../helpers/schema';
-
 import css from './AddRecipeForm.module.css';
 import RecipeIngredientsList from '../RecipeIngredientsList/RecipeIngredientsList';
 import DropdownField from '../DropdownField/DropdownField';
 
-import { fetchCategory } from '../../redux/category/operation';
+import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
+import { fetchData as fetchIngredients } from '../../redux/ingredients/operation';
+import { useEffect, useId, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectIngredients } from '../../redux/ingredients/selectors';
+import { addRecipeSchema } from '../../helpers/schema';
+import { fetchCategory } from '../../redux/category/operation';
+import { addRecipe } from '../../redux/recipes/operations';
 import {
   selectCategory,
   selectRequestState as selectCategoryRequest,
 } from '../../redux/category/selectors';
-import { selectIngredients } from '../../redux/ingredients/selectors';
-import { fetchIngredients } from '../../redux/ingredients/operation';
-import { addRecipe } from '../../redux/recipes/operations';
 
 const initialValues = {
   title: '',
@@ -37,7 +36,6 @@ const AddRecipeForm = () => {
   const dispatch = useDispatch();
   const categories = useSelector(selectCategory);
   const ingredientList = useSelector(selectIngredients);
-
   const categoryRequest = useSelector(selectCategoryRequest);
 
   const memoizedInitialValues = useMemo(
