@@ -13,9 +13,9 @@ export default function RecipeIngredientsList({
       </div>
       {ingredients.length > 0 &&
         ingredients.map((ingr, index) => (
-          <div key={ingr.tmpId} className={css.ingredientRow}>
+          <div key={ingr.id} className={css.ingredientRow}>
             <div className={css.components}>{ingr.name}</div>
-            <div className={css.components}>{ingr.amount}</div>
+            <div className={css.components}>{ingr.measure}</div>
             <button onClick={() => onIngredientDeleted(index)}>🗑️</button>
           </div>
         ))}
