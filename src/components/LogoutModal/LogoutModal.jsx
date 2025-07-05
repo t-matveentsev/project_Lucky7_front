@@ -16,7 +16,7 @@ const LogOutModal = ({ onLogOut }) => {
     <div className={css.modal}>
       <button className={css.close} onClick={onLogOut}>
         <svg width="16" height="16">
-          <use href="../../../icons.svg#icon-closer"></use>
+          <use href="../../../icons/icons.svg#icon-closer"></use>
         </svg>
       </button>
       <p className={css.quest}>Are you sure?</p>

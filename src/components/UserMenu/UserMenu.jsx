@@ -45,7 +45,7 @@ const UserMenu = () => {
             <p className={css.name}>{name}</p>
             <button className={css.logout} onClick={onLogOut}>
               <svg width="17" height="16">
-                <use href="../../../icons.svg#icon-logout"></use>
+                <use href="../../../icons/icons.svg#icon-logout"></use>
               </svg>
             </button>
           </div>
