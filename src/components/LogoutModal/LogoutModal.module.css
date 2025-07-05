@@ -1,0 +1,129 @@
+.modal {
+  border-radius: 32px;
+  background-color: var(--card-background);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.close {
+  position: absolute;
+  top: 21px;
+  background-color: var(--card-background);
+  border: none;
+  padding: 0;
+  stroke: var(--black);
+}
+
+.quest {
+  font-weight: 600;
+  font-size: 32px;
+  text-align: center;
+  color: var(--black);
+}
+
+.text {
+  line-height: 1.55;
+  text-align: center;
+  color: var(--black);
+}
+
+.btnsWrp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cancel {
+  border: 1px solid var(--black);
+  border-radius: 8px;
+  font-weight: 600;
+  color: var(--black);
+  text-align: center;
+  width: 100%;
+  transition: opacity 250ms ease-in-out, box-shadow 250ms ease-in-out;
+}
+
+.logout {
+  border-radius: 8px;
+  background-color: #c80000;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  transition: opacity 250ms ease-in-out, box-shadow 250ms ease-in-out;
+}
+
+@media screen and (max-width: 767px) {
+  .modal {
+    padding: 56px 24px 32px 24px;
+    width: 92%;
+    max-width: 362px;
+  }
+
+  .close {
+    right: 21px;
+  }
+
+  .btnsWrp {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cancel {
+    padding: 16px;
+    font-size: 18px;
+  }
+
+  .logout {
+    padding: 16px;
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .modal {
+    padding: 56px 32px 32px 32px;
+    width: 420px;
+  }
+
+  .close {
+    right: 37px;
+  }
+
+  .btnsWrp {
+    flex-direction: row-reverse;
+    gap: 27px;
+  }
+
+  .cancel {
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+
+  .logout {
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .cancel:hover {
+    opacity: 0.6;
+  }
+
+  .cancel:focus {
+    box-shadow: 0 0 0 6px #4e46b41f, 0 0 0 2px var(--white);
+  }
+
+  .logout:hover {
+    opacity: 0.6;
+  }
+
+  .logout:focus {
+    box-shadow: 0 0 0 6px #4e46b41f, 0 0 0 2px var(--white);
+  }
+}

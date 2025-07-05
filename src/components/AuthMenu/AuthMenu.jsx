@@ -8,19 +8,21 @@ const getNavStyles = ({ isActive }) => {
 
 const AuthMenu = () => {
   return (
-    <ul>
-      <li>
+    <ul className={css.menu}>
+      <li className={css.item}>
         <NavLink className={getNavStyles} to="/">
           Recipes
         </NavLink>
       </li>
-      <li>
+      <li className={css.item}>
         <NavLink className={getNavStyles} to="/auth/login">
           Log in
         </NavLink>
       </li>
-      <li>
-        <NavLink to="/auth/register">Register</NavLink>
+      <li className={css.item}>
+        <NavLink className={css.notBtn} to="/auth/register">
+          Register
+        </NavLink>
       </li>
     </ul>
   );
