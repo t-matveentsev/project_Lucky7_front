@@ -16,7 +16,8 @@ import {
 } from 'redux-persist';
 
 const authPersistConfig = {
-  key: 'auth',
+  key: 'auth-data',
+  version: 1,
   storage,
   whitelist: ['token'],
 };

@@ -86,3 +86,13 @@ export const usersRegister = Yup.object().shape({
     'You must accept the terms and conditions'
   ),
 });
+
+export const validationSchema = Yup.object().shape({
+  search: Yup.string()
+    .required('Your query must contain some part of a recipe title.')
+    .min(2, 'Search term must be at least 2 characters.')
+    .matches(
+      /^[a-zA-Z0-9\s\-_]+$/,
+      'Recipe title must only contain letters, numbers, spaces, hyphens, or underscores.'
+    ),
+});
