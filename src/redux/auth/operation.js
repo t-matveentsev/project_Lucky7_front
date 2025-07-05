@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const api = axios.create({
   baseURL: 'https://project-lucky7.onrender.com/api/',
+  //baseURL: 'http://localhost:3000/api/',
 });
 
 const setAuthHeader = token => {
