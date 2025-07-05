@@ -28,7 +28,7 @@ const Header = () => {
           onClick={toggleMenu}
         >
           <svg width="20" height="14">
-            <use href="../../../icons.svg#icon-burger"></use>
+            <use href="../../../icons/icons.svg#icon-burger"></use>
           </svg>
         </button>
         <button
@@ -36,7 +36,7 @@ const Header = () => {
           onClick={toggleMenu}
         >
           <svg width="22" height="22">
-            <use href="../../../icons.svg#icon-close"></use>
+            <use href="../../../icons/icons.svg#icon-close"></use>
           </svg>
         </button>
       </nav>

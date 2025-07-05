@@ -6,7 +6,7 @@ const Navigation = () => {
     <div className={css.nav}>
       <Link className={css.logo} to="/">
         <svg width="32" height="30">
-          <use href="../../../icons.svg#icon-logo"></use>
+          <use href="../../../icons/icons.svg#icon-logo"></use>
         </svg>
       </Link>
       <Link className={css.name} to="/">
