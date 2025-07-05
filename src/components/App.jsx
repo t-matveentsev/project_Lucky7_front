@@ -44,8 +44,14 @@ export default function App() {
         <Route path="/not-found" element={<NotFoundPage />} />
         <Route path="/auth/register" element={<RegisterPage />} />
         <Route path="/auth/login" element={<LoginPage />} />
-        {/*Temporarily not private*/}
-        <Route path="/add-recipe" element={<AddRecipePage />} />
+        <Route
+          path="/add-recipe"
+          element={
+            <PrivateRoute>
+              <AddRecipePage />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Layout>
   );

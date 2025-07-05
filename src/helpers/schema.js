@@ -1,5 +1,13 @@
 import * as Yup from 'yup';
 
+const MAX_PHOTO_SIZE = 2 * 1024 * 1024; //2MB
+const VALID_PHOTO_FORMATS = [
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
+];
+
 const onlyLetters = /^[A-Za-zА-Яа-яЄєІіЇїҐґ-\s]+$/;
 const onlyNumber = /^\d+$/;
 const onlyEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -36,7 +44,7 @@ export const addRecipeSchema = Yup.object().shape({
     .of(
       Yup.object().shape({
         name: Yup.string().required('Ingredient name is required').max(20),
-        amount: Yup.string()
+        measure: Yup.string()
           .required('Amount is required')
           // .matches(onlyUnits, "Only units of measurement: ml, l, g")
           .min(2)
@@ -49,6 +57,24 @@ export const addRecipeSchema = Yup.object().shape({
     .required('Instructions are required')
     .max(1200)
     .min(10, 'Instructions must be at least 10 characters'),
+
+  thumb: Yup.mixed()
+    .nullable()
+    .notRequired()
+    .test(
+      'fileSize',
+      'Image size must be less than 2MB',
+
+      value => {
+        if (!value || typeof value !== 'object' || !value.size) return false;
+        return value.size <= MAX_PHOTO_SIZE;
+      }
+    )
+    .test(
+      'fileType',
+      'Unsupported file type',
+      value => value && VALID_PHOTO_FORMATS.includes(value.type)
+    ),
 });
 
 export const usersLogin = Yup.object().shape({
