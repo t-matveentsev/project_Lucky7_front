@@ -31,12 +31,24 @@ export const loginThunk = createAsyncThunk(
   'auth/login',
   async (body, thunkAPI) => {
     try {
-      const { data } = await api.post('/auth/login', body);
+      const response = await api.post('/auth/login', body);
+      const { accessToken, user } = response.data.data; // ← тут ключове
 
-      setAuthHeader(data.token);               // додаємо токен в заголовок axios
-      localStorage.setItem('token', data.token); // ✅ тут зберігаємо токен у localStorage
+      setAuthHeader(accessToken);
+      localStorage.setItem('token', accessToken);
 
-      return data;
+      return { token: accessToken, user };
+      // const { data } = await api.post('/auth/login', body);
+      // console.log('LOGIN RESPONSE:', data);
+      // setAuthHeader(data.token);
+      // console.log(data);
+      // return data;
+
+      // const { data } = await api.post('/auth/login', body);
+      //   setAuthHeader(data.token);               // додаємо токен в заголовок axios
+      //   localStorage.setItem('token', data.token); // ✅ тут зберігаємо токен у localStorage
+      //   return data;
+
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -56,12 +68,14 @@ export const logoutThunk = createAsyncThunk(
 );
 
 export const refreshUser = createAsyncThunk(
+  // 'users',
   'auth/refresh',
   async (_, thunkAPI) => {
     try {
       const savedToken = thunkAPI.getState().auth.token;
       if (!savedToken) return thunkAPI.rejectWithValue('Token is not exist!');
       setAuthHeader(savedToken);
+      // const { data } = await api.get('/users');
       const { data } = await api.get('/auth/refresh');
       console.log(data.data);
       return data.data;

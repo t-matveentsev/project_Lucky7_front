@@ -12,9 +12,9 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 const token = localStorage.getItem('token');
 if (token) {
-  setAuthHeader(token); // Set the token in the axios header for all requests
-  // api.defaults.headers.common.Authorization = `Bearer ${token}`;
+  setAuthHeader(token); // ← обовʼязково
 }
+    // api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
