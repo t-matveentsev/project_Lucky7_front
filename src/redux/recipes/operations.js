@@ -44,11 +44,15 @@ export const fetchAllRecipes = createAsyncThunk(
 );
 
 export const fetchRecipesForQuery = createAsyncThunk(
-
-  "recipes/fetchQueryRecipes",
-  async ({ searchQuery, pageOnSearch = 1 }, thunkAPI) => {
-  try {
-    const response = await api.get(`/recipes/search?query=${searchQuery}&page=${pageOnSearch}`);
+  'recipes/fetchQueryRecipes',
+  async (
+    { searchQuery, pageOnSearch = 1, selectedCategory, selectedIngredient },
+    thunkAPI
+  ) => {
+    try {
+      const response = await api.get(
+        `/recipes/search?query=${searchQuery}&page=${pageOnSearch}&category=${selectedCategory}&ingredient=${selectedIngredient.toLowerCase()}`
+      );
 
       return {
         results: response.data.results,
@@ -61,18 +65,19 @@ export const fetchRecipesForQuery = createAsyncThunk(
   }
 );
 
-
 export const fetchFavorites = createAsyncThunk(
-  "recipes/fetchFavRec",
+  'recipes/fetchFavRec',
   async (_, thunkAPI) => {
-  try {
-    const response = await api.get(`/recipes/favorites`);
+    try {
+      const response = await api.get(`/recipes/favorites`);
       return {
         results: response.data.results,
       };
-    } catch (error) { return thunkAPI.rejectWithValue(error.message) }
-  })
-
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
 export const addRecipe = createAsyncThunk(
   'recipes/addRecipe',
@@ -85,4 +90,3 @@ export const addRecipe = createAsyncThunk(
     }
   }
 );
-
