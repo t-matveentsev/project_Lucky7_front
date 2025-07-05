@@ -11,10 +11,6 @@ import { refreshUser } from '../redux/auth/operation.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsRefreshing } from '../redux/auth/selectors.js';
 
-
-
-
-
 const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
 const AddRecipePage = lazy(() =>
   import('../pages/AddRecipePage/AddRecipePage.jsx')

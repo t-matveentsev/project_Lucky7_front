@@ -133,7 +133,7 @@ const AddRecipeForm = () => {
 
     formData.append('thumb', recipe.thumb);
 
-    dispatch(addRecipe(recipe));
+    dispatch(addRecipe(formData));
     actions.resetForm();
     setShowList(false);
 

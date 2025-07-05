@@ -100,7 +100,9 @@ export const addRecipe = createAsyncThunk(
   'recipes/addRecipe',
   async (recipe, thunkAPI) => {
     try {
-      const response = await api.post('/recipes/own', recipe);
+      const response = await api.post('/recipes/own', recipe, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
