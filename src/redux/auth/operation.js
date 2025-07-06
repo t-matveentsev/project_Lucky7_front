@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const api = axios.create({
   baseURL: 'https://project-lucky7.onrender.com/api/',
-  //baseURL: 'http://localhost:3000/api/',
+  // baseURL: 'http://localhost:3000/api/',
 });
 
 export const setAuthHeader = token => {
@@ -48,24 +48,23 @@ export const loginThunk = createAsyncThunk(
       //   setAuthHeader(data.token);               // додаємо токен в заголовок axios
       //   localStorage.setItem('token', data.token); // ✅ тут зберігаємо токен у localStorage
       //   return data;
-
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-export const logoutThunk = createAsyncThunk(
-  'auth/logout',
-  async (__, thunkAPI) => {
-    try {
-      await api.post('/auth/logout');
-      clearAuthHeader();
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
+// export const logoutThunk = createAsyncThunk(
+//   'auth/logout',
+//   async (__, thunkAPI) => {
+//     try {
+//       await api.post('/auth/logout');
+//       clearAuthHeader();
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error.message);
+//     }
+//   }
+// );
 
 export const refreshUser = createAsyncThunk(
   // 'users',
@@ -86,6 +85,6 @@ export const refreshUser = createAsyncThunk(
 );
 
 export const logOutThunk = createAsyncThunk('auth/logout', async () => {
-  await axios.post('/auth/logout');
+  await api.post('/auth/logout');
   clearAuthHeader();
 });
