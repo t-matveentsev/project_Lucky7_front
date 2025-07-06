@@ -43,9 +43,9 @@ export default function App() {
         <Route
           path="/add-recipe"
           element={
-            <PrivateRoute>
-              <AddRecipePage />
-            </PrivateRoute>
+            // <PrivateRoute>
+            <AddRecipePage />
+            // </PrivateRoute>
           }
         />
       </Routes>

@@ -5,13 +5,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Triangle } from 'react-loader-spinner';
 import { nextPage, nextPageOnSearch } from '../../redux/recipes/slice';
 import { selectIsLoading } from '../../redux/recipes/selectors';
-
-import s from './RecipeList.module.css';
+import {fetchFavorites} from '../../redux/recipes/operations';
+import { useEffect } from "react";
 
 const RecipeList = ({ recipes, total, listOnSearch }) => {
   const loader = useSelector(selectIsLoading);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [dispatch]);
+  
   const handleLoadMore = () => {
     dispatch(nextPage());
   };
@@ -24,7 +28,7 @@ const RecipeList = ({ recipes, total, listOnSearch }) => {
   return (
     <div>
       {loader && (
-        <div className={s.loader}>
+        <div className={css.loader}>
           <Triangle
             visible={true}
             height="80"
