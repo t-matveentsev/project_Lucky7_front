@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchRecipeById } from '../../services/recipe.js';
 import {
   addFavoriteRecipe,
   removeFavoriteRecipe,
 } from '../../redux/recipes/operations.js';
-
+import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import RecipeDetails from '../../components/RecipeDetails/RecipeDetails';
 
 const RecipeViewPage = () => {
@@ -17,6 +17,8 @@ const RecipeViewPage = () => {
   const [recipeById, setRecipeById] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   useEffect(() => {
     setIsLoading(true);
@@ -30,12 +32,16 @@ const RecipeViewPage = () => {
   }, [recipeId]);
 
   const handleClick = () => {
-    if (recipeById.isFavorite) {
-      dispatch(removeFavoriteRecipe(recipeId));
-      setRecipeById(prev => ({ ...prev, isFavorite: false }));
+    if (!isLoggedIn) {
+      navigate('/auth/login');
     } else {
-      dispatch(addFavoriteRecipe(recipeId));
-      setRecipeById(prev => ({ ...prev, isFavorite: true }));
+      if (recipeById.isFavorite) {
+        dispatch(removeFavoriteRecipe(recipeId));
+        setRecipeById(prev => ({ ...prev, isFavorite: false }));
+      } else {
+        dispatch(addFavoriteRecipe(recipeId));
+        setRecipeById(prev => ({ ...prev, isFavorite: true }));
+      }
     }
   };
 
