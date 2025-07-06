@@ -41,7 +41,11 @@ const Header = () => {
         </button>
       </nav>
       <div className={clsx(css.mobMenu, `${isOpen ? css.open : ''}`)}>
-        {isLoggedIn ? <UserMenu /> : <AuthMenu />}
+        {isLoggedIn ? (
+          <UserMenu onLink={toggleMenu} />
+        ) : (
+          <AuthMenu onLink={toggleMenu} />
+        )}
       </div>
     </header>
   );
