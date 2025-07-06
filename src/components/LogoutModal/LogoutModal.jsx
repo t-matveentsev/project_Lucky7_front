@@ -3,13 +3,14 @@ import css from './LogoutModal.module.css';
 import { useDispatch } from 'react-redux';
 import { logOutThunk } from '../../redux/auth/operation';
 
-const LogOutModal = ({ onLogOut }) => {
+const LogOutModal = ({ onLogOut, onBtn }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogOut = () => {
     dispatch(logOutThunk());
     navigate('/');
+    onBtn();
   };
 
   return (

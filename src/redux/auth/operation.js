@@ -2,16 +2,16 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const api = axios.create({
-  baseURL: '/api/',
-  withCredentials: true,
+  baseURL: 'https://project-lucky7.onrender.com/api/',
+  // baseURL: 'http://localhost:3000/api/',
 });
 
 export const setAuthHeader = token => {
   api.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
-export const clearAuthHeader = () => {
-  delete api.defaults.headers.common.Authorization;
+const clearAuthHeader = () => {
+  api.defaults.headers.common.Authorization = ``;
 };
 
 export const registerThunk = createAsyncThunk(
@@ -44,41 +44,37 @@ export const loginThunk = createAsyncThunk(
   }
 );
 
+// export const logoutThunk = createAsyncThunk(
+//   'auth/logout',
+//   async (__, thunkAPI) => {
+//     try {
+//       await api.post('/auth/logout');
+//       clearAuthHeader();
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error.message);
+//     }
+//   }
+// );
+
 export const refreshUser = createAsyncThunk(
+  // 'users',
   'auth/refresh',
   async (_, thunkAPI) => {
     try {
-      const sessionId = localStorage.getItem('sessionId');
-      const refreshToken = localStorage.getItem('refreshToken');
-      if (!sessionId || !refreshToken) {
-        return thunkAPI.rejectWithValue('No sessionId or refreshToken stored');
-      }
-
-      const { data } = await api.post('/auth/refresh', {
-        sessionId,
-        refreshToken,
-      });
-
-      const { accessToken, user } = data.data;
-      setAuthHeader(accessToken);
-
-      return { token: accessToken, user };
+      const savedToken = thunkAPI.getState().auth.token;
+      if (!savedToken) return thunkAPI.rejectWithValue('Token is not exist!');
+      setAuthHeader(savedToken);
+      // const { data } = await api.get('/users');
+      const { data } = await api.get('/auth/refresh');
+      console.log(data.data);
+      return data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-export const logOutThunk = createAsyncThunk(
-  'auth/logout',
-  async (_, thunkAPI) => {
-    try {
-      await api.post('/auth/logout');
-      clearAuthHeader();
-      localStorage.removeItem('refreshToken');
-      localStorage.removeItem('sessionId');
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
+export const logOutThunk = createAsyncThunk('auth/logout', async () => {
+  await api.post('/auth/logout');
+  clearAuthHeader();
+});
