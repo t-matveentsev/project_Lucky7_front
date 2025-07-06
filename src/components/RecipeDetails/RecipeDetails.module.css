@@ -158,6 +158,7 @@ li:last-child {
   .recipeContainer {
     display: flex;
     flex-direction: row-reverse;
+    justify-content: space-between;
   }
   .generalContainer {
     width: 393px;
