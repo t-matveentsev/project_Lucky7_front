@@ -101,6 +101,13 @@ const HomePage = () => {
       <SearchRecipes onSearch={setSearchQuery} />
 
       <Container>
+        <div className={css.recipesTitle}>
+          {!searchQuery ? (
+            <p>Recipes</p>
+          ) : (
+            <p>{`Search Results for "${searchQuery}"`}</p>
+          )}
+        </div>
         <Filters
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}

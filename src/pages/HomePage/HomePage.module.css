@@ -3,12 +3,24 @@
   .noResults {
     font-size: 16px;
   }
+
+  .recipesTitle {
+    font-size: 32px;
+    font-weight: 600;
+    margin-top: 48px;
+  }
 }
 
 /* ======================= TABLET ================================= */
 @media screen and (min-width: 768px) {
   .noResults {
     font-size: 20px;
+  }
+
+  .recipesTitle {
+    font-size: 40px;
+    font-weight: 600;
+    margin-top: 48px;
   }
 }
 

@@ -37,11 +37,11 @@ const Filters = ({
 
   return (
     <div className={s.filterWrapper}>
-      <p>{total} recipes</p>
+      <p className={s.totalText}>{total} recipes</p>
 
       <div className={s.inlineFilters}>
         <button className={s.resetButton} onClick={handleReset}>
-          Reset Filters
+          Reset filters
         </button>
 
         <select
@@ -80,7 +80,7 @@ const Filters = ({
         >
           Filters
           <svg className={s.filterIcon} width="24" height="24">
-            <use href="#filter-icon" />
+            <use href="../../../icons/icons.svg#filter-icon" />
           </svg>
         </button>
 
@@ -93,7 +93,7 @@ const Filters = ({
                 setIsOpen(false);
               }}
             >
-              Reset Filters
+              Reset filters
             </button>
 
             <select
