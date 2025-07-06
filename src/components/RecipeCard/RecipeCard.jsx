@@ -20,9 +20,9 @@ const RecipeCard = ({
   const isAuthorized = useSelector(state => state.auth.isLoggedIn);
   const favorites = useSelector(state => state.recipes.favorites);
 
-  useEffect(() => {
-    dispatch(fetchFavorites());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchFavorites());
+  // }, [dispatch]);
 
   const [isRecipeFavorite, setIsRecipeFavorite] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
