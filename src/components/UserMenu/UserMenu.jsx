@@ -55,7 +55,7 @@ const UserMenu = ({ onLink }) => {
         </li>
       </ul>
       <div className={clsx(css.modalBack, `${isOpen ? css.open : ''}`)}>
-        <LogOutModal onLogOut={onLogOut} />
+        <LogOutModal onLogOut={onLogOut} onBtn={onLink} />
       </div>
     </>
   );
