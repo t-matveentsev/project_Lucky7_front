@@ -5,7 +5,7 @@ import css from './Layout.module.css';
 
 const Layout = ({ children }) => {
   return (
-    <div className={css.div}>
+    <div className={css.wrapper}>
       <Header />
       <Suspense fallback={<p>Loading...</p>}>{children}</Suspense>
       <Footer />

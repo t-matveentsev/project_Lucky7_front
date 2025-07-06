@@ -115,7 +115,7 @@ export const usersRegister = Yup.object().shape({
 
 export const validationSchema = Yup.object().shape({
   search: Yup.string()
-    .required('Your query must contain some part of a recipe title.')
+    .required('First you need to fill in the search field.')
     .min(2, 'Search term must be at least 2 characters.')
     .matches(
       /^[a-zA-Z0-9\s\-_]+$/,

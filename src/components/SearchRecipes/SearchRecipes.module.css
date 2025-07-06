@@ -20,7 +20,7 @@
   }
 
   .searchForm {
-    /* width: 329px; */
+    width: 330px;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -53,7 +53,7 @@
     padding: 12px 16px;
     font-size: 16px;
     font-weight: 500;
-    background-color: #9b6c43;
+    background-color: var(--light-brown);
     color: white;
     border: none;
     border-radius: 8px;
@@ -115,7 +115,7 @@
     padding: 12px 16px;
     font-size: 16px;
     font-weight: 500;
-    background-color: #9b6c43;
+    background-color: var(--light-brown);
     color: white;
     border: none;
     border-radius: 8px;
@@ -177,7 +177,7 @@
     padding: 12px 16px;
     font-size: 16px;
     font-weight: 500;
-    background-color: #9b6c43;
+    background-color: var(--light-brown);
     color: white;
     border: none;
     border-radius: 8px;
