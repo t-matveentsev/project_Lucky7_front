@@ -1,13 +1,32 @@
+.hero {
+  background-color: #000000;
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.3) 100%
+    ),
+    url('/Banner.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 /* ===================== MOBILE ===================================*/
 @media screen and (max-width: 767px) {
+  .formikStyle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .searchForm {
+    /* width: 329px; */
     display: flex;
     flex-direction: column;
     gap: 24px;
     flex-wrap: nowrap;
     align-items: center;
     justify-items: center;
-    width: 329px;
   }
 
   .input {
@@ -18,7 +37,8 @@
     border: 1px solid #d9d9d9;
     border-radius: 8px;
     background-color: white;
-    width: 329px;
+    width: 100%;
+    max-width: 330px;
     height: 48px;
     box-sizing: border-box;
     align-items: center;
@@ -27,7 +47,8 @@
   }
 
   .button {
-    width: 329px;
+    width: 100%;
+    max-width: 330px;
     height: 46px;
     padding: 12px 16px;
     font-size: 16px;
@@ -40,21 +61,12 @@
     align-items: center;
     box-sizing: border-box;
     margin: 0 auto;
+    margin-bottom: 10px;
   }
 
-  .hero {
-    background-color: #000000;
-    background-image: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0.9) 0%,
-        rgba(0, 0, 0, 0.3) 100%
-      ),
-      url('/Banner-mob.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100%;
+  .searchWrapper {
     max-width: 768px;
+    width: 100%;
     height: 513px;
     margin: 0 auto;
     padding: 128px 32px;
@@ -69,36 +81,30 @@
     margin: 0 auto;
     margin-bottom: 24px;
   }
-
-  .error {
-    color: #cd1f1f;
-    /* color: #c80000; */
-    font-size: 14px;
-    margin-top: 4px;
-    width: 329px;
-  }
 }
 
 /* ======================= TABLET ================================= */
 @media screen and (min-width: 768px) {
   .searchForm {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 24px;
     flex-wrap: nowrap;
     align-items: center;
     width: 671px;
+    height: 46px;
+    margin-bottom: 10px;
   }
 
   .input {
-    padding: 12px 16px;
+    padding: 10px 12px;
     font-size: 18px;
     font-weight: 500;
     color: #9f9f9f;
     border: 1px solid #d9d9d9;
     border-radius: 8px;
     background-color: white;
-    width: 471px;
-    height: 46px;
     box-sizing: border-box;
     align-items: center;
     justify-items: left;
@@ -106,7 +112,6 @@
 
   .button {
     width: 176px;
-    height: 46px;
     padding: 12px 16px;
     font-size: 16px;
     font-weight: 500;
@@ -119,19 +124,9 @@
     box-sizing: border-box;
   }
 
-  .hero {
-    background-color: #000000;
-    background-image: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0.9) 0%,
-        rgba(0, 0, 0, 0.3) 100%
-      ),
-      url('/Banner-tabl.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100%;
+  .searchWrapper {
     max-width: 768px;
+    width: 100%;
     height: 443px;
     margin: 0 auto;
     padding: 128px 32px;
@@ -145,24 +140,17 @@
     width: 493px;
     margin-bottom: 24px;
   }
-
-  .error {
-    color: #cd1f1f;
-    /* color: #c80000; */
-    font-size: 14px;
-    margin-top: 4px;
-    width: 471px;
-  }
 }
 
 /* ======================= DESKTOP ================================ */
-@media screen and (min-width: 1158px) {
+@media screen and (min-width: 1440px) {
   .searchForm {
     display: flex;
     gap: 12px;
     flex-wrap: nowrap;
     align-items: center;
     width: 661px;
+    margin-bottom: 10px;
   }
 
   .input {
@@ -208,16 +196,9 @@
     border-color: #ffffff;
   }
 
-  .hero {
-    background-image: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0.9) 0%,
-        rgba(0, 0, 0, 0.3) 100%
-      ),
-      url('/Banner.jpg');
-    background-size: cover;
-    width: 100%;
+  .searchWrapper {
     max-width: 1440px;
+    width: 100%;
     height: 443px;
     padding: 128px 108px;
     margin: 0 auto;
@@ -230,13 +211,5 @@
     font-size: 48px;
     width: 493px;
     margin-bottom: 24px;
-  }
-
-  .error {
-    color: #cd1f1f;
-    /* color: #c80000; */
-    font-size: 14px;
-    margin-top: 4px;
-    width: 459px;
   }
 }

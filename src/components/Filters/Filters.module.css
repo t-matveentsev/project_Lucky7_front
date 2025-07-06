@@ -26,6 +26,7 @@
   .dropdownContainer {
     font-weight: 600;
     font-size: 12px;
+    position: relative;
   }
 
   .dropdownContainer svg {
@@ -43,7 +44,6 @@
     background-color: inherit;
     border: none;
     cursor: pointer;
-    display: flex;
     gap: 4px;
     font-size: 12px;
     font-weight: 600;
@@ -53,6 +53,7 @@
     position: absolute;
     top: 100%;
     right: 0;
+    margin-top: 8px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -61,40 +62,74 @@
     border-radius: 8px;
     padding: 12px;
     z-index: 10;
+    min-width: 100%;
   }
 
   .inlineFilters {
     display: none;
   }
+
+  .select {
+    width: 180px;
+    height: 34px;
+    font-family: inherit;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .resetButton {
+    position: relative;
+    border: none;
+    cursor: pointer;
+    background-color: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 0;
+    display: inline-block;
+  }
+
+  .resetButton::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #000;
+  }
 }
 
-.select {
-  width: 180px;
-  height: 34px;
-  font-family: inherit;
-  border: 1px solid #d9d9d9;
-  border-radius: 6px;
-  font-size: 16px;
-  padding: 4px 8px;
-}
+@media only screen and (min-width: 1440px) {
+  .select {
+    width: 180px;
+    height: 34px;
+    font-family: inherit;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    font-size: 16px;
+    padding: 4px 8px;
+  }
 
-.resetButton {
-  position: relative;
-  border: none;
-  cursor: pointer;
-  background-color: inherit;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 6px 0;
-  display: inline-block;
-}
+  .resetButton {
+    position: relative;
+    border: none;
+    cursor: pointer;
+    background-color: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 0;
+    display: inline-block;
+  }
 
-.resetButton::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  background-color: #000;
+  .resetButton::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background-color: #000;
+  }
 }
