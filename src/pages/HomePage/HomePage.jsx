@@ -99,7 +99,6 @@ const HomePage = () => {
   return (
     <div>
       <SearchRecipes onSearch={setSearchQuery} />
-
       <Container>
         <div className={css.recipesTitle}>
           {!searchQuery ? (
@@ -118,11 +117,17 @@ const HomePage = () => {
         />
         {isLoading && <p className={css.loading}>Loading...</p>}
         {error && <p className={css.error}>{error}</p>}
-        {!isLoading && searchQuery && recipesOnSearch.length === 0 && (
-          <p className={css.noResults}>
-            Unfortunately, no results for your search
-          </p>
-        )}
+        {!isLoading && recipesOnSearch.length === 0 && (searchQuery || selectedCategory || selectedIngredient) && (
+  <>
+    <p className={css.noResults}>
+      {searchQuery
+        ? 'Unfortunately, no results for your search query'
+        : 'Sorry, nothing was found for your search filters'}
+    </p>
+    <hr className={css.noResultsLine} />
+  </>
+)}
+
         {recipesOnSearch && recipesOnSearch.length > 0 ? (
           <RecipeList
             recipes={recipesOnSearch}
