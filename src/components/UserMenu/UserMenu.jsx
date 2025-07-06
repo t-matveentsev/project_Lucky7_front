@@ -2,6 +2,8 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 import css from './UserMenu.module.css';
+import LogOutModal from '../LogoutModal/LogoutModal';
+import { useState } from 'react';
 import { selectUser } from '../../redux/auth/selectors';
 
 const getNavStyles = ({ isActive }) => {
@@ -9,36 +11,53 @@ const getNavStyles = ({ isActive }) => {
 };
 
 const UserMenu = () => {
+  // const { name } = useSelector(selectUser);
   const user = useSelector(selectUser);
-  // const userNameLetter = user.name[0].toUpperCase();
+  // console.log('user from Redux:', user);
+  const name = user?.name ?? 'User';
+
+  const userNameLetter = name[0].toUpperCase();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onLogOut = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <ul>
-      <li>
-        <NavLink className={getNavStyles} to="/">
-          Recipes
-        </NavLink>
-      </li>
-      <li>
-        <NavLink className={getNavStyles} to="/profile/own">
-          My Profile
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/add-recipe">Add Recipe</NavLink>
-      </li>
-      <li>
-        <div>
-          {/* <div>{userNameLetter}</div> */}
-          <p>{user?.name}</p>
-          <button>
-            <svg>
-              <use></use>
-            </svg>
-          </button>
-        </div>
-      </li>
-    </ul>
+    <>
+      <ul className={css.menu}>
+        <li className={css.item}>
+          <NavLink className={getNavStyles} to="/">
+            Recipes
+          </NavLink>
+        </li>
+        <li className={css.item}>
+          <NavLink className={getNavStyles} to="/profile/own">
+            My Profile
+          </NavLink>
+        </li>
+        <li className={css.item}>
+          <NavLink className={css.notBtn} to="/add-recipe">
+            Add Recipe
+          </NavLink>
+        </li>
+        <li className={css.item}>
+          <div className={css.user}>
+            <div className={css.letter}>{userNameLetter}</div>
+            <p className={css.name}>{name}</p>
+            <button className={css.logout} onClick={onLogOut}>
+              <svg width="17" height="16">
+                <use href="../../../icons/icons.svg#icon-logout"></use>
+              </svg>
+            </button>
+          </div>
+        </li>
+      </ul>
+      <div className={clsx(css.modalBack, `${isOpen ? css.open : ''}`)}>
+        <LogOutModal onLogOut={onLogOut} />
+      </div>
+    </>
   );
 };
 

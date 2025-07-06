@@ -6,7 +6,7 @@ export const api = axios.create({
   withCredentials: true,
 });
 
-const setAuthHeader = token => {
+export const setAuthHeader = token => {
   api.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
@@ -18,12 +18,9 @@ export const registerThunk = createAsyncThunk(
   'auth/register',
   async (body, thunkAPI) => {
     try {
-      const { data } = await api.post('/auth/register', body);
-      setAuthHeader(data.data.accessToken);
-      return {
-        token: data.data.accessToken,
-        user: data.data.user || {},
-      };
+      const { data } = await api.post('/users/signup', body);
+      setAuthHeader(data.token);
+      return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -64,8 +61,25 @@ export const logoutThunk = createAsyncThunk(
     try {
       await api.post('/auth/logout');
       clearAuthHeader();
+// export const refreshUser = createAsyncThunk(
+//   // 'users',
+//   'auth/refresh',
+//   async (_, thunkAPI) => {
+//     try {
+//       const savedToken = thunkAPI.getState().auth.token;
+//       if (!savedToken) return thunkAPI.rejectWithValue('Token is not exist!');
+//       setAuthHeader(savedToken);
+//       // const { data } = await api.get('/users');
+//       const { data } = await api.get('/auth/refresh');
+//       console.log(data.data);
+//       return data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
+
+export const logOutThunk = createAsyncThunk('auth/logout', async () => {
+  await axios.post('/auth/logout');
+  clearAuthHeader();
+});

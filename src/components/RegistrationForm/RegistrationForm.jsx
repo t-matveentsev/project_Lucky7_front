@@ -159,7 +159,7 @@ const RegistrationForm = () => {
 
               <p className={s.registerText}>
                 Already have an account?{' '}
-                <Link to="/login" className={s.registerLink}>
+                <Link to="/auth/login" className={s.registerLink}>
                   Log in
                 </Link>
               </p>

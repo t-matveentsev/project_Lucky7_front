@@ -3,14 +3,14 @@ import { fetchFavorites, fetchRecipesByType } from './operations';
 import { removeFavoriteRecipe } from './operations';
 import { fetchAllRecipes, fetchRecipesForQuery } from './operations';
 
-const handlePending = (state) => {
-  state.isLoading = true
-}
+const handlePending = state => {
+  state.isLoading = true;
+};
 
 const handleRejected = (state, action) => {
-  state.isLoading = false
-  state.error = action.payload
-}
+  state.isLoading = false;
+  state.error = action.payload;
+};
 
 const initialState = {
   items: [],
@@ -20,7 +20,7 @@ const initialState = {
   isLoading: false,
   error: null,
   hasMore: true,
-  page: 1, 
+  page: 1,
   pageOnSearch: 1,
 };
 
@@ -28,19 +28,19 @@ const recipesSlice = createSlice({
   name: 'recipes',
   initialState,
   reducers: {
-    nextPage: (state) => {
+    nextPage: state => {
       state.page += 1;
     },
-    resetPage: (state) => {
+    resetPage: state => {
       state.page = 1;
     },
-    nextPageOnSearch: (state) => {
+    nextPageOnSearch: state => {
       state.pageOnSearch += 1;
     },
-    resetPageOnSearch: (state) => {
+    resetPageOnSearch: state => {
       state.pageOnSearch = 1;
     },
-    resetSearchResults: (state) => {
+    resetSearchResults: state => {
       state.itemsOnSearch = [];
       state.total = 0;
       state.pageOnSearch = 1;
@@ -66,8 +66,8 @@ const recipesSlice = createSlice({
         const removedId = action.meta.arg;
         state.items = state.items.filter(recipe => recipe._id !== removedId);
       })
-   
-.addCase(fetchAllRecipes.fulfilled, (state, action) => {
+
+      .addCase(fetchAllRecipes.fulfilled, (state, action) => {
         const { results, total, page } = action.payload;
 
         state.isLoading = false;
@@ -75,15 +75,16 @@ const recipesSlice = createSlice({
         state.error = null;
 
         if (page > 1) {
-        state.items = [...state.items, ...results];
+          state.items = [...state.items, ...results];
         } else {
-        state.items = results;}
+          state.items = results;
+        }
         state.hasMore = state.items.length < total;
-})
-.addCase(fetchAllRecipes.rejected, handleRejected)
-.addCase(fetchAllRecipes.pending, handlePending)
-    
-.addCase(fetchRecipesForQuery.fulfilled, (state, action) => {
+      })
+      .addCase(fetchAllRecipes.rejected, handleRejected)
+      .addCase(fetchAllRecipes.pending, handlePending)
+
+      .addCase(fetchRecipesForQuery.fulfilled, (state, action) => {
         const { results, total, pageOnSearch } = action.payload;
 
         state.isLoading = false;
@@ -91,25 +92,36 @@ const recipesSlice = createSlice({
         state.error = null;
 
         if (pageOnSearch > 1) {
-        state.itemsOnSearch = [...state.itemsOnSearch, ...results];
+          state.itemsOnSearch = [...state.itemsOnSearch, ...results];
         } else {
-        state.itemsOnSearch = results;}
+          state.itemsOnSearch = results;
+        }
         state.hasMore = state.itemsOnSearch.length < total;
-})
-.addCase(fetchRecipesForQuery.rejected, handleRejected)
-.addCase(fetchRecipesForQuery.pending, handlePending)
+      })
+      .addCase(fetchRecipesForQuery.rejected, handleRejected)
+      .addCase(fetchRecipesForQuery.pending, handlePending)
 
-.addCase(fetchFavorites.fulfilled, (state, action) => {
+      .addCase(fetchFavorites.fulfilled, (state, action) => {
         const { results } = action.payload;
         state.isLoading = false;
         state.error = null;
         state.favorites = results;
-})
-.addCase(fetchFavorites.rejected, state => { state.error = null })
-.addCase(fetchFavorites.pending, state => {
-  state.isLoading = false;})
+      })
+      .addCase(fetchFavorites.rejected, state => {
+        state.error = null;
+      })
+      .addCase(fetchFavorites.pending, state => {
+        state.isLoading = true;
+        state.error = null;
+      });
   },
 });
 
-export const { nextPage, resetPage, nextPageOnSearch, resetPageOnSearch, resetSearchResults} = recipesSlice.actions;
+export const {
+  nextPage,
+  resetPage,
+  nextPageOnSearch,
+  resetPageOnSearch,
+  resetSearchResults,
+} = recipesSlice.actions;
 export const recipesReducer = recipesSlice.reducer;

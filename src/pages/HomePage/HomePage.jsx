@@ -70,7 +70,9 @@ const HomePage = () => {
   }, [dispatch, selectedCategory, selectedIngredient, searchQuery]);
 
   useEffect(() => {
-    if (searchQuery && pageOnSearch > 1) {
+    const hasFilters = selectedIngredient || selectedCategory;
+
+    if ((searchQuery || hasFilters) && pageOnSearch > 1) {
       dispatch(
         fetchRecipesForQuery({
           pageOnSearch,
@@ -98,27 +100,32 @@ const HomePage = () => {
     <div>
       <SearchRecipes onSearch={setSearchQuery} />
 
-<Container>
-      <Filters
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-        selectedIngredient={selectedIngredient}
-        setSelectedIngredient={setSelectedIngredient}
-        handleReset={handleReset}
-        total={total}
-      />
-      {isLoading && <p className={css.loading}>Loading...</p>}
-      {error && <p className={css.error}>{error}</p>}
-      {!isLoading && searchQuery && recipesOnSearch.length === 0 && (
-        <p className={css.noResults}>Unfortunately, no results for your search</p>)}
-      {recipesOnSearch && recipesOnSearch.length > 0 
-      ? 
-      (<RecipeList
-          recipes={recipesOnSearch}
+      <Container>
+        <Filters
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          selectedIngredient={selectedIngredient}
+          setSelectedIngredient={setSelectedIngredient}
+          handleReset={handleReset}
           total={total}
-          listOnSearch={true}/>) 
-      : (<RecipeList recipes={recipes} total={total} />)}
-    </Container>
+        />
+        {isLoading && <p className={css.loading}>Loading...</p>}
+        {error && <p className={css.error}>{error}</p>}
+        {!isLoading && searchQuery && recipesOnSearch.length === 0 && (
+          <p className={css.noResults}>
+            Unfortunately, no results for your search
+          </p>
+        )}
+        {recipesOnSearch && recipesOnSearch.length > 0 ? (
+          <RecipeList
+            recipes={recipesOnSearch}
+            total={total}
+            listOnSearch={true}
+          />
+        ) : (
+          <RecipeList recipes={recipes} total={total} />
+        )}
+      </Container>
     </div>
   );
 };

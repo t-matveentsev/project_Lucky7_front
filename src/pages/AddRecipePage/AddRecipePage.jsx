@@ -1,10 +1,13 @@
 import AddRecipeForm from '../../components/AddRecipeForm/AddRecipeForm';
+import Container from '../../components/Container/Container';
 
 const AddRecipePage = () => {
   return (
-    <div>
-      <AddRecipeForm />
-    </div>
+    <Container>
+      <div>
+        <AddRecipeForm />
+      </div>
+    </Container>
   );
 };
 

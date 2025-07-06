@@ -4,20 +4,27 @@ import { BrowserRouter } from 'react-router';
 import { Provider } from 'react-redux';
 import { persistor, store } from './redux/store';
 import { Toaster } from 'react-hot-toast';
-
+// import { api } from './redux/auth/operation';
+import { setAuthHeader } from './redux/auth/operation';
 import './index.css';
 import App from './components/App';
 import { PersistGate } from 'redux-persist/integration/react';
 
+const token = localStorage.getItem('token');
+if (token) {
+  setAuthHeader(token); // ← обовʼязково
+}
+    // api.defaults.headers.common.Authorization = `Bearer ${token}`;
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
           <App />
-        </PersistGate>
-      </Provider>
-    </BrowserRouter>
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
     <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
   </StrictMode>
 );

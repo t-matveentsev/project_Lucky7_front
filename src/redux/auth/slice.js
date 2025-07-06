@@ -4,6 +4,9 @@ import {
   loginThunk,
   refreshThunk,
   logoutThunk,
+//   logOutThunk,
+//   refreshUser,
+//   registerThunk,
 } from './operation';
 
 const initialState = {
@@ -24,7 +27,6 @@ const authSlice = createSlice({
         state.user = payload.user;
         state.isLoggedIn = true;
       })
-
       .addCase(loginThunk.fulfilled, (state, { payload }) => {
         state.token = payload.token;
         state.user = payload.user;
@@ -46,8 +48,16 @@ const authSlice = createSlice({
         state.user = { name: '', email: '' };
         state.isLoggedIn = false;
       })
-
       .addCase(logoutThunk.fulfilled, () => initialState);
+//       .addCase(logOutThunk.fulfilled, state => {
+//         state.user = {
+//           name: null,
+//           email: null,
+//         };
+//         state.token = null;
+//         state.isLoggedIn = false;
+//         state.isRefreshing = false;
+//       });
   },
 });
 

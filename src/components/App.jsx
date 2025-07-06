@@ -1,15 +1,23 @@
 import { Route, Routes } from 'react-router-dom';
 import { lazy, useEffect } from 'react';
-import Layout from './Layout';
+import Layout from './Layout/Layout.jsx';
 import HomePage from '../pages/HomePage/HomePage';
 import PrivateRoute from './PrivateRoute';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage.jsx';
 import RecipeViewPage from '../pages/RecipeViewPage/RecipeViewPage.jsx';
 import RegisterPage from '../pages/RegisterPage/RegisterPage.jsx';
 import LoginPage from '../pages/LoginPage/LoginPage.jsx';
+import { refreshUser } from '../redux/auth/operation.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsRefreshing } from '../redux/auth/selectors.js';
+<<<<<<< REFRESH!!!!
 import { refreshThunk } from '../redux/auth/operation.js';
+=======
+
+
+
+
+>>>>>>> main
 
 const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
 const AddRecipePage = lazy(() =>
@@ -40,8 +48,14 @@ export default function App() {
         <Route path="/not-found" element={<NotFoundPage />} />
         <Route path="/auth/register" element={<RegisterPage />} />
         <Route path="/auth/login" element={<LoginPage />} />
-        {/*Temporarily not private*/}
-        <Route path="/add-recipe" element={<AddRecipePage />} />
+        <Route
+          path="/add-recipe"
+          element={
+            <PrivateRoute>
+              <AddRecipePage />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </Layout>
   );
