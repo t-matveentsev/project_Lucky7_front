@@ -18,9 +18,8 @@ export const registerThunk = createAsyncThunk(
   'auth/register',
   async (body, thunkAPI) => {
     try {
-      const { data } = await api.post('/users/signup', body);
-      setAuthHeader(data.token);
-      return data;
+      const { data } = await api.post('/auth/register', body);
+      return { user: data.data.user };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -31,23 +30,14 @@ export const loginThunk = createAsyncThunk(
   'auth/login',
   async (body, thunkAPI) => {
     try {
-      const response = await api.post('/auth/login', body);
-      const { accessToken, user } = response.data.data; // ← тут ключове
+      const { data } = await api.post('/auth/login', body);
+      const { accessToken, refreshToken, sessionId, user } = data.data;
 
       setAuthHeader(accessToken);
-      localStorage.setItem('token', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('sessionId', sessionId);
 
       return { token: accessToken, user };
-      // const { data } = await api.post('/auth/login', body);
-      // console.log('LOGIN RESPONSE:', data);
-      // setAuthHeader(data.token);
-      // console.log(data);
-      // return data;
-
-      // const { data } = await api.post('/auth/login', body);
-      //   setAuthHeader(data.token);               // додаємо токен в заголовок axios
-      //   localStorage.setItem('token', data.token); // ✅ тут зберігаємо токен у localStorage
-      //   return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
