@@ -21,11 +21,7 @@ export default function App() {
   const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    const sessionId = localStorage.getItem('sessionId');
-    const refreshToken = localStorage.getItem('refreshToken');
-    if (sessionId && refreshToken) {
-      dispatch(refreshUser());
-    }
+    dispatch(refreshUser());
   }, [dispatch]);
 
   return isRefreshing ? null : (
