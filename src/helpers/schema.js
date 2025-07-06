@@ -66,15 +66,14 @@ export const addRecipeSchema = Yup.object().shape({
       'Image size must be less than 2MB',
 
       value => {
-        if (!value || typeof value !== 'object' || !value.size) return false;
+        if (!value) return true;
         return value.size <= MAX_PHOTO_SIZE;
       }
     )
-    .test(
-      'fileType',
-      'Unsupported file type',
-      value => value && VALID_PHOTO_FORMATS.includes(value.type)
-    ),
+    .test('fileType', 'Unsupported file type', value => {
+      if (!value) return true;
+      return VALID_PHOTO_FORMATS.includes(value.type);
+    }),
 });
 
 export const usersLogin = Yup.object().shape({
