@@ -6,9 +6,21 @@ const PrivateRoute = ({ children }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isRefreshing = useSelector(selectIsRefreshing);
 
-  if (isRefreshing) return null; // або Loader
+  if (isLoggedIn) {
+    return children;
+  }
 
-  return isLoggedIn ? children : <Navigate to="/auth/login" />;
+  if (isRefreshing) {
+    return null; // або <Loader />
+  }
+
+  const hasSession = Boolean(
+    localStorage.getItem('sessionId') && localStorage.getItem('refreshToken')
+  );
+  if (hasSession) {
+    return null;
+  }
+  return <Navigate to="/auth/login" />;
 };
 
 export default PrivateRoute;
