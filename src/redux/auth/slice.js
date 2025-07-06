@@ -13,7 +13,7 @@ const initialState = {
   },
   token: '',
   isLoggedIn: false,
-  isRefreshing: true,
+  isRefreshing: false,
 };
 
 const slice = createSlice({

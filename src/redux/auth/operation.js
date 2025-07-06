@@ -1,13 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const API_BASE =
-  import.meta.env.MODE === 'development'
-    ? '/api/'
-    : 'https://project-lucky7.onrender.com/api/';
-
 export const api = axios.create({
-  baseURL: API_BASE,
+  baseURL: '/api/',
   withCredentials: true,
 });
 
