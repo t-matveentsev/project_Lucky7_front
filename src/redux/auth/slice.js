@@ -1,54 +1,58 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  registerThunk,
   loginThunk,
-  refreshThunk,
-  logoutThunk,
+  logOutThunk,
+  refreshUser,
+  registerThunk,
 } from './operation';
 
 const initialState = {
-  user: { name: '', email: '' },
+  user: {
+    name: '',
+    email: '',
+  },
   token: '',
   isLoggedIn: false,
   isRefreshing: false,
 };
 
-const authSlice = createSlice({
+const slice = createSlice({
   name: 'auth',
   initialState,
   extraReducers: builder => {
     builder
-
-      .addCase(registerThunk.fulfilled, (state, { payload }) => {
-        state.token = payload.token;
-        state.user = payload.user;
+      .addCase(registerThunk.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
         state.isLoggedIn = true;
       })
-
-      .addCase(loginThunk.fulfilled, (state, { payload }) => {
-        state.token = payload.token;
-        state.user = payload.user;
+      .addCase(loginThunk.fulfilled, (state, action) => {
+        state.token = action.payload.token;
+        state.user = action.payload.user;
         state.isLoggedIn = true;
+        console.log(action.payload);
       })
-
-      .addCase(refreshThunk.pending, state => {
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+      })
+      .addCase(refreshUser.pending, state => {
         state.isRefreshing = true;
       })
-      .addCase(refreshThunk.fulfilled, (state, { payload }) => {
-        state.token = payload.token;
-        state.user = payload.user;
-        state.isLoggedIn = true;
+      .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
       })
-      .addCase(refreshThunk.rejected, state => {
-        state.isRefreshing = false;
-        state.token = '';
-        state.user = { name: '', email: '' };
+      .addCase(logOutThunk.fulfilled, state => {
+        state.user = {
+          name: null,
+          email: null,
+        };
+        state.token = null;
         state.isLoggedIn = false;
-      })
-
-      .addCase(logoutThunk.fulfilled, () => initialState);
+        state.isRefreshing = false;
+      });
   },
 });
 
-export const authReducer = authSlice.reducer;
+export const authReducer = slice.reducer;

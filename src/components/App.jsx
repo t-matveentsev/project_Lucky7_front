@@ -10,7 +10,6 @@ import LoginPage from '../pages/LoginPage/LoginPage.jsx';
 import { refreshUser } from '../redux/auth/operation.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsRefreshing } from '../redux/auth/selectors.js';
-import { refreshThunk } from '../redux/auth/operation.js';
 
 const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
 const AddRecipePage = lazy(() =>
@@ -22,7 +21,7 @@ export default function App() {
   const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(refreshThunk());
+    dispatch(refreshUser());
   }, [dispatch]);
 
   return isRefreshing ? null : (
