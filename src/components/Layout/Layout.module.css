@@ -1,6 +1,9 @@
-.div {
+.wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 100vh;
+  min-height: 100vh;
+}
+
+.wrapper > :nth-child(2) {
+  flex-grow: 1;
 }
