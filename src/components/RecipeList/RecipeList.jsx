@@ -2,11 +2,11 @@ import RecipeCard from '../RecipeCard/RecipeCard';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import css from './RecipeList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { Triangle } from 'react-loader-spinner';
 import { nextPage, nextPageOnSearch } from '../../redux/recipes/slice';
 import { selectIsLoading } from '../../redux/recipes/selectors';
-import {fetchFavorites} from '../../redux/recipes/operations';
-import { useEffect } from "react";
+import { fetchFavorites } from '../../redux/recipes/operations';
+import { useEffect } from 'react';
+import { HashLoader } from 'react-spinners';
 
 const RecipeList = ({ recipes, total, listOnSearch }) => {
   const loader = useSelector(selectIsLoading);
@@ -15,7 +15,7 @@ const RecipeList = ({ recipes, total, listOnSearch }) => {
   useEffect(() => {
     dispatch(fetchFavorites());
   }, [dispatch]);
-  
+
   const handleLoadMore = () => {
     dispatch(nextPage());
   };
@@ -29,12 +29,11 @@ const RecipeList = ({ recipes, total, listOnSearch }) => {
     <div>
       {loader && (
         <div className={css.loader}>
-          <Triangle
-            visible={true}
-            height="80"
-            width="80"
-            color="#9b6c43"
-            ariaLabel="triangle-loading"
+          <HashLoader
+            color={'#9B6C43'}
+            size={100}
+            aria-label="Loading Spinner"
+            data-testid="loader"
           />
         </div>
       )}
