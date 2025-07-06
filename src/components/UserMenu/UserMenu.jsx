@@ -10,7 +10,7 @@ const getNavStyles = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);
 };
 
-const UserMenu = () => {
+const UserMenu = ({ onLink }) => {
   // const { name } = useSelector(selectUser);
   const user = useSelector(selectUser);
   // console.log('user from Redux:', user);
@@ -28,17 +28,17 @@ const UserMenu = () => {
     <>
       <ul className={css.menu}>
         <li className={css.item}>
-          <NavLink className={getNavStyles} to="/">
+          <NavLink className={getNavStyles} to="/" onClick={onLink}>
             Recipes
           </NavLink>
         </li>
         <li className={css.item}>
-          <NavLink className={getNavStyles} to="/profile/own">
+          <NavLink className={getNavStyles} to="/profile/own" onClick={onLink}>
             My Profile
           </NavLink>
         </li>
         <li className={css.item}>
-          <NavLink className={css.notBtn} to="/add-recipe">
+          <NavLink className={css.notBtn} to="/add-recipe" onClick={onLink}>
             Add Recipe
           </NavLink>
         </li>
