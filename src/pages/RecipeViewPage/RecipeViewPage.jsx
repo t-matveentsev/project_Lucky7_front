@@ -32,8 +32,10 @@ const RecipeViewPage = () => {
   const handleClick = () => {
     if (recipeById.isFavorite) {
       dispatch(removeFavoriteRecipe(recipeId));
+      setRecipeById(prev => ({ ...prev, isFavorite: false }));
     } else {
       dispatch(addFavoriteRecipe(recipeId));
+      setRecipeById(prev => ({ ...prev, isFavorite: true }));
     }
   };
 

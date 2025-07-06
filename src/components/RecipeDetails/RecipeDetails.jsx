@@ -2,7 +2,6 @@ import css from './RecipeDetails.module.css';
 import Container from '../Container/Container.jsx';
 
 const RecipeDetails = ({ recipe, handleClick }) => {
-  console.log('!!!', recipe);
   return (
     <Container>
       <div className={css.titleContainer}>
@@ -28,7 +27,8 @@ const RecipeDetails = ({ recipe, handleClick }) => {
                 <li className={css.generalList}>
                   <h3 className={css.generalListTitle}>Caloric content:</h3>
                   <p className={css.generalListContent}>
-                    Approximately {recipe?.calories} kcal per serving
+                    Approximately {!recipe.calories ? ' — ' : recipe.calories}
+                    kcal per serving
                   </p>
                 </li>
               </ul>
@@ -38,7 +38,7 @@ const RecipeDetails = ({ recipe, handleClick }) => {
                 {recipe.isFavorite ? 'Remove' : 'Save'}
               </span>
               <svg class={css.icon} width="24" height="24">
-                <use href="../../../public/icons.svg#icon-save-icon"></use>
+                <use href="/icons/icons.svg#icon-save-icon"></use>
               </svg>
             </button>
           </div>
