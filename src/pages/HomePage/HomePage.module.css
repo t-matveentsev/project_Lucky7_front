@@ -9,6 +9,18 @@
     font-weight: 600;
     margin-top: 48px;
   }
+
+  .noResults {
+    font-size: 35px;
+    margin-bottom: 80px;
+  }
+
+  .noResultsLine {
+    margin-bottom: 40px;
+    border: none;
+    border-top: 5px dotted #ccc;
+    width: 100%;
+  }
 }
 
 /* ======================= TABLET ================================= */
@@ -22,12 +34,20 @@
     font-weight: 600;
     margin-top: 48px;
   }
+
+  .noResults {
+    font-size: 35px;
+    margin-bottom: 100px;
+  }
+
+  .noResultsLine {
+    margin-bottom: 50px;
+    border: none;
+    border-top: 5px dotted #ccc;
+    width: 100%;
+  }
 }
 
 /* ======================= DESKTOP ================================ */
 @media screen and (min-width: 1440px) {
-  .noResults {
-    font-size: 35px;
-    margin-bottom: 20px;
-  }
 }
