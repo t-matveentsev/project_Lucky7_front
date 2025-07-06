@@ -6,21 +6,21 @@ const getNavStyles = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);
 };
 
-const AuthMenu = () => {
+const AuthMenu = ({ onLink }) => {
   return (
     <ul className={css.menu}>
       <li className={css.item}>
-        <NavLink className={getNavStyles} to="/">
+        <NavLink className={getNavStyles} to="/" onClick={onLink}>
           Recipes
         </NavLink>
       </li>
       <li className={css.item}>
-        <NavLink className={getNavStyles} to="/auth/login">
+        <NavLink className={getNavStyles} to="/auth/login" onClick={onLink}>
           Log in
         </NavLink>
       </li>
       <li className={css.item}>
-        <NavLink className={css.notBtn} to="/auth/register">
+        <NavLink className={css.notBtn} to="/auth/register" onClick={onLink}>
           Register
         </NavLink>
       </li>
