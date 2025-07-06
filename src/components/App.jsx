@@ -21,7 +21,11 @@ export default function App() {
   const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    dispatch(refreshUser());
+    const sessionId = localStorage.getItem('sessionId');
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (sessionId && refreshToken) {
+      dispatch(refreshUser());
+    }
   }, [dispatch]);
 
   return isRefreshing ? null : (
@@ -43,9 +47,9 @@ export default function App() {
         <Route
           path="/add-recipe"
           element={
-            // <PrivateRoute>
-            <AddRecipePage />
-            // </PrivateRoute>
+            <PrivateRoute>
+              <AddRecipePage />
+            </PrivateRoute>
           }
         />
       </Routes>
