@@ -5,6 +5,7 @@
   --card-background: #faf3e0;
   --white: white;
   --black: black;
+  --brown: #6d554b;
 }
 
 html {
@@ -53,28 +54,6 @@ button {
   font-family: inherit;
   color: currentColor;
   cursor: pointer;
-}
-
-/* контейнер секцій */
-
-.container {
-  max-width: 375px;
-  padding: 0 16px;
-  margin: 0 auto;
-}
-
-@media only screen and (min-width: 768px) {
-  .container {
-    max-width: 768px;
-    padding: 0 32px;
-  }
-}
-
-@media only screen and (min-width: 1440px) {
-  .container {
-    max-width: 1440px;
-    padding: 0 107px;
-  }
 }
 
 .visually-hidden {

@@ -1,6 +1,8 @@
 /* ...................Layout Structur.................     */
 .recipeForm {
-  padding: 48px 0;
+  max-width: 375px;
+  padding: 0 16px;
+  margin: 48px auto;
 }
 .wrapperInfo {
   display: flex;
@@ -67,15 +69,29 @@
   border-radius: 16px;
   cursor: pointer;
   margin: 4px 0 24px;
+  overflow: hidden;
 }
 
+.customUpload svg {
+  width: 52px;
+  height: 52px;
+  fill: black;
+}
 .customUpload:hover svg {
   transform: scale(1.1);
+  fill: var(--dark-brown);
 }
 
 .photo {
   display: none;
 }
+
+.loadedPhoto {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
 .svg {
   width: 52px;
   height: 52px;
@@ -118,15 +134,20 @@
 }
 /* ...............................Responsive ................... */
 @media only screen and (min-width: 768px) {
+  .recipeForm {
+    max-width: 768px;
+    padding: 0 32px;
+  }
+
   .title {
     font-size: 48px;
   }
   .customUpload {
     max-width: 704px;
   }
-  /* .descriptionPhoto {
+  .descriptionPhoto {
     padding: 16px 0;
-  } */
+  }
   .description {
     font-size: 32px;
   }
@@ -166,35 +187,38 @@
 }
 
 @media only screen and (min-width: 1440px) {
-  .container {
+  .recipeForm {
     max-width: 1440px;
+    margin: 48px auto;
+    padding: 0;
   }
+
   .title {
     margin-bottom: 40px;
+    margin-left: 107px;
   }
   .recipeInfo {
+    width: 1226px;
     display: grid;
     grid-template-columns: 2.06fr 1fr;
     gap: 24px;
+    margin: 0 auto;
   }
   .wrapperPhoto {
     order: 2;
   }
   .wrapperInfo {
     order: 1;
-    min-width: 809px;
-  }
-  .input,
-  .textarea {
-    max-width: 809px;
   }
   .CaloriesCategory,
-  .array {
+  .array,
+  .buttonPublish,
+  .input,
+  .textarea,
+  .wrapperInfo {
     max-width: 809px;
   }
-  .buttonPublish {
-    max-width: 809px;
-  }
+
   .ingredients,
   .buttonPublish {
     margin-top: 72px;

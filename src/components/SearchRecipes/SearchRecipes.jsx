@@ -1,16 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import css from './SearchRecipes.module.css';
-
-const validationSchema = Yup.object().shape({
-  search: Yup.string()
-    .required('Your query must contain some part of a recipe title.')
-    .min(2, 'Search term must be at least 2 characters.')
-    .matches(
-      /^[a-zA-Z0-9\s\-_]+$/,
-      'Recipe title must only contain letters, numbers, spaces, hyphens, or underscores.'
-    ),
-});
+import { validationSchema } from '../../helpers/schema';
 
 const SearchRecipes = ({ onSearch }) => {
   return (
@@ -23,7 +13,7 @@ const SearchRecipes = ({ onSearch }) => {
           validateOnChange={false}
           validateOnBlur={false}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            const cleanedQuery = values.search.trim().toLowerCase().replace(/[-_]/g, '');
+            const cleanedQuery = values.search.trim().toLowerCase().replace(/[\s-_]/g, '');
             onSearch(cleanedQuery);
             setSubmitting(false);
             resetForm();
@@ -38,21 +28,25 @@ const SearchRecipes = ({ onSearch }) => {
                 }
               }}
             >
+              <div className={css.searchForm}>
               <Field
+              as="input"
                 type="text"
                 name="search"
                 id="search"
                 className={css.input}
                 placeholder="Search recipes"
-              />
+                />
+              <button type="submit" className={css.button}>
+                Search
+              </button>                
+                </div>
               <ErrorMessage
                 name="search"
                 component="div"
                 className={css.error}
               />
-              <button type="submit" className={css.button}>
-                Search
-              </button>
+
             </Form>
           )}
         </Formik>

@@ -1,20 +1,22 @@
-import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
-import { useEffect, useId, useMemo, useState } from 'react';
-import { addRecipeSchema } from '../../helpers/schema';
-
-import css from './AddRecipeForm.module.css';
 import RecipeIngredientsList from '../RecipeIngredientsList/RecipeIngredientsList';
 import DropdownField from '../DropdownField/DropdownField';
+import toast from 'react-hot-toast';
+import css from './AddRecipeForm.module.css';
 
-import { fetchCategory } from '../../redux/category/operation';
+import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
+import { useEffect, useId, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { selectIngredients } from '../../redux/ingredients/selectors';
+import { selectRecipeError } from '../../redux/recipes/selectors';
+import { fetchIngredients } from '../../redux/ingredients/operation';
+import { addRecipeSchema } from '../../helpers/schema';
+import { fetchCategory } from '../../redux/category/operation';
+import { useNavigate } from 'react-router-dom';
+import { addRecipe } from '../../redux/recipes/operations';
 import {
   selectCategory,
   selectRequestState as selectCategoryRequest,
 } from '../../redux/category/selectors';
-import { selectIngredients } from '../../redux/ingredients/selectors';
-import { fetchData as fetchIngredients } from '../../redux/ingredients/operation';
-import { addRecipe } from '../../redux/recipes/operations';
 
 const initialValues = {
   title: '',
@@ -23,8 +25,9 @@ const initialValues = {
   calories: '',
   category: '',
   ingredients: [],
-  newIngredient: { name: '', amount: '' },
+  newIngredient: { name: '', measure: '' },
   instructions: '',
+  thumb: '',
 };
 
 const AddRecipeForm = () => {
@@ -34,11 +37,16 @@ const AddRecipeForm = () => {
   const caloriesId = useId();
   const categoryId = useId();
 
+  const [showList, setShowList] = useState(false);
+  const [tmpPhoto, setTmpPhoto] = useState(null);
+
   const dispatch = useDispatch();
-  const categories = useSelector(selectCategory);
-  const ingredientList = useSelector(selectIngredients);
+  const navigate = useNavigate();
 
   const categoryRequest = useSelector(selectCategoryRequest);
+  const ingredientList = useSelector(selectIngredients);
+  const categories = useSelector(selectCategory);
+  const error = useSelector(selectRecipeError);
 
   const memoizedInitialValues = useMemo(
     () => ({
@@ -47,7 +55,6 @@ const AddRecipeForm = () => {
     }),
     [categories]
   );
-  const [showList, setShowList] = useState(false);
 
   useEffect(() => {
     dispatch(fetchCategory());
@@ -56,61 +63,107 @@ const AddRecipeForm = () => {
 
   const handleIngredientPush = ({
     newIngredient,
+    ingredients,
     push,
     setFieldValue,
     setShowList,
   }) => {
-    if (!newIngredient.name || !newIngredient.amount.trim()) return;
+    if (!newIngredient.name || !newIngredient.measure.trim()) {
+      return;
+    }
+
+    if (ingredients.find(ingr => ingr._id === newIngredient._id)) {
+      toast.error(
+        'Cannot add existing ingredient. In case you want to modify the existing one, consider deleting and adding it with new values.',
+        {
+          position: 'bottom-left',
+          duration: 5500,
+        }
+      );
+      return;
+    }
+
+    const id = ingredientList.find(
+      ingr => ingr.name === newIngredient.name
+    )._id;
 
     push({
       ...newIngredient,
-      tmpId: Math.random().toString(16).slice(2),
+      id,
     });
 
     setFieldValue('newIngredient.name', '');
-    setFieldValue('newIngredient.amount', '');
+    setFieldValue('newIngredient.measure', '');
     setShowList(true);
   };
 
-  // recipe result example:
-  // {
-  //     "title": "Some recipe",
-  //     "description": "Some description",
-  //     "time": "5",
-  //     "calories": "200",
-  //     "category": "Dessert",
-  //     "ingredients": [
-  //         {
-  //             "name": "Pears",
-  //             "amount": "100 g",
-  //         }
-  //     ],
-  //     "instructions": "First step, second step, third step",
-  // }
+  const handleImageChange = ({ photoFile, setFieldValue, setFieldTouched }) => {
+    if (!photoFile) {
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setFieldValue('thumb', photoFile, true);
+      setTmpPhoto(reader.result);
+      setFieldTouched('thumb', true, false);
+    };
+
+    reader.readAsDataURL(photoFile);
+  };
 
   const handleSubmit = (values, actions) => {
     // eslint-disable-next-line no-unused-vars
     let { newIngredient, ...recipe } = values;
 
     recipe.ingredients = recipe.ingredients.map(ingr => {
-      delete ingr.tmpId;
+      delete ingr.name;
       return ingr;
     });
-    dispatch(addRecipe(recipe));
+
+    const formData = new FormData();
+    formData.append('title', recipe.title);
+    formData.append('description', recipe.description);
+    formData.append('time', recipe.time);
+    formData.append('calories', recipe.calories);
+    formData.append('category', recipe.category);
+    formData.append('ingredients', JSON.stringify(recipe.ingredients));
+    formData.append('instructions', recipe.instructions);
+
+    formData.append('thumb', recipe.thumb);
+
+    dispatch(addRecipe(formData));
     actions.resetForm();
     setShowList(false);
+
+    // navigate('/recipes/own');
   };
 
-  if (!categories.length || categoryRequest !== 'fulfilled') {
+  if (categoryRequest !== 'fulfilled') {
     return <div>Loading...</div>;
   }
+
+  if (!categories.length) {
+    return <div className={css.errorMessage}>No categories found</div>;
+  }
+
+  if (error) {
+    return (
+      <div className={css.errorMessage}>
+        An error has occurred while adding a new recipe
+      </div>
+    );
+  }
+
   return (
     <Formik
       initialValues={memoizedInitialValues}
-      onSubmit={handleSubmit}
       validationSchema={addRecipeSchema}
+      validateOnChange={true}
+      onSubmit={handleSubmit}
     >
-      {({ values, setFieldValue, isValid, dirty }) => (
+      {({ values, setFieldValue, setFieldTouched, isValid, dirty }) => (
         <Form className={`${css.recipeForm} ${css.container}`}>
           <h2 className={css.title}>Add Recipe</h2>
           <div className={css.recipeInfo}>
@@ -119,12 +172,37 @@ const AddRecipeForm = () => {
                 Upload Photo
               </h3>
               <label htmlFor="photoUpload" className={css.customUpload}>
-                <svg className={css.svg}>
-                  <use href="/public/icons.svg#icon-camera" />
-                </svg>
+                {tmpPhoto ? (
+                  <div>
+                    <img className={css.loadedPhoto} src={tmpPhoto} />
+                  </div>
+                ) : (
+                  <svg className={css.svg}>
+                    <use href="/icons/icons.svg#icon-camera" />
+                  </svg>
+                )}
               </label>
-              <input type="file" id="photoUpload" className={css.photo} />
+              <input
+                type="file"
+                name="thumb"
+                accept="image/*"
+                id="photoUpload"
+                className={css.photo}
+                onChange={e => {
+                  handleImageChange({
+                    photoFile: e.target.files[0],
+                    setFieldValue,
+                    setFieldTouched,
+                  });
+                }}
+              />
+              <ErrorMessage
+                name="thumb"
+                component="span"
+                className={css.errorMessage}
+              />
             </div>
+
             <div className={css.wrapperInfo}>
               <h3 className={css.description}>General Information</h3>
               <label className={css.label} htmlFor={titleId}>
@@ -149,7 +227,7 @@ const AddRecipeForm = () => {
                 id={descriptionId}
                 as="textarea"
                 placeholder="Enter a brief description of your recipe"
-                className={`${css.input} ${css.textarea}`}
+                className={css.textarea}
               />
               <ErrorMessage
                 className={css.errorMessage}
@@ -200,7 +278,7 @@ const AddRecipeForm = () => {
                     as="select"
                     className={css.input}
                   >
-                    <DropdownField items={categories} fieldName="name" />
+                    <DropdownField items={categories} fieldName={'name'} />
                   </Field>
                   <ErrorMessage
                     className={css.errorMessage}
@@ -230,7 +308,7 @@ const AddRecipeForm = () => {
                           >
                             <DropdownField
                               items={ingredientList}
-                              fieldName="name"
+                              fieldName={'name'}
                             />
                           </Field>
                         </div>
@@ -238,7 +316,7 @@ const AddRecipeForm = () => {
                           <div className={css.group}>
                             <label className={css.label}>Amount</label>
                             <Field
-                              name="newIngredient.amount"
+                              name="newIngredient.measure"
                               className={css.input}
                               placeholder="100g"
                             />
@@ -249,6 +327,7 @@ const AddRecipeForm = () => {
                             onClick={() =>
                               handleIngredientPush({
                                 newIngredient,
+                                ingredients,
                                 push,
                                 setFieldValue,
                                 setShowList,
@@ -256,7 +335,7 @@ const AddRecipeForm = () => {
                             }
                             disabled={
                               !newIngredient.name ||
-                              !newIngredient.amount.trim()
+                              !newIngredient.measure.trim()
                             }
                           >
                             Add new Ingredient
@@ -281,10 +360,6 @@ const AddRecipeForm = () => {
                 }}
               </FieldArray>
 
-              {/* for testing */}
-              {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
-              {/* for testing */}
-
               <h3 className={`${css.description} ${css.ingredients}`}>
                 Instructions
               </h3>
@@ -292,7 +367,7 @@ const AddRecipeForm = () => {
                 as="textarea"
                 name="instructions"
                 placeholder="Enter a text"
-                className={`${css.input} ${css.textarea}`}
+                className={css.textarea}
               />
               <ErrorMessage
                 className={css.errorMessage}
