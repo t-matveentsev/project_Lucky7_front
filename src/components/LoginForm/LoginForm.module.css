@@ -134,7 +134,7 @@ margin-top: 20px;
   .formWrapper {
     padding: 30px;
     margin: 30px auto;
-    max-width: 90%;
+    max-width: 522px;
   }
 
   .title {
@@ -168,10 +168,13 @@ margin-top: 20px;
 
 @media (max-width: 480px) {
   .formWrapper {
+    display:flex;
     padding: 20px;
     margin: 20px auto;
     border-radius: 15px;
-    max-width: 95%;
+    max-width: 362px;
+    justify-content: center;
+    align-items: center;
   }
 
   .title {
