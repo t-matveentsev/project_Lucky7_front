@@ -43,23 +43,21 @@ const ProfilePage = () => {
 
   return (
     <Container>
-      <div className={css.wrapper}>
-        <h1 className={css.title}>My profile</h1>
-        <ProfileNavigation recipeType={recipeType} />
-        <p className={css.totalText}>{total} recipes</p>
-        {loading && (
-          <div className={css.loader}>
-            <HashLoader
-              color={'#9B6C43'}
-              size={100}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
-          </div>
-        )}
-        <RecipeList recipes={Array.isArray(recipeToShow) ? recipeToShow : []} />
-        {!loading && !isSaved && hasMore && <LoadMoreBtn />}
-      </div>
+      <h1 className={css.title}>My profile</h1>
+      <ProfileNavigation recipeType={recipeType} />
+      <p className={css.totalText}>{total} recipes</p>
+      {loading && (
+        <div className={css.loader}>
+          <HashLoader
+            color={'#9B6C43'}
+            size={100}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      )}
+      <RecipeList recipes={Array.isArray(recipeToShow) ? recipeToShow : []} />
+      {!loading && !isSaved && hasMore && <LoadMoreBtn />}
     </Container>
   );
 };
