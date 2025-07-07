@@ -79,7 +79,7 @@ const LoginForm = () => {
                     type={showPassword ? 'text' : 'password'}
                     placeholder="*********"
                     className={
-                      touched.password && errors.password ? s.invalid : s.input
+                    touched.password && errors.password ? s.invalid : s.input
                     }
                   />
                   <button
