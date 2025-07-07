@@ -112,8 +112,7 @@ const AddRecipeForm = () => {
     reader.readAsDataURL(photoFile);
   };
 
-  const handleSubmit = (values, actions) => {
-    // eslint-disable-next-line no-unused-vars
+  const handleSubmit = async (values, actions) => {
     let { newIngredient, ...recipe } = values;
 
     recipe.ingredients = recipe.ingredients.map(ingr => {
@@ -129,14 +128,21 @@ const AddRecipeForm = () => {
     formData.append('category', recipe.category);
     formData.append('ingredients', JSON.stringify(recipe.ingredients));
     formData.append('instructions', recipe.instructions);
-
     formData.append('thumb', recipe.thumb);
 
-    dispatch(addRecipe(formData));
-    actions.resetForm();
-    setShowList(false);
+    try {
+      const result = await dispatch(addRecipe(formData)).unwrap(); // ← отримуємо дані рецепту
+      actions.resetForm();
+      setShowList(false);
 
-    // navigate('/recipes/own');
+      if (result._id) {
+        navigate(`/recipes/${result._id}`); // ← редірект
+      } else {
+        toast.error('Could not navigate — missing recipe ID');
+      }
+    } catch (error) {
+      toast.error(`Failed to add recipe: ${error}`);
+    }
   };
 
   if (categoryRequest !== 'fulfilled') {
