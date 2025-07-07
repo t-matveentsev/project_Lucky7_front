@@ -14,7 +14,7 @@ const token = localStorage.getItem('token');
 if (token) {
   setAuthHeader(token); // ← обовʼязково
 }
-// api.defaults.headers.common.Authorization = `Bearer ${token}`;
+    // api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
