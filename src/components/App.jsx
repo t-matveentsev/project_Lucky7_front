@@ -1,20 +1,26 @@
 import { Route, Routes } from 'react-router-dom';
-import { lazy, useEffect } from 'react';
+import { lazy, useEffect, Suspense } from 'react';
 import Layout from './Layout/Layout.jsx';
 import HomePage from '../pages/HomePage/HomePage';
 import PrivateRoute from './PrivateRoute';
-import NotFoundPage from '../pages/NotFoundPage/NotFoundPage.jsx';
-import RecipeViewPage from '../pages/RecipeViewPage/RecipeViewPage.jsx';
-import RegisterPage from '../pages/RegisterPage/RegisterPage.jsx';
-import LoginPage from '../pages/LoginPage/LoginPage.jsx';
 import { refreshUser } from '../redux/auth/operation.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsRefreshing } from '../redux/auth/selectors.js';
 
+const RecipeViewPage = lazy(() =>
+  import('../pages/RecipeViewPage/RecipeViewPage.jsx')
+);
 const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
 const AddRecipePage = lazy(() =>
   import('../pages/AddRecipePage/AddRecipePage.jsx')
 );
+const NotFoundPage = lazy(() =>
+  import('../pages/NotFoundPage/NotFoundPage.jsx')
+);
+const RegisterPage = lazy(() =>
+  import('../pages/RegisterPage/RegisterPage.jsx')
+);
+const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage.jsx'));
 
 export default function App() {
   const dispatch = useDispatch();
@@ -26,6 +32,7 @@ export default function App() {
 
   return isRefreshing ? null : (
     <Layout>
+      <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/recipes/:recipeId" element={<RecipeViewPage />} />
@@ -49,6 +56,7 @@ export default function App() {
           }
         />
       </Routes>
+      </Suspense>
     </Layout>
   );
 }
