@@ -93,7 +93,7 @@ const LoginForm = () => {
                   >
                     <svg className={s.toggleIcon}>
                       <use
-                        href={`/public/icons/icons.svg#${getVisibilityIcon(
+                        href={`../../../icons/icons.svg#${getVisibilityIcon(
                           showPassword
                         )}`}
                       />
