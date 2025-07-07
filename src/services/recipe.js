@@ -1,7 +1,6 @@
 import { api } from '../redux/auth/operation.js';
 
 export const fetchRecipeById = recipeId => {
-  console.log('api token get ', api.defaults.headers.common.Authorization);
   return api
     .get(`/recipes/${recipeId}`)
     .then(({ data }) => {

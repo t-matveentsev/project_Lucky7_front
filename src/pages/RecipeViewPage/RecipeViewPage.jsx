@@ -9,10 +9,11 @@ import {
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import RecipeDetails from '../../components/RecipeDetails/RecipeDetails';
 
+import s from './RecipeViewPage.module.css';
+
 const RecipeViewPage = () => {
   const navigate = useNavigate();
   const { recipeId } = useParams();
-  console.log('recipe id ', recipeId);
 
   const [recipeById, setRecipeById] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +26,6 @@ const RecipeViewPage = () => {
     fetchRecipeById(recipeId)
       .then(recipe => {
         recipe ? setRecipeById(recipe) : navigate('/not-found');
-        console.log('recipe', recipe);
       })
       .catch(err => console.log(err.message))
       .finally(() => setIsLoading(false));
@@ -45,10 +45,20 @@ const RecipeViewPage = () => {
     }
   };
 
-  return isLoading ? (
-    <p>Завантаження...</p>
-  ) : (
-    <RecipeDetails recipe={recipeById} handleClick={handleClick} />
+  return (
+    <div>
+      {isLoading && (
+        <div className={s.loader}>
+          <HashLoader
+            color={'#9B6C43'}
+            size={100}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      )}
+      <RecipeDetails recipe={recipeById} handleClick={handleClick} />
+    </div>
   );
 };
 
