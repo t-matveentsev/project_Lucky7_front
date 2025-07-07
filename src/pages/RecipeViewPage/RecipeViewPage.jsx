@@ -8,6 +8,7 @@ import {
 } from '../../redux/recipes/operations.js';
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import RecipeDetails from '../../components/RecipeDetails/RecipeDetails';
+import { HashLoader } from 'react-spinners';
 
 import s from './RecipeViewPage.module.css';
 
