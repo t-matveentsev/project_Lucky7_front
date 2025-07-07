@@ -383,7 +383,7 @@ const AddRecipeForm = () => {
               <button
                 className={`${css.button} ${css.buttonPublish}`}
                 type="submit"
-                disabled={!isValid || !dirty}
+                disabled={!isValid || !dirty || !(values.thumb instanceof File)}
               >
                 Publish Recipe
               </button>
