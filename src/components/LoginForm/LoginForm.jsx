@@ -3,14 +3,27 @@ import { Field, Formik, Form, ErrorMessage } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import { usersLogin } from '../../helpers/schema';
 import { loginThunk } from '../../redux/auth/operation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import s from './LoginForm.module.css';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [screenSize, setScreenSize] = useState(getScreenSize());
 
+  function getScreenSize() {
+    const width = window.innerWidth;
+    if (width >= 1024) return 'desk';
+    if (width >= 768) return 'tablet';
+    return 'mob';
+  }
+
+  useEffect(() => {
+    const handleResize = () => setScreenSize(getScreenSize());
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const initialValues = {
     email: '',
     password: '',
@@ -28,7 +41,12 @@ const LoginForm = () => {
       )
       .finally(() => options.setSubmitting(false));
   };
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
+  const getVisibilityIcon = isVisible =>
+    `${
+      isVisible ? 'icon-pwd-visiability' : 'icon-pwd-visiability-none'
+    }-${screenSize}`;
   return (
     <div className={s.formWrapper}>
       <Formik
@@ -36,60 +54,74 @@ const LoginForm = () => {
         onSubmit={handleSubmit}
         validationSchema={usersLogin}
       >
-        <Form className={s.form}>
-          <h2 className={s.title}>Login</h2>
+        {({ errors, touched }) => (
+          <Form className={s.form}>
+            <h2 className={s.title}>Login</h2>
 
-          <label className={s.label} htmlFor="email">
-            Enter your email address
-            <Field
-              id="email"
-              name="email"
-              type="email"
-              placeholder="email@gmail.com"
-              className={s.input}
-            />
-            <ErrorMessage name="email" component="div" className={s.error} />
-          </label>
-
-          <label className={s.label} htmlFor="password">
-            Create a strong password
-            <div className={s.passwordField}>
+            <label className={s.label} htmlFor="email">
+              Enter your email address
               <Field
-                id="password"
-                name="password"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="*********"
+                id="email"
+                name="email"
+                type="email"
+                placeholder="email@gmail.com"
                 className={s.input}
               />
-              <span
-                className={s.eyeIcon}
-                onClick={() => setShowPassword(!showPassword)}
-                role="button"
-                aria-label="Toggle password visibility"
-              >
-                <svg className={s.icon}>
-                  <use
-                    xlinkHref={`/icons.svg#${showPassword ? 'icon-' : 'icon-'}`}
+              <ErrorMessage name="email" component="div" className={s.error} />
+            </label>
+            <div className={s.fieldBlock}>
+              <label htmlFor="password" className={s.label}>
+                Enter your password
+                <div className={s.passwordWrapper}>
+                  <Field
+                    id="password"
+                    name="password"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="*********"
+                    className={
+                      touched.password && errors.password ? s.invalid : s.input
+                    }
                   />
-                </svg>
-              </span>
+                  <button
+                    type="button"
+                    className={s.togglePassword}
+                    data-visible={showPassword}
+                    onClick={togglePasswordVisibility}
+                    aria-label={
+                      showPassword ? 'Hide password' : 'Show password'
+                    }
+                  >
+                    <svg className={s.toggleIcon}>
+                      <use
+                        href={`/public/icons/icons.svg#${getVisibilityIcon(
+                          showPassword
+                        )}`}
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className={s.error}
+                />
+              </label>
             </div>
-            <ErrorMessage name="password" component="div" className={s.error} />
-          </label>
 
-          <button type="submit" className={s.loginBtn}>
-            Login
-          </button>
+            <button type="submit" className={s.loginBtn}>
+              Login
+            </button>
 
-          <div className={s.redirectInfo}>
-            <p>
-              Don’t have an account?{' '}
-              <Link className={s.redirectLink} to="/auth/register">
-                Register
-              </Link>
-            </p>
-          </div>
-        </Form>
+            <div className={s.redirectInfo}>
+              <p>
+                Don’t have an account?{' '}
+                <Link className={s.redirectLink} to="/auth/register">
+                  Register
+                </Link>
+              </p>
+            </div>
+          </Form>
+        )}
       </Formik>
     </div>
   );

@@ -71,7 +71,9 @@ const AddRecipeForm = () => {
     if (!newIngredient.name || !newIngredient.measure.trim()) {
       return;
     }
-    if (ingredients.find(ingr => ingr.name === newIngredient.name)) {
+
+
+    if (ingredients.find(ingr => ingr._id === newIngredient._id)) {
       toast.error(
         'Cannot add existing ingredient. In case you want to modify the existing one, consider deleting and adding it with new values.',
         {

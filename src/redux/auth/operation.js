@@ -2,15 +2,16 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const api = axios.create({
-  baseURL: 'https://project-lucky7.onrender.com/api/',
+  baseURL: '/api/',
+  withCredentials: true,
 });
 
 export const setAuthHeader = token => {
   api.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
-const clearAuthHeader = () => {
-  api.defaults.headers.common.Authorization = ``;
+export const clearAuthHeader = () => {
+  delete api.defaults.headers.common.Authorization;
 };
 
 export const registerThunk = createAsyncThunk(
