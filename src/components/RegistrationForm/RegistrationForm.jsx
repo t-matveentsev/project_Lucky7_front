@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useDispatch } from 'react-redux';
 import { registerThunk } from '../../redux/auth/operation';
@@ -10,7 +10,22 @@ const RegistrationForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [serverError, setServerError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [screenSize, setScreenSize] = useState(getScreenSize());
 
+   function getScreenSize() {
+    const width = window.innerWidth;
+    if (width >= 1024) return 'desk';
+    if (width >= 768) return 'tablet';
+    return 'mob';
+  }
+
+  useEffect(() => {
+    const handleResize = () => setScreenSize(getScreenSize());
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const initialValues = {
     name: '',
     email: '',
@@ -32,7 +47,13 @@ const RegistrationForm = () => {
       setSubmitting(false);
     }
   };
-
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+  const toggleConfirmPasswordVisibility = () =>
+    setShowConfirmPassword(!showConfirmPassword);
+  const getVisibilityIcon = isVisible =>
+    `${
+      isVisible ? 'icon-pwd-visiability' : 'icon-pwd-visiability-none'
+    }-${screenSize}`;
   return (
     <div className={s.backdrop}>
       <div className={s.menu}>
@@ -89,15 +110,36 @@ const RegistrationForm = () => {
               <div className={s.fieldBlock}>
                 <label htmlFor="password" className={s.label}>
                   Create a strong password
-                  <Field
-                    id="password"
-                    name="password"
-                    type="password"
-                    placeholder="*********"
-                    className={
-                      touched.password && errors.password ? s.invalid : s.input
-                    }
-                  />
+                  <div className={s.passwordWrapper}>
+                    <Field
+                      id="password"
+                      name="password"
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder="*********"
+                      className={
+                        touched.password && errors.password
+                          ? s.invalid
+                          : s.input
+                      }
+                    />
+                    <button
+                      type="button"
+                      className={s.togglePassword}
+                      data-visible={showPassword}
+                      onClick={togglePasswordVisibility}
+                      aria-label={
+                        showPassword ? 'Hide password' : 'Show password'
+                      }
+                    >
+                      <svg className={s.toggleIcon}>
+                        <use
+                          href={`/public/icons/icons.svg#${getVisibilityIcon(
+                            showPassword
+                          )}`}
+                        />
+                      </svg>
+                    </button>
+                  </div>
                   <ErrorMessage
                     name="password"
                     component="div"
@@ -109,17 +151,36 @@ const RegistrationForm = () => {
               <div className={s.fieldBlock}>
                 <label htmlFor="confirmPassword" className={s.label}>
                   Repeat your password
-                  <Field
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type="password"
-                    placeholder="*********"
-                    className={
-                      touched.confirmPassword && errors.confirmPassword
-                        ? s.invalid
-                        : s.input
-                    }
-                  />
+                  <div className={s.passwordWrapper}>
+                    <Field
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      placeholder="*********"
+                      className={
+                        touched.confirmPassword && errors.confirmPassword
+                          ? s.invalid
+                          : s.input
+                      }
+                    />
+                    <button
+                      type="button"
+                      className={s.togglePassword}
+                      data-visible={showConfirmPassword}
+                      onClick={toggleConfirmPasswordVisibility}
+                      aria-label={
+                        showConfirmPassword ? 'Hide password' : 'Show password'
+                      }
+                    >
+                      <svg className={s.toggleIcon}>
+                        <use
+                          href={`/public/icons/icons.svg#${getVisibilityIcon(
+                            showConfirmPassword
+                          )}`}
+                        />
+                      </svg>
+                    </button>
+                  </div>
                   <ErrorMessage
                     name="confirmPassword"
                     component="div"
@@ -137,7 +198,7 @@ const RegistrationForm = () => {
                 <span className={s.checkmark}>
                   {values.agree && (
                     <svg className={s.checkmarkIcon}>
-                      <use href="/icons.svg#icon-checkbox-privacy-mobile" />
+                      <use href="/public/icons/icons.svg#icon-checkbox-privacy-mobile" />
                     </svg>
                   )}
                 </span>
@@ -172,3 +233,4 @@ const RegistrationForm = () => {
 };
 
 export default RegistrationForm;
+

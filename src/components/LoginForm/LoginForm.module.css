@@ -94,6 +94,42 @@ margin-top: 20px;
   margin-top: 4px;
 }
 
+.passwordWrapper {
+  position: relative;
+  margin-top: 4px;
+}
+.togglePassword {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #9b6c43;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.toggleIcon {
+  display: flex;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  stroke: #000000;
+  fill: none;
+  overflow: visible;
+}
+
+.togglePassword:hover .toggleIcon {
+  stroke: #6d554b;
+}
+
 @media (max-width: 768px) {
   .formWrapper {
     padding: 30px;
