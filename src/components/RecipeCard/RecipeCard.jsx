@@ -9,6 +9,7 @@ import {
 } from '../../redux/recipes/operations';
 import { useEffect, useState } from 'react';
 
+// import clsx from 'clsx'
 
 const RecipeCard = ({
   data: { _id, thumb, time, title, description, calories = '-' },
@@ -19,6 +20,10 @@ const RecipeCard = ({
   const isAuthorized = useSelector(state => state.auth.isLoggedIn);
   const favorites = useSelector(state => state.recipes.favorites);
 
+  // useEffect(() => {
+  //   dispatch(fetchFavorites());
+  // }, [dispatch]);
+
   const [isRecipeFavorite, setIsRecipeFavorite] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -27,6 +32,7 @@ const RecipeCard = ({
     setIsRecipeFavorite(found);
   }, [favorites, _id]);
 
+      // navigate(`/recipes/${_id}`);
       const handleClick = () => {
         if (isAuthorized) {
           if (isRecipeFavorite) {
@@ -54,6 +60,7 @@ const RecipeCard = ({
             <button className={css.learnMoreBtn}>Learn More</button>
           </NavLink>
 
+          {/* className={clsx(isRecipeFavorite ? "css.saved" : "css.save")} */}
           <button className={css.save} onClick={handleClick} onMouseEnter={() => setIsHovered(true)}
   onMouseLeave={() => setIsHovered(false)}>
             {/* <svg className='css.saveBtnIcon' width="24" height="24">

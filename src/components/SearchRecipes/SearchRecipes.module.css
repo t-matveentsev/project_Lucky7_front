@@ -76,7 +76,6 @@
     margin-bottom: 10px;
   }
 
-
   .searchWrapper {
     max-width: 768px;
     width: 100%;
@@ -212,7 +211,6 @@
   .button:focus {
     border-color: #ffffff;
   }
-
 
   .searchWrapper {
     max-width: 1440px;

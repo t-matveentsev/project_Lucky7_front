@@ -31,6 +31,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  /* padding: 20px 32px; */
 }
 
 .fieldBlock {
@@ -40,18 +41,16 @@
 
 input {
   width: 100%;
-  padding: 8px 40px 8px 8px;
+  padding: 8px;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
   background-color: #ffffff;
   color: #9f9f9f;
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 400px;
   outline: none;
   transition: all 0.3s ease-in-out;
-
-  margin-top: 4px;
-  box-sizing: border-box;
+  /* margin-top: 4px; */
 }
 
 input:focus {
@@ -79,7 +78,7 @@ input:not(:placeholder-shown) {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 16px;
+  width: 16px;
   height: 16px;
   border: 2px solid #595d62;
   border-radius: 4px;
@@ -96,13 +95,14 @@ input:not(:placeholder-shown) {
 }
 .checkbox {
   display: none;
-  transition: all 0.3s ease-in-out;
 }
 .checkbox:checked + .checkmark {
   border: none;
   background-color: #9b6c43;
 }
 .checkmarkIcon {
+  /* width: 9x;
+  height: 6px; */
   stroke: #fbfaf9;
   fill: none;
   margin: 5px 3.5px;
@@ -115,43 +115,6 @@ input:not(:placeholder-shown) {
 
   white-space: nowrap;
 }
-
-.passwordWrapper {
-  position: relative;
-  margin-top: 4px;
-}
-.togglePassword {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: #9b6c43;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  z-index: 1;
-}
-
-.toggleIcon {
-  display: flex;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  padding: 4px;
-  stroke: #000000;
-  fill: none;
-  overflow: visible;
-}
-
-.togglePassword:hover .toggleIcon {
-  stroke: #6d554b;
-}
-
 .registerText {
   font-size: 14px;
   color: #000;
@@ -209,7 +172,7 @@ input:not(:placeholder-shown) {
   }
 
   .checkbox:checked + .checkmark .checkmarkIcon use {
-    href: url('/public/icons/icons.svg#icon-checkbox-privacy-tablet');
+    href: url('/icons.svg#icon-checkbox-privacy-tablet');
   }
 }
 
@@ -228,6 +191,6 @@ input:not(:placeholder-shown) {
   }
 
   .checkbox:checked + .checkmark .checkmarkIcon use {
-    href: url('/public/icons/icons.svg#icon-checkbox-privacy-desk');
+    href: url('/icons.svg#icon-checkbox-privacy-desk');
   }
 }
