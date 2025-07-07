@@ -30,7 +30,6 @@ const slice = createSlice({
         state.token = action.payload.token;
         state.user = action.payload.user;
         state.isLoggedIn = true;
-        console.log(action.payload);
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload;

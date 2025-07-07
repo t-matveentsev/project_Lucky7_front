@@ -29,7 +29,6 @@ const UserMenu = ({ onLink }) => {
   };
 
   const handleConfirmLogout = async () => {
-    console.log('➡️ Dispatching logout...');
     await dispatch(logOutThunk());
     setIsModalOpen(false);
   };
