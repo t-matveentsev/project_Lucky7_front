@@ -22,7 +22,6 @@ import { HashLoader } from 'react-spinners';
 const ProfilePage = () => {
   const { recipeType } = useParams();
   const dispatch = useDispatch();
-  const total = useSelector(state => state.recipes.total);
   const token = useSelector(selectToken);
   const recipes = useSelector(selectRecipes);
   const favorites = useSelector(selectFavorites);
@@ -30,6 +29,8 @@ const ProfilePage = () => {
   const hasMore = useSelector(selectHasMore);
   const isSaved = recipeType === 'favorites';
   const recipeToShow = isSaved ? favorites : recipes;
+
+  const total = Array.isArray(recipeToShow) ? recipeToShow.length : 0;
 
   useEffect(() => {
     if (!token) return;
