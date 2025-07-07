@@ -8,8 +8,9 @@ import {
 } from '../../redux/recipes/operations.js';
 import { selectIsLoggedIn } from '../../redux/auth/selectors';
 import RecipeDetails from '../../components/RecipeDetails/RecipeDetails';
+import { HashLoader } from 'react-spinners';
 
-import s from './RecipeViewPage.module.css';
+import css from './RecipeViewPage.module.css';
 
 const RecipeViewPage = () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const RecipeViewPage = () => {
   return (
     <div>
       {isLoading && (
-        <div className={s.loader}>
+        <div className={css.loader}>
           <HashLoader
             color={'#9B6C43'}
             size={100}
