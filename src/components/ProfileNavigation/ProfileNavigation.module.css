@@ -6,7 +6,7 @@
 
 .link {
   color: #3e3e3e;
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 600;
   text-decoration: none;
   padding-bottom: 4px;
@@ -15,6 +15,5 @@
 }
 
 .active {
-  border-bottom: 2px solid #a65f2b;
-  color: #a65f2b;
+  border-bottom: 2px solid black;
 }
