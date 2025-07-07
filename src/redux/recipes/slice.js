@@ -64,7 +64,9 @@ const recipesSlice = createSlice({
       })
       .addCase(removeFavoriteRecipe.fulfilled, (state, action) => {
         const removedId = action.meta.arg;
-        state.items = state.items.filter(recipe => recipe._id !== removedId);
+        state.favorites = state.favorites.filter(
+          recipe => recipe._id !== removedId
+        );
       })
 
       .addCase(fetchAllRecipes.fulfilled, (state, action) => {

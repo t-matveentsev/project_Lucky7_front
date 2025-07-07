@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  /* height: 100vh; */
   padding: 20px;
 }
 
@@ -49,6 +49,7 @@ input {
   font-weight: 400;
   outline: none;
   transition: all 0.3s ease-in-out;
+
   margin-top: 4px;
   box-sizing: border-box;
 }

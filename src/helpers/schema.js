@@ -66,15 +66,23 @@ export const addRecipeSchema = Yup.object().shape({
       'Image size must be less than 2MB',
 
       value => {
-        if (!value || typeof value !== 'object' || !value.size) return false;
+//         if (!value || typeof value !== 'object' || !value.size) return false;
+//         return value.size <= MAX_PHOTO_SIZE;
+//       }
+//     )
+//     .test(
+//       'fileType',
+//       'Unsupported file type',
+//       value => value && VALID_PHOTO_FORMATS.includes(value.type)
+//     ),
+        if (!value) return true;
         return value.size <= MAX_PHOTO_SIZE;
       }
     )
-    .test(
-      'fileType',
-      'Unsupported file type',
-      value => value && VALID_PHOTO_FORMATS.includes(value.type)
-    ),
+    .test('fileType', 'Unsupported file type', value => {
+      if (!value) return true;
+      return VALID_PHOTO_FORMATS.includes(value.type);
+    }),
 });
 
 export const usersLogin = Yup.object().shape({
@@ -115,7 +123,7 @@ export const usersRegister = Yup.object().shape({
 
 export const validationSchema = Yup.object().shape({
   search: Yup.string()
-    .required('Your query must contain some part of a recipe title.')
+    .required('First you need to fill in the search field.')
     .min(2, 'Search term must be at least 2 characters.')
     .matches(
       /^[a-zA-Z0-9\s\-_]+$/,

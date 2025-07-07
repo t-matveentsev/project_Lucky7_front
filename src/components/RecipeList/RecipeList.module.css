@@ -3,9 +3,10 @@
   .list {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 24px;
     list-style: none;
-    width: 361px;
     margin: 0 auto;
   }
 }
@@ -15,17 +16,30 @@
   .list {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     gap: 24px;
     list-style: none;
-    width: 704px;
     margin: 0 auto;
   }
 }
 
 /* ======================= DESKTOP ================================ */
-@media screen and (min-width: 1158px) {
+@media screen and (min-width: 1440px) {
   .list {
     gap: 23px;
-    width: 1225px;
   }
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }

@@ -18,16 +18,19 @@ export const registerThunk = createAsyncThunk(
   'auth/register',
   async (body, thunkAPI) => {
     try {
-      const { data } = await api.post('/auth/register', body);
-      const { accessToken, refreshToken, _id: sessionId, user } = data.data;
+      const response = await api.post('/auth/register', body);
+      const { accessToken, refreshToken, sessionId, user } = response.data.data;
 
       setAuthHeader(accessToken);
+      localStorage.setItem('token', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('sessionId', sessionId);
 
       return { token: accessToken, user };
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      const message =
+        error.response?.data?.message || error.message || 'Unknown error';
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
@@ -36,10 +39,11 @@ export const loginThunk = createAsyncThunk(
   'auth/login',
   async (body, thunkAPI) => {
     try {
-      const { data } = await api.post('/auth/login', body);
-      const { accessToken, refreshToken, _id: sessionId, user } = data.data;
+      const response = await api.post('/auth/login', body);
+      const { accessToken, refreshToken, sessionId, user } = response.data.data;
 
       setAuthHeader(accessToken);
+      localStorage.setItem('token', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('sessionId', sessionId);
 
@@ -56,35 +60,32 @@ export const refreshUser = createAsyncThunk(
     try {
       const sessionId = localStorage.getItem('sessionId');
       const refreshToken = localStorage.getItem('refreshToken');
+
       if (!sessionId || !refreshToken) {
-        return thunkAPI.rejectWithValue('No sessionId or refreshToken stored');
+        return thunkAPI.rejectWithValue('No session or refresh token');
       }
 
-      const { data } = await api.post('/auth/refresh', {
+      const response = await api.post('/auth/refresh', {
         sessionId,
         refreshToken,
       });
 
-      const { accessToken, user } = data.data;
+      const { accessToken, user } = response.data.data;
       setAuthHeader(accessToken);
+      localStorage.setItem('token', accessToken);
 
-      return { token: accessToken, user };
+      return user;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-export const logOutThunk = createAsyncThunk(
-  'auth/logout',
-  async (_, thunkAPI) => {
-    try {
-      await api.post('/auth/logout');
-      clearAuthHeader();
-      localStorage.removeItem('refreshToken');
-      localStorage.removeItem('sessionId');
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
+export const logOutThunk = createAsyncThunk('auth/logout', async () => {
+  await api.post('/auth/logout');
+  clearAuthHeader();
+
+  localStorage.removeItem('token');
+  localStorage.removeItem('refreshToken');
+  localStorage.removeItem('sessionId');
+});

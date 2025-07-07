@@ -1,27 +1,36 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 import css from './UserMenu.module.css';
 import LogOutModal from '../LogoutModal/LogoutModal';
 import { useState } from 'react';
 import { selectUser } from '../../redux/auth/selectors';
+import { logOutThunk } from '../../redux/auth/operation';
 
 const getNavStyles = ({ isActive }) => {
   return clsx(css.link, isActive && css.active);
 };
 
 const UserMenu = ({ onLink }) => {
-  // const { name } = useSelector(selectUser);
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  // console.log('user from Redux:', user);
   const name = user?.name ?? 'User';
 
-  const userNameLetter = name[0].toUpperCase();
+  const userNameLetter = name[0]?.toUpperCase() || 'U';
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const onLogOut = () => {
-    setIsOpen(!isOpen);
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleConfirmLogout = async () => {
+    await dispatch(logOutThunk());
+    setIsModalOpen(false);
   };
 
   return (
@@ -46,7 +55,7 @@ const UserMenu = ({ onLink }) => {
           <div className={css.user}>
             <div className={css.letter}>{userNameLetter}</div>
             <p className={css.name}>{name}</p>
-            <button className={css.logout} onClick={onLogOut}>
+            <button className={css.logout} onClick={handleOpenModal}>
               <svg width="17" height="16">
                 <use href="../../../icons/icons.svg#icon-logout"></use>
               </svg>
@@ -54,9 +63,15 @@ const UserMenu = ({ onLink }) => {
           </div>
         </li>
       </ul>
-      <div className={clsx(css.modalBack, `${isOpen ? css.open : ''}`)}>
-        <LogOutModal onLogOut={onLogOut} />
-      </div>
+
+      {isModalOpen && (
+        <div className={clsx(css.modalBack, css.open)}>
+          <LogOutModal
+            onConfirm={handleConfirmLogout}
+            onCancel={handleCloseModal}
+          />
+        </div>
+      )}
     </>
   );
 };

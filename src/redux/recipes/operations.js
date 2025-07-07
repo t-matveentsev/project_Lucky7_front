@@ -6,12 +6,10 @@ export const fetchRecipesByType = createAsyncThunk(
   async ({ type, page = 1 }, thunkAPI) => {
     try {
       const response = await api.get(`/recipes/${type}?page=${page}`);
-      console.log('RESPONSE:', response.data);
       return {
-        data: response.data.data.data, // ← витягуємо масив рецептів
+        data: response.data.data.data,
         isLoadMore: page > 1,
       };
-      // return { data: response.data, isLoadMore: page > 1 };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -88,7 +86,7 @@ export const fetchFavorites = createAsyncThunk(
     try {
       const response = await api.get(`/recipes/favorites`);
       return {
-        results: response.data.results,
+        results: response.data,
       };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
