@@ -4,17 +4,11 @@ import css from './RecipeList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { nextPage, nextPageOnSearch } from '../../redux/recipes/slice';
 import { selectIsLoading } from '../../redux/recipes/selectors';
-import { fetchFavorites } from '../../redux/recipes/operations';
-import { useEffect } from 'react';
 import { HashLoader } from 'react-spinners';
 
 const RecipeList = ({ recipes, total, listOnSearch }) => {
   const loader = useSelector(selectIsLoading);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchFavorites());
-  }, [dispatch]);
 
   const handleLoadMore = () => {
     dispatch(nextPage());

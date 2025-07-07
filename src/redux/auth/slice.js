@@ -43,15 +43,7 @@ const slice = createSlice({
       .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
       })
-      .addCase(logOutThunk.fulfilled, state => {
-        state.user = {
-          name: null,
-          email: null,
-        };
-        state.token = null;
-        state.isLoggedIn = false;
-        state.isRefreshing = false;
-      });
+      .addCase(logOutThunk.fulfilled, () => initialState);
   },
 });
 
