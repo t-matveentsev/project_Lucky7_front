@@ -65,6 +65,10 @@ input:invalid {
   font-size: 12px;
   margin-top: 4px;
 }
+.serverError{
+  color: #c80000;
+  font-size: 14px;
+}
 input:not(:placeholder-shown) {
   color: #000;
 }

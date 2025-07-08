@@ -208,7 +208,7 @@ const RegistrationForm = () => {
               </label>
               <ErrorMessage name="agree" component="div" className={s.error} />
 
-              {serverError && <div>{serverError}</div>}
+              {serverError && <div className='serverError'>{serverError}</div>}
 
               <button
                 type="submit"
