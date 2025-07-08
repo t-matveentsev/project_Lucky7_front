@@ -9,7 +9,7 @@ const VALID_PHOTO_FORMATS = [
 ];
 
 const onlyLetters = /^[A-Za-zА-Яа-яЄєІіЇїҐґ-\s]+$/;
-const onlyNumber = /^\d+$/;
+// const onlyNumber = /^\d+$/;
 const onlyEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const onlyUnits = /^\d+(\.\d+)?\s?(g|kg|ml|l|pcs|pieces|tbsp|tsp)?$/;
 
@@ -46,7 +46,7 @@ export const addRecipeSchema = Yup.object().shape({
         name: Yup.string().required('Ingredient name is required').max(20),
         measure: Yup.string()
           .required('Amount is required')
-          // .matches(onlyUnits, "Only units of measurement: ml, l, g")
+          .matches(onlyUnits, "Only units of measurement: ml, l, g")
           .min(2)
           .max(16),
       })
@@ -80,28 +80,28 @@ export const usersLogin = Yup.object().shape({
   email: Yup.string()
     .email('Invalid email')
     .required('Email is required')
-    // .matches(onlyEmail, "Invalid email format")
+    .matches(onlyEmail, "Invalid email format")
     .min(3, 'Email must be at least 3 characters long')
     .max(50, 'Email is too long')
     .trim(),
   password: Yup.string()
     .required('Password is required')
-    .min(6, 'Password must be at least 6 characters long')
+    .min(6, 'Password must be at least 8 characters long')
     .max(12, 'Password is too long'),
 });
 
 export const usersRegister = Yup.object().shape({
   name: Yup.string()
     .required('Field name is required')
-    // .matches(onlyLetters, "The name cannot contain numbers!")
+    .matches(onlyLetters, "The name cannot contain numbers!")
     .min(3, 'The name must be longer than 3 symbols!')
     .max(50, 'Maximum 50 symbols'),
   email: Yup.string()
-    // .matches(onlyEmail, "Invalid email format")
+    .matches(onlyEmail, "Invalid email format")
     .email('Invalid email format')
     .required('Field email is required'),
   password: Yup.string()
-    .min(6, 'Password must be at least 6 characters')
+    .min(8, 'Password must be at least 8 characters')
     .required('Field password is required'),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
