@@ -6,7 +6,6 @@ export const fetchRecipesByType = createAsyncThunk(
   async ({ type, page = 1 }, thunkAPI) => {
     try {
       const response = await api.get(`/recipes/${type}?page=${page}`);
-      console.log('RESPONSE:', response.data);
       return {
         data: response.data.data.data,
         isLoadMore: page > 1,
@@ -102,7 +101,7 @@ export const addRecipe = createAsyncThunk(
       const response = await api.post('/recipes/own', recipe, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-      return response.data;
+      return response.data.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

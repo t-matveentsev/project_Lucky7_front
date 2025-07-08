@@ -103,15 +103,6 @@
     padding: 12px;
   }
 
-  /* .learnMore {
-    background-color: transparent;
-    width: 216px;
-    height: 40px;
-    border-radius: 8px;
-    border-width: 1px;
-    padding: 8px;
-  } */
-
   .learnMoreBtn {
     background-color: transparent;
     background-color: inherit;

@@ -1,4 +1,4 @@
-import { NavLink, useParams } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import css from './ProfileNavigation.module.css';
 
 const tabs = [
@@ -7,8 +7,6 @@ const tabs = [
 ];
 
 const ProfileNavigation = () => {
-  const { recipeType } = useParams();
-
   return (
     <nav className={css.nav}>
       {tabs.map(tab => (
@@ -16,8 +14,7 @@ const ProfileNavigation = () => {
           key={tab.type}
           to={`/profile/${tab.type}`}
           className={({ isActive }) =>
-            isActive ? `${css.link} ${css.active}`
-              : css.link
+            isActive ? `${css.link} ${css.active}` : css.link
           }
         >
           {tab.label}

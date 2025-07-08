@@ -6,6 +6,7 @@ import AuthMenu from '../AuthMenu/AuthMenu';
 import css from './Header.module.css';
 import { useState } from 'react';
 import clsx from 'clsx';
+import Container from '../Container/Container';
 
 const Header = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -18,28 +19,30 @@ const Header = () => {
 
   return (
     <header className={css.header}>
-      <nav className={css.nav}>
-        <Navigation />
-        <div className={css.menu}>
-          {isLoggedIn ? <UserMenu /> : <AuthMenu />}
-        </div>
-        <button
-          className={clsx(css.burger, `${isOpen ? css.open : ''}`)}
-          onClick={toggleMenu}
-        >
-          <svg width="20" height="14">
-            <use href="../../../icons/icons.svg#icon-burger"></use>
-          </svg>
-        </button>
-        <button
-          className={clsx(css.close, `${isOpen ? css.open : ''}`)}
-          onClick={toggleMenu}
-        >
-          <svg width="22" height="22">
-            <use href="../../../icons/icons.svg#icon-close"></use>
-          </svg>
-        </button>
-      </nav>
+      <Container>
+        <nav className={css.nav}>
+          <Navigation />
+          <div className={css.menu}>
+            {isLoggedIn ? <UserMenu /> : <AuthMenu />}
+          </div>
+          <button
+            className={clsx(css.burger, `${isOpen ? css.open : ''}`)}
+            onClick={toggleMenu}
+          >
+            <svg width="20" height="14">
+              <use href="../../../icons/icons.svg#icon-burger"></use>
+            </svg>
+          </button>
+          <button
+            className={clsx(css.close, `${isOpen ? css.open : ''}`)}
+            onClick={toggleMenu}
+          >
+            <svg width="22" height="22">
+              <use href="../../../icons/icons.svg#icon-close"></use>
+            </svg>
+          </button>
+        </nav>
+      </Container>
       <div className={clsx(css.mobMenu, `${isOpen ? css.open : ''}`)}>
         {isLoggedIn ? (
           <UserMenu onLink={toggleMenu} />

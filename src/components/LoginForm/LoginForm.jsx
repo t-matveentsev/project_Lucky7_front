@@ -58,7 +58,6 @@ const LoginForm = () => {
           {({ errors, touched }) => (
             <Form className={s.form}>
               <h2 className={s.title}>Login</h2>
-
               <label className={s.label} htmlFor="email">
                 Enter your email address
                 <Field

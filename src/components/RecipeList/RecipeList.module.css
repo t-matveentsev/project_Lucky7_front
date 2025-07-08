@@ -3,11 +3,11 @@
   .list {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     gap: 24px;
     list-style: none;
     margin: 0 auto;
+    margin-bottom: 26px;
   }
 }
 
@@ -16,11 +16,11 @@
   .list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
     gap: 24px;
     list-style: none;
     margin: 0 auto;
+    margin-bottom: 26px;
   }
 }
 
@@ -28,6 +28,7 @@
 @media screen and (min-width: 1440px) {
   .list {
     gap: 23px;
+    margin-bottom: 26px;
   }
 }
 

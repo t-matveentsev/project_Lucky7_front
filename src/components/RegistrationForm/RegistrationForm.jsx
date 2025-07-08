@@ -14,7 +14,7 @@ const RegistrationForm = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [screenSize, setScreenSize] = useState(getScreenSize());
 
-   function getScreenSize() {
+  function getScreenSize() {
     const width = window.innerWidth;
     if (width >= 1024) return 'desk';
     if (width >= 768) return 'tablet';
@@ -59,7 +59,7 @@ const RegistrationForm = () => {
       <div className={s.menu}>
         <h2 className={s.title}>Register</h2>
         <p className={s.description}>
-          Join our community of culinary enthusiasts, save your favourite
+          Join our community of culinary enthusiasts, save your favorite
           recipes, and share your cooking creations
         </p>
 
@@ -133,7 +133,7 @@ const RegistrationForm = () => {
                     >
                       <svg className={s.toggleIcon}>
                         <use
-                          href={`/public/icons/icons.svg#${getVisibilityIcon(
+                          href={`../../../icons/icons.svg#${getVisibilityIcon(
                             showPassword
                           )}`}
                         />
@@ -174,7 +174,7 @@ const RegistrationForm = () => {
                     >
                       <svg className={s.toggleIcon}>
                         <use
-                          href={`/public/icons/icons.svg#${getVisibilityIcon(
+                          href={`../../../icons/icons.svg#${getVisibilityIcon(
                             showConfirmPassword
                           )}`}
                         />
@@ -198,7 +198,7 @@ const RegistrationForm = () => {
                 <span className={s.checkmark}>
                   {values.agree && (
                     <svg className={s.checkmarkIcon}>
-                      <use href="/public/icons/icons.svg#icon-checkbox-privacy-mobile" />
+                      <use href="../../../icons/icons.svg#icon-checkbox-privacy-mobile" />
                     </svg>
                   )}
                 </span>
