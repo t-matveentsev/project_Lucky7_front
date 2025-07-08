@@ -48,81 +48,86 @@ const LoginForm = () => {
       isVisible ? 'icon-pwd-visiability' : 'icon-pwd-visiability-none'
     }-${screenSize}`;
   return (
-    <div className={s.formWrapper}>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={usersLogin}
-      >
-        {({ errors, touched }) => (
-          <Form className={s.form}>
-            <h2 className={s.title}>Login</h2>
-
-            <label className={s.label} htmlFor="email">
-              Enter your email address
-              <Field
-                id="email"
-                name="email"
-                type="email"
-                placeholder="email@gmail.com"
-                className={s.input}
-              />
-              <ErrorMessage name="email" component="div" className={s.error} />
-            </label>
-            <div className={s.fieldBlock}>
-              <label htmlFor="password" className={s.label}>
-                Enter your password
-                <div className={s.passwordWrapper}>
-                  <Field
-                    id="password"
-                    name="password"
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="*********"
-                    className={
-                      touched.password && errors.password ? s.invalid : s.input
-                    }
-                  />
-                  <button
-                    type="button"
-                    className={s.togglePassword}
-                    data-visible={showPassword}
-                    onClick={togglePasswordVisibility}
-                    aria-label={
-                      showPassword ? 'Hide password' : 'Show password'
-                    }
-                  >
-                    <svg className={s.toggleIcon}>
-                      <use
-                        href={`../../../icons/icons.svg#${getVisibilityIcon(
-                          showPassword
-                        )}`}
-                      />
-                    </svg>
-                  </button>
-                </div>
+    <div className={s.backdrop}>
+      <div className={s.formWrapper}>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={usersLogin}
+        >
+          {({ errors, touched }) => (
+            <Form className={s.form}>
+              <h2 className={s.title}>Login</h2>
+              <label className={s.label} htmlFor="email">
+                Enter your email address
+                <Field
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="email@gmail.com"
+                  className={touched.name && errors.name ? s.invalid : s.input}
+                />
                 <ErrorMessage
-                  name="password"
+                  name="email"
                   component="div"
                   className={s.error}
                 />
               </label>
-            </div>
+              <div className={s.fieldBlock}>
+                <label htmlFor="password" className={s.label}>
+                  Enter your password
+                  <div className={s.passwordWrapper}>
+                    <Field
+                      id="password"
+                      name="password"
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder="*********"
+                      className={
+                        touched.password && errors.password
+                          ? s.invalid
+                          : s.input
+                      }
+                    />
+                    <button
+                      type="button"
+                      className={s.togglePassword}
+                      data-visible={showPassword}
+                      onClick={togglePasswordVisibility}
+                      aria-label={
+                        showPassword ? 'Hide password' : 'Show password'
+                      }
+                    >
+                      <svg className={s.toggleIcon}>
+                        <use
+                          href={`/public/icons/icons.svg#${getVisibilityIcon(
+                            showPassword
+                          )}`}
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className={s.error}
+                  />
+                </label>
+              </div>
 
-            <button type="submit" className={s.loginBtn}>
-              Login
-            </button>
+              <button type="submit" className={s.loginBtn}>
+                Login
+              </button>
 
-            <div className={s.redirectInfo}>
-              <p>
+              <p className={s.redirectInfo}>
                 Don’t have an account?{' '}
                 <Link className={s.redirectLink} to="/auth/register">
                   Register
                 </Link>
               </p>
-            </div>
-          </Form>
-        )}
-      </Formik>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </div>
   );
 };

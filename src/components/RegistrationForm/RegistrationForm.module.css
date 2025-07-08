@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* height: 100vh; */
   padding: 20px;
 }
 
@@ -213,7 +212,7 @@ input:not(:placeholder-shown) {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1440px) {
   .menu {
     max-width: 420px;
   }

@@ -1,91 +1,142 @@
+.backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
 .formWrapper {
-  background-color: #FAF3E0;
-  padding: 40px;
-  border-radius: 25px;
-  max-width: 420px;
-  margin: 40px auto;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-  font-family: inherit;
+  background-color: #faf3e0;
+  border-radius: 32px;
+  padding: 48px 32px;
+  max-width: 362px;
+  margin: 91px 15px;
 }
 
 .form {
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
 .title {
   font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 30px;
+  font-weight: 600;
+  margin-bottom: 20px;
   text-align: center;
   color: #000;
 }
 
 .label {
-  font-size: 14px;
-  margin-bottom: 20px;
-  color: #000000;
+  display: block;
+  font-size: 12px;
+  color: #000;
 }
 
-.input {
+input {
   width: 100%;
-  padding: 14px;
-  margin-top: 8px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  font-size: 16px;
-}
+  padding: 8px 40px 8px 8px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #9f9f9f;
+  font-size: 1rem;
+  font-weight: 400;
+  outline: none;
+  transition: all 0.3s ease-in-out;
 
+  margin-top: 4px;
+  box-sizing: border-box;
+}
+input:focus {
+  border-color: #d9d9d9;
+  outline: 2px solid rgba(132, 131, 153, 0.5);
+}
+input:invalid {
+  border-color: #c80000;
+}
+.error {
+  color: #c80000;
+  font-size: 12px;
+  margin-top: 4px;
+}
+input:not(:placeholder-shown) {
+  color: #000;
+}
 .passwordField {
   position: relative;
 }
-
-.eyeIcon {
+.passwordWrapper {
+  position: relative;
+  margin-top: 4px;
+}
+.togglePassword {
   position: absolute;
+  right: 8px;
   top: 50%;
-  right: 1rem;
   transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #9b6c43;
+  font-size: 12px;
+  font-weight: 600;
   cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+.togglePassword:hover .toggleIcon {
+  stroke: #6d554b;
+}
+.eyeIcon {
+  display: flex;
+  justify-content: center;
   width: 24px;
   height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 4px;
+  stroke: #000000;
+  fill: none;
+  overflow: visible;
 }
 
-.icon {
+/* .icon {
   width: 20px;
   height: 20px;
   fill: #000000;
   transition: fill 0.3s ease;
-}
-
+} */
 
 .loginBtn {
-  background-color: #9B6C43;
+  background-color: #9b6c43;
   color: white;
-  border: none;
-  padding: 8px;
-  border-radius: 10px;
-  font-size: 16px;
+  font-weight: 600;
+  border: 2px solid transparent;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-top: 10px;
+  height: 36px;
+  margin-bottom: 0px;
+  margin-top: 11px;
+  transition: all 0.3s ease;
 }
 
 .redirectInfo {
-font-weight: 400;
-font-size: 16px;
-line-height: 155%;
-letter-spacing: 0%;
-text-align: center;
-margin-top: 20px;
+  font-size: 14px;
+  color: #000;
+  margin-top: 4px;
+  font-weight: 400px;
+  display: flex;
+  justify-content: center;
 }
 
 .redirectLink {
-  color: black;
-  font-weight: bold;
+  font-weight: 600;
   text-decoration: underline;
-  margin-left: 5px;
+  color: #000;
+  margin-left: 4px;
+  cursor: pointer;
+  font-weight: 400px;
 }
 
 .error {
@@ -109,7 +160,7 @@ margin-top: 20px;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  padding: 4px 8px;
+  /* padding: 4px 8px; */
   border-radius: 4px;
   transition: all 0.3s ease;
   z-index: 1;
@@ -130,21 +181,19 @@ margin-top: 20px;
   stroke: #6d554b;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   .formWrapper {
-    padding: 30px;
-    margin: 30px auto;
     max-width: 522px;
   }
 
   .title {
-    font-size: 28px;
+    font-size: 35px;
     margin-bottom: 25px;
   }
 
   .input {
-    font-size: 15px;
-    padding: 12px;
+    font-size: 12px;
+
   }
 
   .loginBtn {
@@ -166,25 +215,20 @@ margin-top: 20px;
   }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 1440px) {
   .formWrapper {
-    display:flex;
-    padding: 20px;
-    margin: 20px auto;
-    border-radius: 15px;
-    max-width: 362px;
-    justify-content: center;
-    align-items: center;
+    border-radius: 25px;
+    max-width: 420px;
+    margin: 40px auto;
+
   }
 
   .title {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 32px;
   }
 
   .label {
     font-size: 13px;
-    margin-bottom: 16px;
   }
 
   .input {
