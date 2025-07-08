@@ -1,14 +1,12 @@
 .header {
   background-color: var(--dark-brown);
   color: var(--white);
-  padding: 14px 16px;
 }
 
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
 }
 
 .menu {
@@ -30,6 +28,10 @@
 }
 
 @media screen and (max-width: 767px) {
+  .nav {
+    padding: 22px 18px 22px 12px;
+  }
+
   .burger.open {
     display: none;
   }
@@ -48,8 +50,8 @@
 }
 
 @media screen and (min-width: 768px) {
-  .header {
-    padding: 14px 32px;
+  .nav {
+    padding: 22px 0 22px 12px;
   }
 
   .menu {
@@ -58,11 +60,5 @@
 
   .burger {
     display: none;
-  }
-}
-
-@media screen and (min-width: 1440px) {
-  .header {
-    padding: 14px 108px;
   }
 }
