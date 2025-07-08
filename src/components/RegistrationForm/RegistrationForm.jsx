@@ -40,7 +40,7 @@ const RegistrationForm = () => {
       const { name, email, password } = values;
       await dispatch(registerThunk({ name, email, password })).unwrap();
       resetForm();
-      navigate('/');
+      navigate('/auth/login');
     } catch (error) {
       setServerError(error || 'Registration failed');
     } finally {
