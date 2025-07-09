@@ -93,6 +93,10 @@
     margin: 0 auto;
     margin-bottom: 24px;
   }
+
+  .error {
+    color: #faf3e0;
+  }
 }
 
 /* ======================= TABLET ================================= */
@@ -151,6 +155,10 @@
     font-size: 48px;
     width: 493px;
     margin-bottom: 24px;
+  }
+
+  .error {
+    color: #faf3e0;
   }
 }
 
@@ -227,5 +235,9 @@
     font-size: 48px;
     width: 493px;
     margin-bottom: 24px;
+  }
+
+  .error {
+    color: #faf3e0;
   }
 }
