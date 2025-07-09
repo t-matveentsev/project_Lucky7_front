@@ -40,7 +40,7 @@ const RegistrationForm = () => {
       const { name, email, password } = values;
       await dispatch(registerThunk({ name, email, password })).unwrap();
       resetForm();
-      navigate('/auth/login');
+      navigate('/');
     } catch (error) {
       setServerError(error || 'Registration failed');
     } finally {
@@ -208,7 +208,7 @@ const RegistrationForm = () => {
               </label>
               <ErrorMessage name="agree" component="div" className={s.error} />
 
-              {serverError && <div className='serverError'>{serverError}</div>}
+              {serverError && <div className="serverError">{serverError}</div>}
 
               <button
                 type="submit"
@@ -219,7 +219,7 @@ const RegistrationForm = () => {
               </button>
 
               <p className={s.registerText}>
-                Already have an account?{' '}
+                Already have an account?
                 <Link to="/auth/login" className={s.registerLink}>
                   Log in
                 </Link>
