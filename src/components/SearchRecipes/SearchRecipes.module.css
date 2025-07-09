@@ -96,8 +96,6 @@
 
   .error {
     color: #faf3e0;
-    font-size: 14px;
-    width: 329px;
   }
 }
 
@@ -161,9 +159,6 @@
 
   .error {
     color: #faf3e0;
-    font-size: 14px;
-    margin-top: 4px;
-    width: 471px;
   }
 }
 
@@ -244,7 +239,5 @@
 
   .error {
     color: #faf3e0;
-    font-size: 14px;
-    width: 459px;
   }
 }
