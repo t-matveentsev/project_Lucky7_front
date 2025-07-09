@@ -219,7 +219,7 @@ const RegistrationForm = () => {
               </button>
 
               <p className={s.registerText}>
-                Already have an account?{' '}
+                Already have an account?
                 <Link to="/auth/login" className={s.registerLink}>
                   Log in
                 </Link>

@@ -26,7 +26,7 @@ const Header = () => {
             {isLoggedIn ? <UserMenu /> : <AuthMenu />}
           </div>
           <button
-            className={clsx(css.burger, `${isOpen ? css.open : ''}`)}
+            className={clsx(css.burger, isOpen && css.open)}
             onClick={toggleMenu}
           >
             <svg width="20" height="14">
@@ -34,7 +34,7 @@ const Header = () => {
             </svg>
           </button>
           <button
-            className={clsx(css.close, `${isOpen ? css.open : ''}`)}
+            className={clsx(css.close, isOpen && css.open)}
             onClick={toggleMenu}
           >
             <svg width="22" height="22">
@@ -43,11 +43,11 @@ const Header = () => {
           </button>
         </nav>
       </Container>
-      <div className={clsx(css.mobMenu, `${isOpen ? css.open : ''}`)}>
+      <div className={clsx(css.mobMenu, isOpen && css.open)}>
         {isLoggedIn ? (
-          <UserMenu onLink={toggleMenu} />
+          <UserMenu onToggleMenu={toggleMenu} />
         ) : (
-          <AuthMenu onLink={toggleMenu} />
+          <AuthMenu onToggleMenu={toggleMenu} />
         )}
       </div>
     </header>

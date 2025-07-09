@@ -43,6 +43,7 @@
   border-radius: 8px;
   font-weight: 600;
   color: var(--black);
+  background-color: transparent;
   text-align: center;
   width: 100%;
   transition: opacity 250ms ease-in-out, box-shadow 250ms ease-in-out;
@@ -50,6 +51,7 @@
 
 .logout {
   border-radius: 8px;
+  border: none;
   background-color: #c80000;
   font-weight: 600;
   text-align: center;

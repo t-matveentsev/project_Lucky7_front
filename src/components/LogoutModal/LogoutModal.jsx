@@ -1,9 +1,21 @@
+import { useNavigate } from 'react-router-dom';
 import css from './LogoutModal.module.css';
+import { useDispatch } from 'react-redux';
+import { logOutThunk } from '../../redux/auth/operation';
 
-const LogOutModal = ({ onConfirm, onCancel }) => {
+const LogOutModal = ({ onToggleLogOut, onToggleMenu }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogOut = async () => {
+    await dispatch(logOutThunk());
+    onToggleMenu();
+    navigate('/');
+  };
+
   return (
     <div className={css.modal}>
-      <button className={css.close} onClick={onCancel}>
+      <button className={css.close} onClick={onToggleLogOut}>
         <svg width="16" height="16">
           <use href="../../../icons/icons.svg#icon-closer"></use>
         </svg>
@@ -11,10 +23,10 @@ const LogOutModal = ({ onConfirm, onCancel }) => {
       <p className={css.quest}>Are you sure?</p>
       <p className={css.text}>We will miss you!</p>
       <div className={css.btnsWrp}>
-        <button className={css.cancel} onClick={onCancel}>
+        <button className={css.cancel} onClick={onToggleLogOut}>
           Cancel
         </button>
-        <button className={css.logout} onClick={onConfirm}>
+        <button className={css.logout} onClick={handleLogOut}>
           Log out
         </button>
       </div>
