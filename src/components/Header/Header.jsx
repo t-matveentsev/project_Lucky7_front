@@ -23,7 +23,11 @@ const Header = () => {
         <nav className={css.nav}>
           <Navigation />
           <div className={css.menu}>
-            {isLoggedIn ? <UserMenu /> : <AuthMenu />}
+            {isLoggedIn ? (
+              <UserMenu onToggleMenu={toggleMenu} />
+            ) : (
+              <AuthMenu onToggleMenu={toggleMenu} />
+            )}
           </div>
           <button
             className={clsx(css.burger, isOpen && css.open)}
