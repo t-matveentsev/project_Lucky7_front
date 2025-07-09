@@ -5,7 +5,8 @@ import HomePage from '../pages/HomePage/HomePage';
 import PrivateRoute from './PrivateRoute';
 import { refreshUser } from '../redux/auth/operation.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsRefreshing } from '../redux/auth/selectors.js';
+import { selectIsRefreshing, selectError } from '../redux/auth/selectors.js';
+import { useNavigate } from 'react-router-dom';
 
 const RecipeViewPage = lazy(() =>
   import('../pages/RecipeViewPage/RecipeViewPage.jsx')
@@ -25,10 +26,20 @@ const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage.jsx'));
 export default function App() {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
+  const error = useSelector(selectError); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (error && error.includes('401')) {
+      navigate('/auth/login'); 
+      localStorage.removeItem('sessionId'); 
+      localStorage.removeItem('refreshToken'); 
+    }
+  }, [error, navigate]);
 
   return isRefreshing ? null : (
     <Layout>
