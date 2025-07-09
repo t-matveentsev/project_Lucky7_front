@@ -22,7 +22,9 @@ const RecipeDetails = ({ recipe, handleClick }) => {
                 </li>
                 <li className={css.generalList}>
                   <h3 className={css.generalListTitle}>Cooking time:</h3>{' '}
-                  <p className={css.generalListContent}>{recipe?.time}</p>
+                  <p className={css.generalListContent}>
+                    {recipe?.time} minutes
+                  </p>
                 </li>
                 <li className={css.generalList}>
                   <h3 className={css.generalListTitle}>Caloric content:</h3>
