@@ -52,6 +52,31 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .timeWrapper {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    border-radius: 8px;
+    padding: 2px 8px 2px 4px;
+    height: 30px;
+    width: 53px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .time {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .titleTimeWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: space-between;
+  }
 }
 
 /* ======================= TABLET ================================= */
@@ -107,6 +132,31 @@
     box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .timeWrapper {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    border-radius: 8px;
+    padding: 2px 8px 2px 4px;
+    height: 30px;
+    width: 53px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .time {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .titleTimeWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: space-between;
   }
 }
 
