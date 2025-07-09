@@ -117,25 +117,30 @@ const HomePage = () => {
         />
         {isLoading && <p className={css.loading}>Loading...</p>}
         {error && <p className={css.error}>{error}</p>}
-        {!isLoading && recipesOnSearch.length === 0 && (searchQuery || selectedCategory || selectedIngredient) && (
-  <>
-    <p className={css.noResults}>
-      {searchQuery
-        ? 'Unfortunately, no results for your search query'
-        : 'Sorry, nothing was found for your search filters'}
-    </p>
-    <hr className={css.noResultsLine} />
-  </>
-)}
-
-        {recipesOnSearch && recipesOnSearch.length > 0 ? (
-          <RecipeList
-            recipes={recipesOnSearch}
-            total={total}
-            listOnSearch={true}
-          />
+        {!isLoading &&
+        recipesOnSearch.length === 0 &&
+        (searchQuery || selectedCategory || selectedIngredient) ? (
+          <>
+            <p className={css.noResults}>
+              {searchQuery
+                ? 'Unfortunately, no results for your search query'
+                : 'Sorry, nothing was found for your search filters'}
+            </p>
+            <hr className={css.noResultsLine} />
+            <button className={css.backButton} onClick={handleReset}>
+              Go back to the main list
+            </button>
+          </>
         ) : (
-          <RecipeList recipes={recipes} total={total} />
+          <RecipeList
+            recipes={
+              recipesOnSearch && recipesOnSearch.length > 0
+                ? recipesOnSearch
+                : recipes
+            }
+            total={total}
+            listOnSearch={recipesOnSearch && recipesOnSearch.length > 0}
+          />
         )}
       </Container>
     </div>
