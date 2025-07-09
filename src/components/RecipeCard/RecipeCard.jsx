@@ -45,7 +45,7 @@ const RecipeCard = ({
       <h3 className={css.title}>{title}</h3>
       <div className={css.timeWrapper}>
       <svg width="24" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12.5 7.61537V12.5481L15.7885 15.2884M19.625 12C19.625 15.935 16.435 19.125 12.5 19.125C8.56497 19.125 5.375 15.935 5.375 12C5.375 8.06497 8.56497 4.875 12.5 4.875C16.435 4.875 19.625 8.06497 19.625 12Z" stroke="black" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.5 7.61537V12.5481L15.7885 15.2884M19.625 12C19.625 15.935 16.435 19.125 12.5 19.125C8.56497 19.125 5.375 15.935 5.375 12C5.375 8.06497 8.56497 4.875 12.5 4.875C16.435 4.875 19.625 8.06497 19.625 12Z" stroke="black" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round"/>
 </svg> 
       <p className={css.time}>{time} </p>
       </div>
