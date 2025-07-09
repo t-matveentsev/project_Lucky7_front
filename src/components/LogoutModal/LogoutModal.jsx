@@ -7,8 +7,8 @@ const LogOutModal = ({ onToggleLogOut, onToggleMenu }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogOut = async () => {
-    await dispatch(logOutThunk());
+  const handleLogOut = () => {
+    dispatch(logOutThunk());
     onToggleMenu();
     navigate('/');
   };
