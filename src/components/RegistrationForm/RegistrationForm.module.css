@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
 }
 
 .menu {
@@ -11,13 +10,13 @@
   padding: 48px 32px;
   max-width: 362px;
   text-align: center;
+  margin: 56px 0;
 }
 .description {
   display: flex;
   line-height: 155%;
   align-items: center;
   margin-bottom: 20px;
-  font-weight: 400px;
 }
 .title {
   font-size: 24px;
@@ -37,7 +36,7 @@
   width: 100%;
 }
 
-input {
+.input {
   width: 100%;
   padding: 8px 40px 8px 8px;
   border: 1px solid #d9d9d9;
@@ -57,15 +56,17 @@ input:focus {
   border-color: #d9d9d9;
   outline: 2px solid rgba(132, 131, 153, 0.5);
 }
-input:invalid {
-  border-color: #c80000;
+.invalid {
+  border-color: #c80000 !important;
+  outline: 2px solid rgba(200, 0, 0, 0.3);
+  color: #000;
 }
 .error {
   color: #c80000;
   font-size: 12px;
   margin-top: 4px;
 }
-.serverError{
+.serverError {
   color: #c80000;
   font-size: 14px;
 }
@@ -115,6 +116,7 @@ input:not(:placeholder-shown) {
   align-items: center;
   justify-content: flex-start;
   gap: 4.5px;
+  margin-bottom: 11px;
 
   white-space: nowrap;
 }
@@ -125,8 +127,8 @@ input:not(:placeholder-shown) {
 }
 .togglePassword {
   position: absolute;
-  right: 8px;
-  top: 50%;
+  right: 0;
+  top: 56%;
   transform: translateY(-50%);
   background: none;
   border: none;
@@ -181,7 +183,7 @@ input:not(:placeholder-shown) {
   border-radius: 8px;
   cursor: pointer;
   height: 36px;
-  margin-bottom: 0px;
+  margin-bottom: 4px;
   transition: all 0.3s ease;
 }
 
@@ -202,6 +204,7 @@ input:not(:placeholder-shown) {
 @media (min-width: 768px) {
   .menu {
     max-width: 522px;
+    margin: 132px 0;
   }
   .title {
     font-size: 32px;

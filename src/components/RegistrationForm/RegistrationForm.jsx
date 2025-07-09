@@ -78,7 +78,9 @@ const RegistrationForm = () => {
                     name="name"
                     placeholder="Max"
                     className={
-                      touched.name && errors.name ? s.invalid : s.input
+                      touched.name && errors.name
+                        ? `${s.input} ${s.invalid}`
+                        : s.input
                     }
                   />
                   <ErrorMessage
@@ -97,7 +99,9 @@ const RegistrationForm = () => {
                     type="email"
                     placeholder="email@gmail.com"
                     className={
-                      touched.email && errors.email ? s.invalid : s.input
+                      touched.email && errors.email
+                        ? `${s.input} ${s.invalid}`
+                        : s.input
                     }
                   />
                   <ErrorMessage
@@ -118,13 +122,15 @@ const RegistrationForm = () => {
                       placeholder="*********"
                       className={
                         touched.password && errors.password
-                          ? s.invalid
+                          ? `${s.input} ${s.invalid}`
                           : s.input
                       }
                     />
                     <button
                       type="button"
                       className={s.togglePassword}
+                      tabIndex="-1"
+                      aria-hidden="true"
                       data-visible={showPassword}
                       onClick={togglePasswordVisibility}
                       aria-label={
@@ -159,13 +165,15 @@ const RegistrationForm = () => {
                       placeholder="*********"
                       className={
                         touched.confirmPassword && errors.confirmPassword
-                          ? s.invalid
+                          ? `${s.input} ${s.invalid}`
                           : s.input
                       }
                     />
                     <button
                       type="button"
                       className={s.togglePassword}
+                      tabIndex="-1"
+                      aria-hidden="true"
                       data-visible={showConfirmPassword}
                       onClick={toggleConfirmPasswordVisibility}
                       aria-label={
