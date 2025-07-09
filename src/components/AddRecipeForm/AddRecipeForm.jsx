@@ -12,12 +12,28 @@ import { fetchIngredients } from '../../redux/ingredients/operation';
 import { addRecipeSchema } from '../../helpers/schema';
 import { fetchCategory } from '../../redux/category/operation';
 import { useNavigate } from 'react-router-dom';
+import { HashLoader } from 'react-spinners';
 import { addRecipe } from '../../redux/recipes/operations';
 import {
   selectCategory,
   selectRequestState as selectCategoryRequest,
 } from '../../redux/category/selectors';
-import { HashLoader } from 'react-spinners';
+
+const recipeToFormData = recipe => {
+  console.log('recipe', recipe);
+  const formData = new FormData();
+
+  formData.append('title', recipe.title);
+  formData.append('description', recipe.description);
+  formData.append('time', recipe.time);
+  formData.append('calories', recipe.calories);
+  formData.append('category', recipe.category);
+  formData.append('ingredients', JSON.stringify(recipe.ingredients));
+  formData.append('instructions', recipe.instructions);
+  formData.append('thumb', recipe.thumb);
+
+  return formData;
+};
 
 const initialValues = {
   title: '',
@@ -97,7 +113,7 @@ const AddRecipeForm = () => {
     setShowList(true);
   };
 
-  const handleImageChange = ({ photoFile, setFieldValue, setFieldTouched }) => {
+  const handleImageChange = ({ photoFile, setFieldValue }) => {
     if (!photoFile) {
       return;
     }
@@ -107,7 +123,6 @@ const AddRecipeForm = () => {
     reader.onloadend = () => {
       setFieldValue('thumb', photoFile, true);
       setTmpPhoto(reader.result);
-      setFieldTouched('thumb', true, false);
     };
 
     reader.readAsDataURL(photoFile);
@@ -121,16 +136,7 @@ const AddRecipeForm = () => {
       return ingr;
     });
 
-    console.log('recipe', recipe);
-    const formData = new FormData();
-    formData.append('title', recipe.title);
-    formData.append('description', recipe.description);
-    formData.append('time', recipe.time);
-    formData.append('calories', recipe.calories);
-    formData.append('category', recipe.category);
-    formData.append('ingredients', JSON.stringify(recipe.ingredients));
-    formData.append('instructions', recipe.instructions);
-    formData.append('thumb', recipe.thumb);
+    const formData = recipeToFormData(recipe);
 
     try {
       const result = await dispatch(addRecipe(formData)).unwrap(); // ← отримуємо дані рецепту
@@ -174,11 +180,12 @@ const AddRecipeForm = () => {
   return (
     <Formik
       initialValues={memoizedInitialValues}
-      validationSchema={addRecipeSchema}
-      validateOnChange={true}
       onSubmit={handleSubmit}
+      validationSchema={addRecipeSchema}
+      validateOnChange={false}
+      validateOnBlur={false}
     >
-      {({ values, setFieldValue, setFieldTouched, isValid, dirty }) => (
+      {({ values, setFieldValue }) => (
         <Form className={`${css.recipeForm} ${css.container}`}>
           <h2 className={css.title}>Add Recipe</h2>
           <div className={css.recipeInfo}>
@@ -207,7 +214,6 @@ const AddRecipeForm = () => {
                   handleImageChange({
                     photoFile: e.target.files[0],
                     setFieldValue,
-                    setFieldTouched,
                   });
                 }}
               />
@@ -393,7 +399,6 @@ const AddRecipeForm = () => {
               <button
                 className={`${css.button} ${css.buttonPublish}`}
                 type="submit"
-                disabled={!isValid || !dirty || !(values.thumb instanceof File)}
               >
                 Publish Recipe
               </button>
