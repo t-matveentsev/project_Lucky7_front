@@ -17,6 +17,7 @@ import {
   selectCategory,
   selectRequestState as selectCategoryRequest,
 } from '../../redux/category/selectors';
+import { HashLoader } from 'react-spinners';
 
 const initialValues = {
   title: '',
@@ -120,6 +121,7 @@ const AddRecipeForm = () => {
       return ingr;
     });
 
+    console.log('recipe', recipe);
     const formData = new FormData();
     formData.append('title', recipe.title);
     formData.append('description', recipe.description);
@@ -146,7 +148,15 @@ const AddRecipeForm = () => {
   };
 
   if (categoryRequest !== 'fulfilled') {
-    return <div>Loading...</div>;
+    return (
+      <HashLoader
+        className={css.loader}
+        color={'#9B6C43'}
+        size={100}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+    );
   }
 
   if (!categories.length) {

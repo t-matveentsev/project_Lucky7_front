@@ -46,7 +46,7 @@ export const addRecipeSchema = Yup.object().shape({
         name: Yup.string().required('Ingredient name is required').max(20),
         measure: Yup.string()
           .required('Amount is required')
-          .matches(onlyUnits, "Only units of measurement: ml, l, g")
+          .matches(onlyUnits, 'Only units of measurement: ml, l, g')
           .min(2)
           .max(16),
       })
@@ -59,28 +59,22 @@ export const addRecipeSchema = Yup.object().shape({
     .min(10, 'Instructions must be at least 10 characters'),
 
   thumb: Yup.mixed()
-    .nullable()
-    .notRequired()
+    .required()
     .test(
       'fileSize',
       'Image size must be less than 2MB',
-
-      value => {
-        if (!value) return true;
-        return value.size <= MAX_PHOTO_SIZE;
-      }
+      value => value.size <= MAX_PHOTO_SIZE
     )
-    .test('fileType', 'Unsupported file type', value => {
-      if (!value) return true;
-      return VALID_PHOTO_FORMATS.includes(value.type);
-    }),
+    .test('fileType', 'Unsupported file type', value =>
+      VALID_PHOTO_FORMATS.includes(value.type)
+    ),
 });
 
 export const usersLogin = Yup.object().shape({
   email: Yup.string()
     .email('Invalid email')
     .required('Email is required')
-    .matches(onlyEmail, "Invalid email format")
+    .matches(onlyEmail, 'Invalid email format')
     .min(3, 'Email must be at least 3 characters long')
     .max(50, 'Email is too long')
     .trim(),
@@ -93,11 +87,11 @@ export const usersLogin = Yup.object().shape({
 export const usersRegister = Yup.object().shape({
   name: Yup.string()
     .required('Field name is required')
-    .matches(onlyLetters, "The name cannot contain numbers!")
+    .matches(onlyLetters, 'The name cannot contain numbers!')
     .min(3, 'The name must be longer than 3 symbols!')
     .max(50, 'Maximum 50 symbols'),
   email: Yup.string()
-    .matches(onlyEmail, "Invalid email format")
+    .matches(onlyEmail, 'Invalid email format')
     .email('Invalid email format')
     .required('Field email is required'),
   password: Yup.string()
