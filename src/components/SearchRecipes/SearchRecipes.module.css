@@ -14,15 +14,9 @@
 /* ===================== MOBILE ===================================*/
 @media screen and (max-width: 767px) {
   .hero {
-    background-image: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0.9) 0%,
-        rgba(0, 0, 0, 0.3) 100%
-      ),
-      url('/Banner.jpg');
     background-repeat: no-repeat, no-repeat;
     background-size: cover, 230%;
-    background-position: center, -230px -92px;
+    background-position: center, -230px -90px;
   }
 
   .formikStyle {
@@ -124,6 +118,7 @@
     box-sizing: border-box;
     align-items: center;
     justify-items: left;
+    min-width: 471px;
   }
 
   .button {

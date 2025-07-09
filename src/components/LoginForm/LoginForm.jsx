@@ -65,7 +65,11 @@ const LoginForm = () => {
                   name="email"
                   type="email"
                   placeholder="email@gmail.com"
-                  className={touched.name && errors.name ? s.invalid : s.input}
+                  className={
+                    touched.email && errors.email
+                      ? `${s.input} ${s.invalid}`
+                      : s.input
+                  }
                 />
                 <ErrorMessage
                   name="email"
@@ -84,13 +88,14 @@ const LoginForm = () => {
                       placeholder="*********"
                       className={
                         touched.password && errors.password
-                          ? s.invalid
+                          ? `${s.input} ${s.invalid}`
                           : s.input
                       }
                     />
                     <button
                       type="button"
                       className={s.togglePassword}
+                      tabIndex="-1"
                       data-visible={showPassword}
                       onClick={togglePasswordVisibility}
                       aria-label={
